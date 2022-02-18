@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.7](https://github.com/tzkt/api-sdk-ts/compare/v0.0.5...v0.0.7) (2022-02-18)
+
+
+### Bug Fixes
+
+* **deps:** use remote @tzkt/oazapfts dep ([c29797e](https://github.com/tzkt/api-sdk-ts/commit/c29797e7112e3c8680f28f630a7cd868a5f42159))
+
 ### 0.0.5 (2022-02-18)
 
 
