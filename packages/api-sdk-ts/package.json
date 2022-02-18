@@ -1,11 +1,14 @@
 {
-  "name": "tzkt-api",
-  "version": "1.0.0",
-  "description": "tzkt-api",
+  "name": "@tzkt/api-sdk-ts",
+  "version": "0.0.3",
+  "description": "TzKt API SDK written in Typescript",
   "main": "build/main/index.js",
   "typings": "build/main/index.d.ts",
   "module": "build/module/index.js",
-  "repository": "https://github.com/mv-go/tzkt-api",
+  "repository": "git://github.com/tzkt/api-sdk-ts.git",
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com/@tzkt"
+  },
   "license": "MIT",
   "keywords": [],
   "scripts": {
