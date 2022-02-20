@@ -1,7 +1,7 @@
 import * as _ from "lodash"
 import { OpenAPIV3 } from "openapi-types"
 import ts, { factory, UnionTypeNode } from "typescript"
-import { ParameterParserExtension, ParameterParserExtensions, QueryStringParserExtension, QueryStringParserExtensions, SchemaParserExtension, SchemaParserExtensions } from "oazapfts/lib/codegen/generate"
+import { ParameterParserExtension, QueryStringParserExtension, SchemaParserExtension, OazapftsExtensions } from "@tzkt/oazapfts/lib/codegen/extensions"
 
 const tzKtExtensionKey = 'x-tzkt-extension'
 
@@ -164,22 +164,18 @@ const tzKtQueryStringQueryParameterExtension: QueryStringParserExtension = (p, h
   })) return 'queryParameter'
 }
 
-const schemaParserExtensions: SchemaParserExtensions = [
-  jsonParameterExtension,
-  queryParameterExtension,
-]
-
-const parameterParserExtensions: ParameterParserExtensions = [
-  anyofParameterExtension,
-]
-
-const queryStringParserExtensions: QueryStringParserExtensions = [
-  tzKtQueryStringExtension,
-  tzKtQueryStringQueryParameterExtension,
-]
-
-export default {
-  schemaParserExtensions,
-  parameterParserExtensions,
-  queryStringParserExtensions,
+const extensions: OazapftsExtensions = {
+  schemaParserExtensions: [
+    jsonParameterExtension,
+    queryParameterExtension,
+  ],
+  parameterParserExtensions: [
+    anyofParameterExtension,
+  ],
+  queryStringParserExtensions: [
+    tzKtQueryStringExtension,
+    tzKtQueryStringQueryParameterExtension,
+  ],
 }
+
+export default extensions
