@@ -1,7 +1,6 @@
 import * as _ from "lodash"
 import { OpenAPIV3 } from "openapi-types"
 import ts, { factory, UnionTypeNode } from "typescript"
-// import { cg } from "oazapfts/lib/codegen/index"
 import { ParameterParserExtension, ParameterParserExtensions, QueryStringParserExtension, QueryStringParserExtensions, SchemaParserExtension, SchemaParserExtensions } from "oazapfts/lib/codegen/generate"
 
 const tzKtExtensionKey = 'x-tzkt-extension'
@@ -32,7 +31,6 @@ const anyofParameterExtension: ParameterParserExtension = (p, helpers) => {
   if (typeof rawAnyof !== 'string') return
 
   const types = rawAnyof.split(',')
-  // console.warn('parsed types', types)
 
   const valNode = helpers.createPropertySignature({
     name: 'value',
