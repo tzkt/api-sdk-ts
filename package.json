@@ -48,7 +48,7 @@
   },
   "engineStrict": true,
   "dependencies": {
-    "@tzkt/oazapfts": "^3.5.1"
+    "@tzkt/oazapfts": "^3.5.2"
   },
   "devDependencies": {
     "@ava/typescript": "^1.1.1",
