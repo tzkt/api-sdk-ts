@@ -57,7 +57,13 @@ const jsonParameterExtension: SchemaParserExtension = (s, helpers) => {
   const extension = s['x-tzkt-extension']
   if (extension !== 'json-parameter') return
 
-  // TODO!: bodge! remove 'json-parameter' from top-level parameter description
+  /**
+   * This is a bodge to filter out method parameters that have 'json-parameter'
+   * in 'x-tzkt-extension' field. Such method parameters should not be
+   * extended, but rather their properties should be (and are) processed by
+   * this extension.
+   * TODO!: remove 'json-parameter' from top-level parameter description
+   */
   if (hasOwnProp(s, 'properties')) return
 
   const valNode = helpers.createPropertySignature({
