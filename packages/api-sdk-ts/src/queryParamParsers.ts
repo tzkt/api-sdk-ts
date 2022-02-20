@@ -1,9 +1,6 @@
-import { QueryParamParser } from '@tzkt/oazapfts/lib/codegen/generate';
+import { QueryParamParser } from '@tzkt/oazapfts/lib/codegen/extensions';
 
-const jsonParameter: QueryParamParser = (
-  paramName: string,
-  p?: Record<string, unknown> | null
-) => {
+const jsonParameter: QueryParamParser = (paramName, p?) => {
   if (!p) return {};
 
   const mainParamsObj: Record<string, string> = {};
@@ -39,10 +36,7 @@ const jsonParameter: QueryParamParser = (
   return mainParamsObj;
 };
 
-const anyofParameter: QueryParamParser = (
-  paramName: string,
-  p?: Record<string, unknown> | null
-) => {
+const anyofParameter: QueryParamParser = (paramName, p) => {
   if (!p) return {};
 
   const { fields } = p;
@@ -77,10 +71,7 @@ const anyofParameter: QueryParamParser = (
   return mainParamsObj;
 };
 
-const queryParameter: QueryParamParser = (
-  paramName: string,
-  p?: Record<string, unknown> | null
-) => {
+const queryParameter: QueryParamParser = (paramName, p) => {
   if (!p) return {};
 
   const mainParamsObj: Record<string, unknown> = {};
@@ -93,7 +84,7 @@ const queryParameter: QueryParamParser = (
   return mainParamsObj;
 };
 
-const parsers = {
+const parsers: Record<string, QueryParamParser> = {
   jsonParameter,
   queryParameter,
   anyofParameter,
