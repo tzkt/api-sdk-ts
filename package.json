@@ -40,7 +40,8 @@
     "version": "standard-version",
     "reset-hard": "git clean -dfx && git reset --hard && npm i",
     "prepare-release": "run-s reset-hard test cov:check doc:html version doc:publish",
-    "generate": "oazapfts --optimistic swagger.json src/index.ts"
+    "generate": "oazapfts --optimistic swagger.json src/index.ts",
+    "sync-swagger": "curl -O https://api.tzkt.io/v1/swagger.json"
   },
   "engines": {
     "node": ">=14",
