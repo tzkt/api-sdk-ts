@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.10](https://github.com/tzkt/api-sdk-ts/compare/v0.0.9...v0.0.10) (2022-04-14)
+
+
+### Features
+
+* **app:** add sync-swagger npm script ([5f28a95](https://github.com/tzkt/api-sdk-ts/commit/5f28a95585edb29464810a61289ba1b0c00a4504))
+
 ### [0.0.9](https://github.com/tzkt/api-sdk-ts/compare/v0.0.8...v0.0.9) (2022-02-20)
 
 ### [0.0.8](https://github.com/tzkt/api-sdk-ts/compare/v0.0.7...v0.0.8) (2022-02-20)
