@@ -29,3 +29,23 @@ await operationsGetDoubleBaking(
 ## With node.js or a custom fetch library
 
 Please refer to the [documentation](https://github.com/cellular/oazapfts#overriding-the-defaults) of the original codegen library.
+
+## Update & publish
+
+- Get the latest swagger file
+- Use it to re-generate APIs
+- Fix linting and prettify
+- Build
+
+```bash
+npm run sync-swagger
+npm run generate
+npm run fix
+npm run build
+```
+
+To update package version use
+
+```bash
+npm run version
+```
