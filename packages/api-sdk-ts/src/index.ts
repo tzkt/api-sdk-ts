@@ -8,11 +8,11 @@ import * as QS from '@tzkt/oazapfts/lib/runtime/query';
 
 import QueryParamsParsers from './queryParamParsers';
 export const defaults: Oazapfts.RequestOpts = {
-  baseUrl: 'http://127.0.0.1:5000',
+  baseUrl: 'https://api.tzkt.io',
 };
 const oazapfts = Oazapfts.runtime(defaults);
 export const servers = {
-  server1: 'http://127.0.0.1:5000',
+  server1: 'https://api.tzkt.io',
 };
 export type AccountTypeParameter = {
   eq?: 'user' | 'contract' | 'delegate';
@@ -179,7 +179,7 @@ export type Symbols =
 export type Operation = {
   type: string;
 };
-export type AccountMetadata = {
+export type ProfileMetadata = {
   kind?: string | null;
   alias?: string | null;
   description?: string | null;
@@ -214,9 +214,9 @@ export type HistoricalBalance = {
   quote?: QuoteShort | null;
 };
 export type BigMapTagsParameter = {
-  eq?: ('token_metadata' | 'metadata')[];
-  any?: ('token_metadata' | 'metadata')[];
-  all?: ('token_metadata' | 'metadata')[];
+  eq?: ('metadata' | 'token_metadata' | 'ledger')[];
+  any?: ('metadata' | 'token_metadata' | 'ledger')[];
+  all?: ('metadata' | 'token_metadata' | 'ledger')[];
 };
 export type Alias = {
   alias?: string | null;
@@ -414,7 +414,8 @@ export type PrimType =
   | 143
   | 144
   | 145
-  | 146;
+  | 146
+  | 147;
 export type MichelineType = 0 | 32 | 64 | 96 | 128;
 export type IMicheline = {
   type?: MichelineType;
@@ -470,15 +471,23 @@ export type EndorsementOperation = Operation & {
   rewards?: number;
   quote?: QuoteShort | null;
 };
+export type PreendorsementOperation = Operation & {
+  type?: string | null;
+  id?: number;
+  level?: number;
+  timestamp?: string;
+  block?: string | null;
+  hash?: string | null;
+  delegate?: Alias | null;
+  slots?: number;
+  quote?: QuoteShort | null;
+};
 export type PeriodInfo = {
   index?: number;
   epoch?: number;
   kind?: string | null;
   firstLevel?: number;
   lastLevel?: number;
-  id?: number;
-  startLevel?: number;
-  endLevel?: number;
 };
 export type ProposalAlias = {
   alias?: string | null;
@@ -532,12 +541,14 @@ export type DoubleBakingOperation = Operation & {
   hash?: string | null;
   accusedLevel?: number;
   accuser?: Alias | null;
-  accuserRewards?: number;
+  accuserReward?: number;
   offender?: Alias | null;
+  offenderLoss?: number;
+  quote?: QuoteShort | null;
+  accuserRewards?: number;
   offenderLostDeposits?: number;
   offenderLostRewards?: number;
   offenderLostFees?: number;
-  quote?: QuoteShort | null;
 };
 export type DoubleEndorsingOperation = Operation & {
   type?: string | null;
@@ -548,11 +559,27 @@ export type DoubleEndorsingOperation = Operation & {
   hash?: string | null;
   accusedLevel?: number;
   accuser?: Alias | null;
-  accuserRewards?: number;
+  accuserReward?: number;
   offender?: Alias | null;
+  offenderLoss?: number;
+  quote?: QuoteShort | null;
+  accuserRewards?: number;
   offenderLostDeposits?: number;
   offenderLostRewards?: number;
   offenderLostFees?: number;
+};
+export type DoublePreendorsingOperation = Operation & {
+  type?: string | null;
+  id?: number;
+  level?: number;
+  timestamp?: string;
+  block?: string | null;
+  hash?: string | null;
+  accusedLevel?: number;
+  accuser?: Alias | null;
+  accuserReward?: number;
+  offender?: Alias | null;
+  offenderLoss?: number;
   quote?: QuoteShort | null;
 };
 export type NonceRevelationOperation = Operation & {
@@ -563,10 +590,13 @@ export type NonceRevelationOperation = Operation & {
   block?: string | null;
   hash?: string | null;
   baker?: Alias | null;
-  bakerRewards?: number;
   sender?: Alias | null;
   revealedLevel?: number;
+  revealedCycle?: number;
+  nonce?: string | null;
+  reward?: number;
   quote?: QuoteShort | null;
+  bakerRewards?: number;
 };
 export type OperationError = {
   type: string;
@@ -665,7 +695,6 @@ export type TransactionOperation = Operation & {
   errors?: OperationError[] | null;
   hasInternals?: boolean;
   quote?: QuoteShort | null;
-  parameters?: string | null;
 };
 export type RevealOperation = Operation & {
   type?: string | null;
@@ -704,6 +733,24 @@ export type RegisterConstantOperation = Operation & {
   errors?: OperationError[] | null;
   quote?: QuoteShort | null;
 };
+export type SetDepositsLimitOperation = Operation & {
+  type?: string | null;
+  id?: number;
+  level?: number;
+  timestamp?: string;
+  block?: string | null;
+  hash?: string | null;
+  sender?: Alias | null;
+  counter?: number;
+  gasLimit?: number;
+  gasUsed?: number;
+  storageLimit?: number;
+  bakerFee?: number;
+  status?: string | null;
+  limit?: string | null;
+  errors?: OperationError[] | null;
+  quote?: QuoteShort | null;
+};
 export type MigrationOperation = Operation & {
   type?: string | null;
   id?: number;
@@ -725,8 +772,20 @@ export type RevelationPenaltyOperation = Operation & {
   block?: string | null;
   baker?: Alias | null;
   missedLevel?: number;
+  loss?: number;
+  quote?: QuoteShort | null;
   lostReward?: number;
   lostFees?: number;
+};
+export type EndorsingRewardOperation = Operation & {
+  type?: string | null;
+  id?: number;
+  level?: number;
+  timestamp?: string;
+  block?: string | null;
+  baker?: Alias | null;
+  expected?: number;
+  received?: number;
   quote?: QuoteShort | null;
 };
 export type Block = {
@@ -735,31 +794,40 @@ export type Block = {
   hash?: string | null;
   timestamp?: string;
   proto?: number;
-  priority?: number;
+  payloadRound?: number;
+  blockRound?: number;
   validations?: number;
   deposit?: number;
   reward?: number;
+  bonus?: number;
   fees?: number;
   nonceRevealed?: boolean;
-  baker?: Alias | null;
+  proposer?: Alias | null;
+  producer?: Alias | null;
   software?: SoftwareAlias | null;
   lbEscapeVote?: boolean;
   lbEscapeEma?: number;
   endorsements?: EndorsementOperation[] | null;
+  preendorsements?: PreendorsementOperation[] | null;
   proposals?: ProposalOperation[] | null;
   ballots?: BallotOperation[] | null;
   activations?: ActivationOperation[] | null;
   doubleBaking?: DoubleBakingOperation[] | null;
   doubleEndorsing?: DoubleEndorsingOperation[] | null;
+  doublePreendorsing?: DoublePreendorsingOperation[] | null;
   nonceRevelations?: NonceRevelationOperation[] | null;
   delegations?: DelegationOperation[] | null;
   originations?: OriginationOperation[] | null;
   transactions?: TransactionOperation[] | null;
   reveals?: RevealOperation[] | null;
   registerConstants?: RegisterConstantOperation[] | null;
+  setDepositsLimits?: SetDepositsLimitOperation[] | null;
   migrations?: MigrationOperation[] | null;
   revelationPenalties?: RevelationPenaltyOperation[] | null;
+  endorsingRewards?: EndorsingRewardOperation[] | null;
   quote?: QuoteShort | null;
+  priority?: number;
+  baker?: Alias | null;
 };
 export type Commitment = {
   address?: string | null;
@@ -819,6 +887,9 @@ export type Contract = Account & {
   delegationLevel?: number | null;
   delegationTime?: string | null;
   numContracts?: number;
+  activeTokensCount?: number;
+  tokenBalancesCount?: number;
+  tokenTransfersCount?: number;
   numDelegations?: number;
   numOriginations?: number;
   numTransactions?: number;
@@ -831,7 +902,7 @@ export type Contract = Account & {
   storage?: any | null;
   typeHash?: number;
   codeHash?: number;
-  metadata?: AccountMetadata | null;
+  metadata?: ProfileMetadata | null;
 };
 export type EntrypointInterface = {
   name?: string | null;
@@ -888,11 +959,13 @@ export type Cycle = {
   snapshotLevel?: number;
   randomSeed?: string | null;
   totalBakers?: number;
-  totalRolls?: number;
   totalStaking?: number;
   totalDelegators?: number;
   totalDelegated?: number;
+  selectedBakers?: number;
+  selectedStake?: number;
   quote?: QuoteShort | null;
+  totalRolls?: number;
 };
 export type Delegate = Account & {
   type?: string | null;
@@ -902,38 +975,48 @@ export type Delegate = Account & {
   publicKey?: string | null;
   revealed?: boolean;
   balance?: number;
-  frozenDeposits?: number;
-  frozenRewards?: number;
-  frozenFees?: number;
+  frozenDeposit?: number;
+  frozenDepositLimit?: number | null;
   counter?: number;
   activationLevel?: number;
   activationTime?: string;
   deactivationLevel?: number | null;
   deactivationTime?: string | null;
   stakingBalance?: number;
+  delegatedBalance?: number;
   numContracts?: number;
+  activeTokensCount?: number;
+  tokenBalancesCount?: number;
+  tokenTransfersCount?: number;
   numDelegators?: number;
   numBlocks?: number;
   numEndorsements?: number;
+  numPreendorsements?: number;
   numBallots?: number;
   numProposals?: number;
   numActivations?: number;
   numDoubleBaking?: number;
   numDoubleEndorsing?: number;
+  numDoublePreendorsing?: number;
   numNonceRevelations?: number;
   numRevelationPenalties?: number;
+  numEndorsingRewards?: number;
   numDelegations?: number;
   numOriginations?: number;
   numTransactions?: number;
   numReveals?: number;
   numRegisterConstants?: number;
+  numSetDepositsLimits?: number;
   numMigrations?: number;
   firstActivity?: number;
   firstActivityTime?: string;
   lastActivity?: number;
   lastActivityTime?: string;
-  metadata?: AccountMetadata | null;
+  metadata?: ProfileMetadata | null;
   software?: SoftwareAlias | null;
+  frozenDeposits?: number;
+  frozenRewards?: number;
+  frozenFees?: number;
 };
 export type State = {
   chain?: string | null;
@@ -1007,12 +1090,17 @@ export type BakingOperation = Operation & {
   level?: number;
   timestamp?: string;
   block?: string | null;
-  baker?: Alias | null;
-  priority?: number;
+  proposer?: Alias | null;
+  producer?: Alias | null;
+  payloadRound?: number;
+  blockRound?: number;
   deposit?: number;
   reward?: number;
+  bonus?: number;
   fees?: number;
   quote?: QuoteShort | null;
+  baker?: Alias | null;
+  priority?: number;
 };
 export type ProtocolConstants = {
   rampUpCycles?: number;
@@ -1041,6 +1129,14 @@ export type ProtocolConstants = {
   lbSubsidy?: number;
   lbSunsetLevel?: number;
   lbEscapeThreshold?: number;
+  consensusThreshold?: number;
+  minParticipationNumerator?: number;
+  minParticipationDenominator?: number;
+  maxSlashingPeriod?: number;
+  frozenDepositsPercentage?: number;
+  doubleBakingPunishment?: number;
+  doubleEndorsingPunishmentNumerator?: number;
+  doubleEndorsingPunishmentDenominator?: number;
 };
 export type ProtocolMetadata = {
   alias?: string | null;
@@ -1072,83 +1168,113 @@ export type Quote = {
 export type BakerRewards = {
   cycle?: number;
   stakingBalance?: number;
+  activeStake?: number;
+  selectedStake?: number;
   delegatedBalance?: number;
   numDelegators?: number;
   expectedBlocks?: number;
   expectedEndorsements?: number;
   futureBlocks?: number;
   futureBlockRewards?: number;
-  futureBlockDeposits?: number;
-  ownBlocks?: number;
-  ownBlockRewards?: number;
-  extraBlocks?: number;
-  extraBlockRewards?: number;
-  missedOwnBlocks?: number;
-  missedOwnBlockRewards?: number;
-  missedExtraBlocks?: number;
-  missedExtraBlockRewards?: number;
-  uncoveredOwnBlocks?: number;
-  uncoveredOwnBlockRewards?: number;
-  uncoveredExtraBlocks?: number;
-  uncoveredExtraBlockRewards?: number;
-  blockDeposits?: number;
+  blocks?: number;
+  blockRewards?: number;
+  missedBlocks?: number;
+  missedBlockRewards?: number;
   futureEndorsements?: number;
   futureEndorsementRewards?: number;
-  futureEndorsementDeposits?: number;
   endorsements?: number;
   endorsementRewards?: number;
   missedEndorsements?: number;
   missedEndorsementRewards?: number;
+  blockFees?: number;
+  missedBlockFees?: number;
+  doubleBakingRewards?: number;
+  doubleBakingLosses?: number;
+  doubleEndorsingRewards?: number;
+  doubleEndorsingLosses?: number;
+  doublePreendorsingRewards?: number;
+  doublePreendorsingLosses?: number;
+  revelationRewards?: number;
+  revelationLosses?: number;
+  quote?: QuoteShort | null;
+  ownBlocks?: number;
+  extraBlocks?: number;
+  missedOwnBlocks?: number;
+  missedExtraBlocks?: number;
+  uncoveredOwnBlocks?: number;
+  uncoveredExtraBlocks?: number;
   uncoveredEndorsements?: number;
+  ownBlockRewards?: number;
+  extraBlockRewards?: number;
+  missedOwnBlockRewards?: number;
+  missedExtraBlockRewards?: number;
+  uncoveredOwnBlockRewards?: number;
+  uncoveredExtraBlockRewards?: number;
   uncoveredEndorsementRewards?: number;
-  endorsementDeposits?: number;
   ownBlockFees?: number;
   extraBlockFees?: number;
   missedOwnBlockFees?: number;
   missedExtraBlockFees?: number;
   uncoveredOwnBlockFees?: number;
   uncoveredExtraBlockFees?: number;
-  doubleBakingRewards?: number;
   doubleBakingLostDeposits?: number;
   doubleBakingLostRewards?: number;
   doubleBakingLostFees?: number;
-  doubleEndorsingRewards?: number;
   doubleEndorsingLostDeposits?: number;
   doubleEndorsingLostRewards?: number;
   doubleEndorsingLostFees?: number;
-  revelationRewards?: number;
   revelationLostRewards?: number;
   revelationLostFees?: number;
-  quote?: QuoteShort | null;
+  futureBlockDeposits?: number;
+  blockDeposits?: number;
+  futureEndorsementDeposits?: number;
+  endorsementDeposits?: number;
 };
 export type DelegatorRewards = {
   cycle?: number;
   balance?: number;
   baker?: Alias | null;
   stakingBalance?: number;
+  activeStake?: number;
+  selectedStake?: number;
   expectedBlocks?: number;
   expectedEndorsements?: number;
   futureBlocks?: number;
   futureBlockRewards?: number;
-  ownBlocks?: number;
-  ownBlockRewards?: number;
-  extraBlocks?: number;
-  extraBlockRewards?: number;
-  missedOwnBlocks?: number;
-  missedOwnBlockRewards?: number;
-  missedExtraBlocks?: number;
-  missedExtraBlockRewards?: number;
-  uncoveredOwnBlocks?: number;
-  uncoveredOwnBlockRewards?: number;
-  uncoveredExtraBlocks?: number;
-  uncoveredExtraBlockRewards?: number;
+  blocks?: number;
+  blockRewards?: number;
+  missedBlocks?: number;
+  missedBlockRewards?: number;
   futureEndorsements?: number;
   futureEndorsementRewards?: number;
   endorsements?: number;
   endorsementRewards?: number;
   missedEndorsements?: number;
   missedEndorsementRewards?: number;
+  blockFees?: number;
+  missedBlockFees?: number;
+  doubleBakingRewards?: number;
+  doubleBakingLosses?: number;
+  doubleEndorsingRewards?: number;
+  doubleEndorsingLosses?: number;
+  doublePreendorsingRewards?: number;
+  doublePreendorsingLosses?: number;
+  revelationRewards?: number;
+  revelationLosses?: number;
+  quote?: QuoteShort | null;
+  ownBlocks?: number;
+  extraBlocks?: number;
+  missedOwnBlocks?: number;
+  missedExtraBlocks?: number;
+  uncoveredOwnBlocks?: number;
+  uncoveredExtraBlocks?: number;
   uncoveredEndorsements?: number;
+  ownBlockRewards?: number;
+  extraBlockRewards?: number;
+  missedOwnBlockRewards?: number;
+  missedExtraBlockRewards?: number;
+  uncoveredOwnBlockRewards?: number;
+  uncoveredExtraBlockRewards?: number;
   uncoveredEndorsementRewards?: number;
   ownBlockFees?: number;
   extraBlockFees?: number;
@@ -1156,18 +1282,14 @@ export type DelegatorRewards = {
   missedExtraBlockFees?: number;
   uncoveredOwnBlockFees?: number;
   uncoveredExtraBlockFees?: number;
-  doubleBakingRewards?: number;
   doubleBakingLostDeposits?: number;
   doubleBakingLostRewards?: number;
   doubleBakingLostFees?: number;
-  doubleEndorsingRewards?: number;
   doubleEndorsingLostDeposits?: number;
   doubleEndorsingLostRewards?: number;
   doubleEndorsingLostFees?: number;
-  revelationRewards?: number;
   revelationLostRewards?: number;
   revelationLostFees?: number;
-  quote?: QuoteShort | null;
 };
 export type SplitDelegator = {
   address?: string | null;
@@ -1178,54 +1300,67 @@ export type SplitDelegator = {
 export type RewardSplit = {
   cycle?: number;
   stakingBalance?: number;
+  activeStake?: number;
+  selectedStake?: number;
   delegatedBalance?: number;
   numDelegators?: number;
   expectedBlocks?: number;
   expectedEndorsements?: number;
   futureBlocks?: number;
   futureBlockRewards?: number;
-  futureBlockDeposits?: number;
-  ownBlocks?: number;
-  ownBlockRewards?: number;
-  extraBlocks?: number;
-  extraBlockRewards?: number;
-  missedOwnBlocks?: number;
-  missedOwnBlockRewards?: number;
-  missedExtraBlocks?: number;
-  missedExtraBlockRewards?: number;
-  uncoveredOwnBlocks?: number;
-  uncoveredOwnBlockRewards?: number;
-  uncoveredExtraBlocks?: number;
-  uncoveredExtraBlockRewards?: number;
-  blockDeposits?: number;
+  blocks?: number;
+  blockRewards?: number;
+  missedBlocks?: number;
+  missedBlockRewards?: number;
   futureEndorsements?: number;
   futureEndorsementRewards?: number;
-  futureEndorsementDeposits?: number;
   endorsements?: number;
   endorsementRewards?: number;
   missedEndorsements?: number;
   missedEndorsementRewards?: number;
+  blockFees?: number;
+  missedBlockFees?: number;
+  doubleBakingRewards?: number;
+  doubleBakingLosses?: number;
+  doubleEndorsingRewards?: number;
+  doubleEndorsingLosses?: number;
+  doublePreendorsingRewards?: number;
+  doublePreendorsingLosses?: number;
+  revelationRewards?: number;
+  revelationLosses?: number;
+  delegators?: SplitDelegator[] | null;
+  ownBlocks?: number;
+  extraBlocks?: number;
+  missedOwnBlocks?: number;
+  missedExtraBlocks?: number;
+  uncoveredOwnBlocks?: number;
+  uncoveredExtraBlocks?: number;
   uncoveredEndorsements?: number;
+  ownBlockRewards?: number;
+  extraBlockRewards?: number;
+  missedOwnBlockRewards?: number;
+  missedExtraBlockRewards?: number;
+  uncoveredOwnBlockRewards?: number;
+  uncoveredExtraBlockRewards?: number;
   uncoveredEndorsementRewards?: number;
-  endorsementDeposits?: number;
   ownBlockFees?: number;
   extraBlockFees?: number;
   missedOwnBlockFees?: number;
   missedExtraBlockFees?: number;
   uncoveredOwnBlockFees?: number;
   uncoveredExtraBlockFees?: number;
-  doubleBakingRewards?: number;
   doubleBakingLostDeposits?: number;
   doubleBakingLostRewards?: number;
   doubleBakingLostFees?: number;
-  doubleEndorsingRewards?: number;
   doubleEndorsingLostDeposits?: number;
   doubleEndorsingLostRewards?: number;
   doubleEndorsingLostFees?: number;
-  revelationRewards?: number;
   revelationLostRewards?: number;
   revelationLostFees?: number;
-  delegators?: SplitDelegator[] | null;
+  futureBlockDeposits?: number;
+  blockDeposits?: number;
+  futureEndorsementDeposits?: number;
+  endorsementDeposits?: number;
 };
 export type BakingRightTypeParameter = {
   eq?: 'baking' | 'endorsing';
@@ -1240,10 +1375,11 @@ export type BakingRight = {
   cycle?: number;
   level?: number;
   timestamp?: string;
-  priority?: number | null;
+  round?: number | null;
   slots?: number | null;
   baker?: Alias | null;
   status?: string | null;
+  priority?: number | null;
 };
 export type Software = {
   shortHash?: string | null;
@@ -1253,10 +1389,6 @@ export type Software = {
   lastTime?: string;
   blocksCount?: number;
   metadata?: RawJson | null;
-  commitDate?: string | null;
-  commitHash?: string | null;
-  version?: string | null;
-  tags?: string[] | null;
 };
 export type Statistics = {
   cycle?: number | null;
@@ -1271,9 +1403,79 @@ export type Statistics = {
   totalCreated?: number;
   totalBurned?: number;
   totalBanished?: number;
-  totalVested?: number;
   totalFrozen?: number;
   quote?: QuoteShort | null;
+  totalVested?: number;
+};
+export type NatParameter = {
+  eq?: string;
+  ne?: string;
+  gt?: string;
+  ge?: string;
+  lt?: string;
+  le?: string;
+  in?: string[];
+  ni?: string[];
+};
+export type TokenStandardParameter = {
+  eq?: 'fa1.2' | 'fa2';
+  ne?: 'fa1.2' | 'fa2';
+};
+export type SelectionParameter = {
+  fields?: string[];
+  values?: string[];
+};
+export type Token = {
+  id?: number;
+  contract?: Alias | null;
+  tokenId?: string | null;
+  standard?: string | null;
+  firstLevel?: number;
+  firstTime?: string;
+  lastLevel?: number;
+  lastTime?: string;
+  transfersCount?: number;
+  balancesCount?: number;
+  holdersCount?: number;
+  totalMinted?: string | null;
+  totalBurned?: string | null;
+  totalSupply?: string | null;
+  metadata?: any | null;
+};
+export type TokenInfo = {
+  id?: number;
+  contract?: Alias | null;
+  tokenId?: string | null;
+  standard?: string | null;
+  metadata?: any | null;
+};
+export type TokenBalance = {
+  id?: number;
+  account?: Alias | null;
+  token?: TokenInfo | null;
+  balance?: string | null;
+  transfersCount?: number;
+  firstLevel?: number;
+  firstTime?: string;
+  lastLevel?: number;
+  lastTime?: string;
+};
+export type TokenTransfer = {
+  id?: number;
+  level?: number;
+  timestamp?: string;
+  token?: TokenInfo | null;
+  from?: Alias | null;
+  to?: Alias | null;
+  amount?: string | null;
+  transactionId?: number | null;
+  originationId?: number | null;
+  migrationId?: number | null;
+};
+export type TokenBalanceShort = {
+  account?: Alias | null;
+  token?: TokenInfo | null;
+  balance?: string | null;
 };
 export type ProposalMetadata = {
   alias?: string | null;
@@ -1291,7 +1493,6 @@ export type Proposal = {
   rolls?: number;
   status?: string | null;
   metadata?: ProposalMetadata | null;
-  period?: number;
 };
 export type VotingPeriod = {
   index?: number;
@@ -1558,7 +1759,6 @@ export function accountsGetOperations(
     timestamp,
     entrypoint,
     parameter,
-    parameters,
     hasInternals,
     status,
     sort,
@@ -1566,8 +1766,6 @@ export function accountsGetOperations(
     limit,
     micheline,
     quote,
-    from,
-    to,
   }: {
     type?: string | null;
     initiator?: AccountParameter | null;
@@ -1585,7 +1783,6 @@ export function accountsGetOperations(
     timestamp?: DateTimeParameter | null;
     entrypoint?: StringParameter | null;
     parameter?: JsonParameter | null;
-    parameters?: StringParameter | null;
     hasInternals?: BoolParameter | null;
     status?: OperationStatusParameter | null;
     sort?: SortMode;
@@ -1593,8 +1790,6 @@ export function accountsGetOperations(
     limit?: number;
     micheline?: MichelineFormat;
     quote?: Symbols;
-    from?: string | null;
-    to?: string | null;
   } = {},
   opts?: Oazapfts.RequestOpts
 ) {
@@ -1611,8 +1806,6 @@ export function accountsGetOperations(
           limit,
           micheline,
           quote,
-          from,
-          to,
           ...QueryParamsParsers.queryParameter('initiator', initiator),
           ...QueryParamsParsers.queryParameter('sender', sender),
           ...QueryParamsParsers.queryParameter('target', target),
@@ -1637,7 +1830,6 @@ export function accountsGetOperations(
           ...QueryParamsParsers.queryParameter('timestamp', timestamp),
           ...QueryParamsParsers.queryParameter('entrypoint', entrypoint),
           ...QueryParamsParsers.jsonParameter('parameter', parameter),
-          ...QueryParamsParsers.queryParameter('parameters', parameters),
           ...QueryParamsParsers.queryParameter('hasInternals', hasInternals),
           ...QueryParamsParsers.queryParameter('status', status),
         })
@@ -1658,7 +1850,7 @@ export function accountsGetMetadata(
   return oazapfts.ok(
     oazapfts.fetchJson<{
       status: 200;
-      data: AccountMetadata;
+      data: ProfileMetadata;
     }>(`/v1/accounts/${address}/metadata`, {
       ...opts,
     })
@@ -2202,9 +2394,13 @@ export function blocksGetCount(opts?: Oazapfts.RequestOpts) {
 export function blocksGet(
   {
     baker,
+    anyof,
+    proposer,
+    producer,
     level,
     timestamp,
     priority,
+    blockRound,
     select,
     sort,
     offset,
@@ -2212,9 +2408,16 @@ export function blocksGet(
     quote,
   }: {
     baker?: AccountParameter | null;
+    anyof?: {
+      value: string | null;
+      fields: ('proposer' | 'producer')[];
+    };
+    proposer?: AccountParameter | null;
+    producer?: AccountParameter | null;
     level?: Int32Parameter | null;
     timestamp?: DateTimeParameter | null;
     priority?: Int32Parameter | null;
+    blockRound?: Int32Parameter | null;
     select?: SelectParameter | null;
     sort?: SortParameter | null;
     offset?: OffsetParameter | null;
@@ -2233,9 +2436,13 @@ export function blocksGet(
           limit,
           quote,
           ...QueryParamsParsers.queryParameter('baker', baker),
+          ...QueryParamsParsers.anyofParameter('anyof', anyof),
+          ...QueryParamsParsers.queryParameter('proposer', proposer),
+          ...QueryParamsParsers.queryParameter('producer', producer),
           ...QueryParamsParsers.queryParameter('level', level),
           ...QueryParamsParsers.queryParameter('timestamp', timestamp),
           ...QueryParamsParsers.queryParameter('priority', priority),
+          ...QueryParamsParsers.queryParameter('blockRound', blockRound),
           ...QueryParamsParsers.queryParameter('select', select),
           ...QueryParamsParsers.queryParameter('sort', sort),
           ...QueryParamsParsers.queryParameter('offset', offset),
@@ -3784,6 +3991,112 @@ export function operationsGetEndorsementsCount(
   );
 }
 /**
+ * Get preendorsements
+ */
+export function operationsGetPreendorsements(
+  {
+    delegate,
+    level,
+    timestamp,
+    select,
+    sort,
+    offset,
+    limit,
+    quote,
+  }: {
+    delegate?: AccountParameter | null;
+    level?: Int32Parameter | null;
+    timestamp?: DateTimeParameter | null;
+    select?: SelectParameter | null;
+    sort?: SortParameter | null;
+    offset?: OffsetParameter | null;
+    limit?: number;
+    quote?: Symbols;
+  } = {},
+  opts?: Oazapfts.RequestOpts
+) {
+  return oazapfts.ok(
+    oazapfts.fetchJson<{
+      status: 200;
+      data: PreendorsementOperation[];
+    }>(
+      `/v1/operations/preendorsements${QS.query(
+        QS.form({
+          limit,
+          quote,
+          ...QueryParamsParsers.queryParameter('delegate', delegate),
+          ...QueryParamsParsers.queryParameter('level', level),
+          ...QueryParamsParsers.queryParameter('timestamp', timestamp),
+          ...QueryParamsParsers.queryParameter('select', select),
+          ...QueryParamsParsers.queryParameter('sort', sort),
+          ...QueryParamsParsers.queryParameter('offset', offset),
+        })
+      )}`,
+      {
+        ...opts,
+      }
+    )
+  );
+}
+/**
+ * Get preendorsement by hash
+ */
+export function operationsGetPreendorsementByHash(
+  hash: string | null,
+  {
+    quote,
+  }: {
+    quote?: Symbols;
+  } = {},
+  opts?: Oazapfts.RequestOpts
+) {
+  return oazapfts.ok(
+    oazapfts.fetchJson<{
+      status: 200;
+      data: PreendorsementOperation[];
+    }>(
+      `/v1/operations/preendorsements/${hash}${QS.query(
+        QS.form({
+          quote,
+        })
+      )}`,
+      {
+        ...opts,
+      }
+    )
+  );
+}
+/**
+ * Get preendorsements count
+ */
+export function operationsGetPreendorsementsCount(
+  {
+    level,
+    timestamp,
+  }: {
+    level?: Int32Parameter | null;
+    timestamp?: DateTimeParameter | null;
+  } = {},
+  opts?: Oazapfts.RequestOpts
+) {
+  return oazapfts.ok(
+    oazapfts.fetchJson<{
+      status: 200;
+      data: number;
+    }>(
+      `/v1/operations/preendorsements/count${QS.query(
+        QS.form({
+          ...QueryParamsParsers.queryParameter('level', level),
+          ...QueryParamsParsers.queryParameter('timestamp', timestamp),
+        })
+      )}`,
+      {
+        ...opts,
+      }
+    )
+  );
+}
+/**
  * Get ballots
  */
 export function operationsGetBallots(
@@ -4353,6 +4666,121 @@ export function operationsGetDoubleEndorsingCount(
   );
 }
 /**
+ * Get double preendorsing
+ */
+export function operationsGetDoublePreendorsing(
+  {
+    anyof,
+    accuser,
+    offender,
+    level,
+    timestamp,
+    select,
+    sort,
+    offset,
+    limit,
+    quote,
+  }: {
+    anyof?: {
+      value: string | null;
+      fields: ('accuser' | 'offender')[];
+    };
+    accuser?: AccountParameter | null;
+    offender?: AccountParameter | null;
+    level?: Int32Parameter | null;
+    timestamp?: DateTimeParameter | null;
+    select?: SelectParameter | null;
+    sort?: SortParameter | null;
+    offset?: OffsetParameter | null;
+    limit?: number;
+    quote?: Symbols;
+  } = {},
+  opts?: Oazapfts.RequestOpts
+) {
+  return oazapfts.ok(
+    oazapfts.fetchJson<{
+      status: 200;
+      data: DoublePreendorsingOperation[];
+    }>(
+      `/v1/operations/double_preendorsing${QS.query(
+        QS.form({
+          limit,
+          quote,
+          ...QueryParamsParsers.anyofParameter('anyof', anyof),
+          ...QueryParamsParsers.queryParameter('accuser', accuser),
+          ...QueryParamsParsers.queryParameter('offender', offender),
+          ...QueryParamsParsers.queryParameter('level', level),
+          ...QueryParamsParsers.queryParameter('timestamp', timestamp),
+          ...QueryParamsParsers.queryParameter('select', select),
+          ...QueryParamsParsers.queryParameter('sort', sort),
+          ...QueryParamsParsers.queryParameter('offset', offset),
+        })
+      )}`,
+      {
+        ...opts,
+      }
+    )
+  );
+}
+/**
+ * Get double preendorsing by hash
+ */
+export function operationsGetDoublePreendorsingByHash(
+  hash: string | null,
+  {
+    quote,
+  }: {
+    quote?: Symbols;
+  } = {},
+  opts?: Oazapfts.RequestOpts
+) {
+  return oazapfts.ok(
+    oazapfts.fetchJson<{
+      status: 200;
+      data: DoublePreendorsingOperation[];
+    }>(
+      `/v1/operations/double_preendorsing/${hash}${QS.query(
+        QS.form({
+          quote,
+        })
+      )}`,
+      {
+        ...opts,
+      }
+    )
+  );
+}
+/**
+ * Get double preendorsing count
+ */
+export function operationsGetDoublePreendorsingCount(
+  {
+    level,
+    timestamp,
+  }: {
+    level?: Int32Parameter | null;
+    timestamp?: DateTimeParameter | null;
+  } = {},
+  opts?: Oazapfts.RequestOpts
+) {
+  return oazapfts.ok(
+    oazapfts.fetchJson<{
+      status: 200;
+      data: number;
+    }>(
+      `/v1/operations/double_preendorsing/count${QS.query(
+        QS.form({
+          ...QueryParamsParsers.queryParameter('level', level),
+          ...QueryParamsParsers.queryParameter('timestamp', timestamp),
+        })
+      )}`,
+      {
+        ...opts,
+      }
+    )
+  );
+}
+/**
  * Get nonce revelations
  */
 export function operationsGetNonceRevelations(
@@ -4361,6 +4789,7 @@ export function operationsGetNonceRevelations(
     baker,
     sender,
     level,
+    revealedCycle,
     timestamp,
     select,
     sort,
@@ -4375,6 +4804,7 @@ export function operationsGetNonceRevelations(
     baker?: AccountParameter | null;
     sender?: AccountParameter | null;
     level?: Int32Parameter | null;
+    revealedCycle?: Int32Parameter | null;
     timestamp?: DateTimeParameter | null;
     select?: SelectParameter | null;
     sort?: SortParameter | null;
@@ -4397,6 +4827,7 @@ export function operationsGetNonceRevelations(
           ...QueryParamsParsers.queryParameter('baker', baker),
           ...QueryParamsParsers.queryParameter('sender', sender),
           ...QueryParamsParsers.queryParameter('level', level),
+          ...QueryParamsParsers.queryParameter('revealedCycle', revealedCycle),
           ...QueryParamsParsers.queryParameter('timestamp', timestamp),
           ...QueryParamsParsers.queryParameter('select', select),
           ...QueryParamsParsers.queryParameter('sort', sort),
@@ -4602,6 +5033,7 @@ export function operationsGetOriginations(
     contractManager,
     contractDelegate,
     originatedContract,
+    id,
     typeHash,
     codeHash,
     level,
@@ -4629,6 +5061,7 @@ export function operationsGetOriginations(
     contractManager?: AccountParameter | null;
     contractDelegate?: AccountParameter | null;
     originatedContract?: AccountParameter | null;
+    id?: Int32Parameter | null;
     typeHash?: Int32Parameter | null;
     codeHash?: Int32Parameter | null;
     level?: Int32Parameter | null;
@@ -4668,6 +5101,7 @@ export function operationsGetOriginations(
             'originatedContract',
             originatedContract
           ),
+          ...QueryParamsParsers.queryParameter('id', id),
           ...QueryParamsParsers.queryParameter('typeHash', typeHash),
           ...QueryParamsParsers.queryParameter('codeHash', codeHash),
           ...QueryParamsParsers.queryParameter('level', level),
@@ -4760,7 +5194,6 @@ export function operationsGetTransactions(
     timestamp,
     entrypoint,
     parameter,
-    parameters,
     hasInternals,
     status,
     select,
@@ -4783,7 +5216,6 @@ export function operationsGetTransactions(
     timestamp?: DateTimeParameter | null;
     entrypoint?: StringParameter | null;
     parameter?: JsonParameter | null;
-    parameters?: StringParameter | null;
     hasInternals?: BoolParameter | null;
     status?: OperationStatusParameter | null;
     select?: SelectParameter | null;
@@ -4815,7 +5247,6 @@ export function operationsGetTransactions(
           ...QueryParamsParsers.queryParameter('timestamp', timestamp),
           ...QueryParamsParsers.queryParameter('entrypoint', entrypoint),
           ...QueryParamsParsers.jsonParameter('parameter', parameter),
-          ...QueryParamsParsers.queryParameter('parameters', parameters),
           ...QueryParamsParsers.queryParameter('hasInternals', hasInternals),
           ...QueryParamsParsers.queryParameter('status', status),
           ...QueryParamsParsers.queryParameter('select', select),
@@ -5186,6 +5617,115 @@ export function operationsGetRegisterConstantsCount(
   );
 }
 /**
+ * Get set deposits limits
+ */
+export function operationsGetSetDepositsLimits(
+  {
+    sender,
+    level,
+    timestamp,
+    status,
+    select,
+    sort,
+    offset,
+    limit,
+    quote,
+  }: {
+    sender?: AccountParameter | null;
+    level?: Int32Parameter | null;
+    timestamp?: DateTimeParameter | null;
+    status?: OperationStatusParameter | null;
+    select?: SelectParameter | null;
+    sort?: SortParameter | null;
+    offset?: OffsetParameter | null;
+    limit?: number;
+    quote?: Symbols;
+  } = {},
+  opts?: Oazapfts.RequestOpts
+) {
+  return oazapfts.ok(
+    oazapfts.fetchJson<{
+      status: 200;
+      data: SetDepositsLimitOperation[];
+    }>(
+      `/v1/operations/set_deposits_limits${QS.query(
+        QS.form({
+          limit,
+          quote,
+          ...QueryParamsParsers.queryParameter('sender', sender),
+          ...QueryParamsParsers.queryParameter('level', level),
+          ...QueryParamsParsers.queryParameter('timestamp', timestamp),
+          ...QueryParamsParsers.queryParameter('status', status),
+          ...QueryParamsParsers.queryParameter('select', select),
+          ...QueryParamsParsers.queryParameter('sort', sort),
+          ...QueryParamsParsers.queryParameter('offset', offset),
+        })
+      )}`,
+      {
+        ...opts,
+      }
+    )
+  );
+}
+/**
+ * Get set deposits limit by hash
+ */
+export function operationsGetSetDepositsLimitByHash(
+  hash: string | null,
+  {
+    quote,
+  }: {
+    quote?: Symbols;
+  } = {},
+  opts?: Oazapfts.RequestOpts
+) {
+  return oazapfts.ok(
+    oazapfts.fetchJson<{
+      status: 200;
+      data: SetDepositsLimitOperation[];
+    }>(
+      `/v1/operations/set_deposits_limits/${hash}${QS.query(
+        QS.form({
+          quote,
+        })
+      )}`,
+      {
+        ...opts,
+      }
+    )
+  );
+}
+/**
+ * Get set deposits limits count
+ */
+export function operationsGetSetDepositsLimitsCount(
+  {
+    level,
+    timestamp,
+  }: {
+    level?: Int32Parameter | null;
+    timestamp?: DateTimeParameter | null;
+  } = {},
+  opts?: Oazapfts.RequestOpts
+) {
+  return oazapfts.ok(
+    oazapfts.fetchJson<{
+      status: 200;
+      data: number;
+    }>(
+      `/v1/operations/set_deposits_limits/count${QS.query(
+        QS.form({
+          ...QueryParamsParsers.queryParameter('level', level),
+          ...QueryParamsParsers.queryParameter('timestamp', timestamp),
+        })
+      )}`,
+      {
+        ...opts,
+      }
+    )
+  );
+}
+/**
  * Get migrations
  */
 export function operationsGetMigrations(
@@ -5193,6 +5733,7 @@ export function operationsGetMigrations(
     account,
     kind,
     balanceChange,
+    id,
     level,
     timestamp,
     select,
@@ -5205,6 +5746,7 @@ export function operationsGetMigrations(
     account?: AccountParameter | null;
     kind?: MigrationKindParameter | null;
     balanceChange?: Int64Parameter | null;
+    id?: Int32Parameter | null;
     level?: Int32Parameter | null;
     timestamp?: DateTimeParameter | null;
     select?: SelectParameter | null;
@@ -5229,6 +5771,7 @@ export function operationsGetMigrations(
           ...QueryParamsParsers.queryParameter('account', account),
           ...QueryParamsParsers.queryParameter('kind', kind),
           ...QueryParamsParsers.queryParameter('balanceChange', balanceChange),
+          ...QueryParamsParsers.queryParameter('id', id),
           ...QueryParamsParsers.queryParameter('level', level),
           ...QueryParamsParsers.queryParameter('timestamp', timestamp),
           ...QueryParamsParsers.queryParameter('select', select),
@@ -5415,6 +5958,9 @@ export function operationsGetRevelationPenaltiesCount(
 export function operationsGetBaking(
   {
     baker,
+    anyof,
+    proposer,
+    producer,
     level,
     timestamp,
     select,
@@ -5424,6 +5970,12 @@ export function operationsGetBaking(
     quote,
   }: {
     baker?: AccountParameter | null;
+    anyof?: {
+      value: string | null;
+      fields: ('proposer' | 'producer')[];
+    };
+    proposer?: AccountParameter | null;
+    producer?: AccountParameter | null;
     level?: Int32Parameter | null;
     timestamp?: DateTimeParameter | null;
     select?: SelectParameter | null;
@@ -5444,6 +5996,9 @@ export function operationsGetBaking(
           limit,
           quote,
           ...QueryParamsParsers.queryParameter('baker', baker),
+          ...QueryParamsParsers.anyofParameter('anyof', anyof),
+          ...QueryParamsParsers.queryParameter('proposer', proposer),
+          ...QueryParamsParsers.queryParameter('producer', producer),
           ...QueryParamsParsers.queryParameter('level', level),
           ...QueryParamsParsers.queryParameter('timestamp', timestamp),
           ...QueryParamsParsers.queryParameter('select', select),
@@ -5504,6 +6059,112 @@ export function operationsGetBakingCount(
       data: number;
     }>(
       `/v1/operations/baking/count${QS.query(
+        QS.form({
+          ...QueryParamsParsers.queryParameter('level', level),
+          ...QueryParamsParsers.queryParameter('timestamp', timestamp),
+        })
+      )}`,
+      {
+        ...opts,
+      }
+    )
+  );
+}
+/**
+ * Get endorsing rewards
+ */
+export function operationsGetEndorsingRewards(
+  {
+    baker,
+    level,
+    timestamp,
+    select,
+    sort,
+    offset,
+    limit,
+    quote,
+  }: {
+    baker?: AccountParameter | null;
+    level?: Int32Parameter | null;
+    timestamp?: DateTimeParameter | null;
+    select?: SelectParameter | null;
+    sort?: SortParameter | null;
+    offset?: OffsetParameter | null;
+    limit?: number;
+    quote?: Symbols;
+  } = {},
+  opts?: Oazapfts.RequestOpts
+) {
+  return oazapfts.ok(
+    oazapfts.fetchJson<{
+      status: 200;
+      data: EndorsingRewardOperation[];
+    }>(
+      `/v1/operations/endorsing_rewards${QS.query(
+        QS.form({
+          limit,
+          quote,
+          ...QueryParamsParsers.queryParameter('baker', baker),
+          ...QueryParamsParsers.queryParameter('level', level),
+          ...QueryParamsParsers.queryParameter('timestamp', timestamp),
+          ...QueryParamsParsers.queryParameter('select', select),
+          ...QueryParamsParsers.queryParameter('sort', sort),
+          ...QueryParamsParsers.queryParameter('offset', offset),
+        })
+      )}`,
+      {
+        ...opts,
+      }
+    )
+  );
+}
+/**
+ * Get endorsing reward by id
+ */
+export function operationsGetEndorsingRewardById(
+  id: number,
+  {
+    quote,
+  }: {
+    quote?: Symbols;
+  } = {},
+  opts?: Oazapfts.RequestOpts
+) {
+  return oazapfts.ok(
+    oazapfts.fetchJson<{
+      status: 200;
+      data: EndorsingRewardOperation;
+    }>(
+      `/v1/operations/endorsing_rewards/${id}${QS.query(
+        QS.form({
+          quote,
+        })
+      )}`,
+      {
+        ...opts,
+      }
+    )
+  );
+}
+/**
+ * Get endorsing rewards count
+ */
+export function operationsGetEndorsingRewardsCount(
+  {
+    level,
+    timestamp,
+  }: {
+    level?: Int32Parameter | null;
+    timestamp?: DateTimeParameter | null;
+  } = {},
+  opts?: Oazapfts.RequestOpts
+) {
+  return oazapfts.ok(
+    oazapfts.fetchJson<{
+      status: 200;
+      data: number;
+    }>(
+      `/v1/operations/endorsing_rewards/count${QS.query(
         QS.form({
           ...QueryParamsParsers.queryParameter('level', level),
           ...QueryParamsParsers.queryParameter('timestamp', timestamp),
@@ -5923,6 +6584,7 @@ export function rightsGetCount(
     cycle,
     level,
     slots,
+    round,
     priority,
     status,
   }: {
@@ -5931,6 +6593,7 @@ export function rightsGetCount(
     cycle?: Int32Parameter | null;
     level?: Int32Parameter | null;
     slots?: Int32NullParameter | null;
+    round?: Int32NullParameter | null;
     priority?: Int32NullParameter | null;
     status?: BakingRightStatusParameter | null;
   } = {},
@@ -5948,6 +6611,7 @@ export function rightsGetCount(
           ...QueryParamsParsers.queryParameter('cycle', cycle),
           ...QueryParamsParsers.queryParameter('level', level),
           ...QueryParamsParsers.queryParameter('slots', slots),
+          ...QueryParamsParsers.queryParameter('round', round),
           ...QueryParamsParsers.queryParameter('priority', priority),
           ...QueryParamsParsers.queryParameter('status', status),
         })
@@ -5968,6 +6632,7 @@ export function rightsGet(
     cycle,
     level,
     slots,
+    round,
     priority,
     status,
     select,
@@ -5980,6 +6645,7 @@ export function rightsGet(
     cycle?: Int32Parameter | null;
     level?: Int32Parameter | null;
     slots?: Int32NullParameter | null;
+    round?: Int32NullParameter | null;
     priority?: Int32NullParameter | null;
     status?: BakingRightStatusParameter | null;
     select?: SelectParameter | null;
@@ -6002,6 +6668,7 @@ export function rightsGet(
           ...QueryParamsParsers.queryParameter('cycle', cycle),
           ...QueryParamsParsers.queryParameter('level', level),
           ...QueryParamsParsers.queryParameter('slots', slots),
+          ...QueryParamsParsers.queryParameter('round', round),
           ...QueryParamsParsers.queryParameter('priority', priority),
           ...QueryParamsParsers.queryParameter('status', status),
           ...QueryParamsParsers.queryParameter('select', select),
@@ -6214,6 +6881,481 @@ export function statisticsGetCycles(
       `/v1/statistics/current${QS.query(
         QS.form({
           quote,
+          ...QueryParamsParsers.queryParameter('select', select),
+        })
+      )}`,
+      {
+        ...opts,
+      }
+    )
+  );
+}
+/**
+ * Get tokens count
+ */
+export function tokensGetTokensCount(
+  {
+    id,
+    contract,
+    tokenId,
+    standard,
+    firstLevel,
+    firstTime,
+    lastLevel,
+    lastTime,
+    metadata,
+  }: {
+    id?: Int32Parameter | null;
+    contract?: AccountParameter | null;
+    tokenId?: NatParameter | null;
+    standard?: TokenStandardParameter | null;
+    firstLevel?: Int32Parameter | null;
+    firstTime?: TimestampParameter | null;
+    lastLevel?: Int32Parameter | null;
+    lastTime?: TimestampParameter | null;
+    metadata?: JsonParameter | null;
+  } = {},
+  opts?: Oazapfts.RequestOpts
+) {
+  return oazapfts.ok(
+    oazapfts.fetchJson<{
+      status: 200;
+      data: number;
+    }>(
+      `/v1/tokens/count${QS.query(
+        QS.form({
+          ...QueryParamsParsers.queryParameter('id', id),
+          ...QueryParamsParsers.queryParameter('contract', contract),
+          ...QueryParamsParsers.queryParameter('tokenId', tokenId),
+          ...QueryParamsParsers.queryParameter('standard', standard),
+          ...QueryParamsParsers.queryParameter('firstLevel', firstLevel),
+          ...QueryParamsParsers.queryParameter('firstTime', firstTime),
+          ...QueryParamsParsers.queryParameter('lastLevel', lastLevel),
+          ...QueryParamsParsers.queryParameter('lastTime', lastTime),
+          ...QueryParamsParsers.jsonParameter('metadata', metadata),
+        })
+      )}`,
+      {
+        ...opts,
+      }
+    )
+  );
+}
+/**
+ * Get tokens
+ */
+export function tokensGetTokens(
+  {
+    id,
+    contract,
+    tokenId,
+    standard,
+    firstLevel,
+    firstTime,
+    lastLevel,
+    lastTime,
+    metadata,
+    sort,
+    offset,
+    limit,
+    select,
+  }: {
+    id?: Int32Parameter | null;
+    contract?: AccountParameter | null;
+    tokenId?: NatParameter | null;
+    standard?: TokenStandardParameter | null;
+    firstLevel?: Int32Parameter | null;
+    firstTime?: TimestampParameter | null;
+    lastLevel?: Int32Parameter | null;
+    lastTime?: TimestampParameter | null;
+    metadata?: JsonParameter | null;
+    sort?: SortParameter | null;
+    offset?: OffsetParameter | null;
+    limit?: number;
+    select?: SelectionParameter | null;
+  } = {},
+  opts?: Oazapfts.RequestOpts
+) {
+  return oazapfts.ok(
+    oazapfts.fetchJson<{
+      status: 200;
+      data: Token[];
+    }>(
+      `/v1/tokens${QS.query(
+        QS.form({
+          limit,
+          ...QueryParamsParsers.queryParameter('id', id),
+          ...QueryParamsParsers.queryParameter('contract', contract),
+          ...QueryParamsParsers.queryParameter('tokenId', tokenId),
+          ...QueryParamsParsers.queryParameter('standard', standard),
+          ...QueryParamsParsers.queryParameter('firstLevel', firstLevel),
+          ...QueryParamsParsers.queryParameter('firstTime', firstTime),
+          ...QueryParamsParsers.queryParameter('lastLevel', lastLevel),
+          ...QueryParamsParsers.queryParameter('lastTime', lastTime),
+          ...QueryParamsParsers.jsonParameter('metadata', metadata),
+          ...QueryParamsParsers.queryParameter('sort', sort),
+          ...QueryParamsParsers.queryParameter('offset', offset),
+          ...QueryParamsParsers.queryParameter('select', select),
+        })
+      )}`,
+      {
+        ...opts,
+      }
+    )
+  );
+}
+/**
+ * Get token balances count
+ */
+export function tokensGetTokenBalancesCount(
+  {
+    id,
+    account,
+    tokenId,
+    tokenContract,
+    tokenTokenId,
+    tokenStandard,
+    tokenMetadata,
+    tokenHasFilters,
+    balance,
+    firstLevel,
+    firstTime,
+    lastLevel,
+    lastTime,
+  }: {
+    id?: Int32Parameter | null;
+    account?: AccountParameter | null;
+    tokenId?: Int32Parameter | null;
+    tokenContract?: AccountParameter | null;
+    tokenTokenId?: NatParameter | null;
+    tokenStandard?: TokenStandardParameter | null;
+    tokenMetadata?: JsonParameter | null;
+    tokenHasFilters?: boolean;
+    balance?: NatParameter | null;
+    firstLevel?: Int32Parameter | null;
+    firstTime?: TimestampParameter | null;
+    lastLevel?: Int32Parameter | null;
+    lastTime?: TimestampParameter | null;
+  } = {},
+  opts?: Oazapfts.RequestOpts
+) {
+  return oazapfts.ok(
+    oazapfts.fetchJson<{
+      status: 200;
+      data: number;
+    }>(
+      `/v1/tokens/balances/count${QS.query(
+        QS.form({
+          'token.HasFilters': tokenHasFilters,
+          ...QueryParamsParsers.queryParameter('id', id),
+          ...QueryParamsParsers.queryParameter('account', account),
+          ...QueryParamsParsers.queryParameter('token.id', tokenId),
+          ...QueryParamsParsers.queryParameter('token.contract', tokenContract),
+          ...QueryParamsParsers.queryParameter('token.tokenId', tokenTokenId),
+          ...QueryParamsParsers.queryParameter('token.standard', tokenStandard),
+          ...QueryParamsParsers.jsonParameter('token.metadata', tokenMetadata),
+          ...QueryParamsParsers.queryParameter('balance', balance),
+          ...QueryParamsParsers.queryParameter('firstLevel', firstLevel),
+          ...QueryParamsParsers.queryParameter('firstTime', firstTime),
+          ...QueryParamsParsers.queryParameter('lastLevel', lastLevel),
+          ...QueryParamsParsers.queryParameter('lastTime', lastTime),
+        })
+      )}`,
+      {
+        ...opts,
+      }
+    )
+  );
+}
+/**
+ * Get token balances
+ */
+export function tokensGetTokenBalances(
+  {
+    id,
+    account,
+    tokenId,
+    tokenContract,
+    tokenTokenId,
+    tokenStandard,
+    tokenMetadata,
+    tokenHasFilters,
+    balance,
+    firstLevel,
+    firstTime,
+    lastLevel,
+    lastTime,
+    sort,
+    offset,
+    limit,
+    select,
+  }: {
+    id?: Int32Parameter | null;
+    account?: AccountParameter | null;
+    tokenId?: Int32Parameter | null;
+    tokenContract?: AccountParameter | null;
+    tokenTokenId?: NatParameter | null;
+    tokenStandard?: TokenStandardParameter | null;
+    tokenMetadata?: JsonParameter | null;
+    tokenHasFilters?: boolean;
+    balance?: NatParameter | null;
+    firstLevel?: Int32Parameter | null;
+    firstTime?: TimestampParameter | null;
+    lastLevel?: Int32Parameter | null;
+    lastTime?: TimestampParameter | null;
+    sort?: SortParameter | null;
+    offset?: OffsetParameter | null;
+    limit?: number;
+    select?: SelectionParameter | null;
+  } = {},
+  opts?: Oazapfts.RequestOpts
+) {
+  return oazapfts.ok(
+    oazapfts.fetchJson<{
+      status: 200;
+      data: TokenBalance[];
+    }>(
+      `/v1/tokens/balances${QS.query(
+        QS.form({
+          'token.HasFilters': tokenHasFilters,
+          limit,
+          ...QueryParamsParsers.queryParameter('id', id),
+          ...QueryParamsParsers.queryParameter('account', account),
+          ...QueryParamsParsers.queryParameter('token.id', tokenId),
+          ...QueryParamsParsers.queryParameter('token.contract', tokenContract),
+          ...QueryParamsParsers.queryParameter('token.tokenId', tokenTokenId),
+          ...QueryParamsParsers.queryParameter('token.standard', tokenStandard),
+          ...QueryParamsParsers.jsonParameter('token.metadata', tokenMetadata),
+          ...QueryParamsParsers.queryParameter('balance', balance),
+          ...QueryParamsParsers.queryParameter('firstLevel', firstLevel),
+          ...QueryParamsParsers.queryParameter('firstTime', firstTime),
+          ...QueryParamsParsers.queryParameter('lastLevel', lastLevel),
+          ...QueryParamsParsers.queryParameter('lastTime', lastTime),
+          ...QueryParamsParsers.queryParameter('sort', sort),
+          ...QueryParamsParsers.queryParameter('offset', offset),
+          ...QueryParamsParsers.queryParameter('select', select),
+        })
+      )}`,
+      {
+        ...opts,
+      }
+    )
+  );
+}
+/**
+ * Get token transfers count
+ */
+export function tokensGetTokenTransfersCount(
+  {
+    id,
+    level,
+    timestamp,
+    tokenId,
+    tokenContract,
+    tokenTokenId,
+    tokenStandard,
+    tokenMetadata,
+    tokenHasFilters,
+    anyof,
+    from,
+    to,
+    amount,
+    transactionId,
+    originationId,
+    migrationId,
+  }: {
+    id?: Int32Parameter | null;
+    level?: Int32Parameter | null;
+    timestamp?: TimestampParameter | null;
+    tokenId?: Int32Parameter | null;
+    tokenContract?: AccountParameter | null;
+    tokenTokenId?: NatParameter | null;
+    tokenStandard?: TokenStandardParameter | null;
+    tokenMetadata?: JsonParameter | null;
+    tokenHasFilters?: boolean;
+    anyof?: {
+      value: string | null;
+      fields: ('from' | 'to')[];
+    };
+    from?: AccountParameter | null;
+    to?: AccountParameter | null;
+    amount?: NatParameter | null;
+    transactionId?: Int32NullParameter | null;
+    originationId?: Int32NullParameter | null;
+    migrationId?: Int32NullParameter | null;
+  } = {},
+  opts?: Oazapfts.RequestOpts
+) {
+  return oazapfts.ok(
+    oazapfts.fetchJson<{
+      status: 200;
+      data: number;
+    }>(
+      `/v1/tokens/transfers/count${QS.query(
+        QS.form({
+          'token.HasFilters': tokenHasFilters,
+          ...QueryParamsParsers.queryParameter('id', id),
+          ...QueryParamsParsers.queryParameter('level', level),
+          ...QueryParamsParsers.queryParameter('timestamp', timestamp),
+          ...QueryParamsParsers.queryParameter('token.id', tokenId),
+          ...QueryParamsParsers.queryParameter('token.contract', tokenContract),
+          ...QueryParamsParsers.queryParameter('token.tokenId', tokenTokenId),
+          ...QueryParamsParsers.queryParameter('token.standard', tokenStandard),
+          ...QueryParamsParsers.jsonParameter('token.metadata', tokenMetadata),
+          ...QueryParamsParsers.anyofParameter('anyof', anyof),
+          ...QueryParamsParsers.queryParameter('from', from),
+          ...QueryParamsParsers.queryParameter('to', to),
+          ...QueryParamsParsers.queryParameter('amount', amount),
+          ...QueryParamsParsers.queryParameter('transactionId', transactionId),
+          ...QueryParamsParsers.queryParameter('originationId', originationId),
+          ...QueryParamsParsers.queryParameter('migrationId', migrationId),
+        })
+      )}`,
+      {
+        ...opts,
+      }
+    )
+  );
+}
+/**
+ * Get token transfers
+ */
+export function tokensGetTokenTransfers(
+  {
+    id,
+    level,
+    timestamp,
+    tokenId,
+    tokenContract,
+    tokenTokenId,
+    tokenStandard,
+    tokenMetadata,
+    tokenHasFilters,
+    anyof,
+    from,
+    to,
+    amount,
+    transactionId,
+    originationId,
+    migrationId,
+    sort,
+    offset,
+    limit,
+    select,
+  }: {
+    id?: Int32Parameter | null;
+    level?: Int32Parameter | null;
+    timestamp?: TimestampParameter | null;
+    tokenId?: Int32Parameter | null;
+    tokenContract?: AccountParameter | null;
+    tokenTokenId?: NatParameter | null;
+    tokenStandard?: TokenStandardParameter | null;
+    tokenMetadata?: JsonParameter | null;
+    tokenHasFilters?: boolean;
+    anyof?: {
+      value: string | null;
+      fields: ('from' | 'to')[];
+    };
+    from?: AccountParameter | null;
+    to?: AccountParameter | null;
+    amount?: NatParameter | null;
+    transactionId?: Int32NullParameter | null;
+    originationId?: Int32NullParameter | null;
+    migrationId?: Int32NullParameter | null;
+    sort?: SortParameter | null;
+    offset?: OffsetParameter | null;
+    limit?: number;
+    select?: SelectionParameter | null;
+  } = {},
+  opts?: Oazapfts.RequestOpts
+) {
+  return oazapfts.ok(
+    oazapfts.fetchJson<{
+      status: 200;
+      data: TokenTransfer[];
+    }>(
+      `/v1/tokens/transfers${QS.query(
+        QS.form({
+          'token.HasFilters': tokenHasFilters,
+          limit,
+          ...QueryParamsParsers.queryParameter('id', id),
+          ...QueryParamsParsers.queryParameter('level', level),
+          ...QueryParamsParsers.queryParameter('timestamp', timestamp),
+          ...QueryParamsParsers.queryParameter('token.id', tokenId),
+          ...QueryParamsParsers.queryParameter('token.contract', tokenContract),
+          ...QueryParamsParsers.queryParameter('token.tokenId', tokenTokenId),
+          ...QueryParamsParsers.queryParameter('token.standard', tokenStandard),
+          ...QueryParamsParsers.jsonParameter('token.metadata', tokenMetadata),
+          ...QueryParamsParsers.anyofParameter('anyof', anyof),
+          ...QueryParamsParsers.queryParameter('from', from),
+          ...QueryParamsParsers.queryParameter('to', to),
+          ...QueryParamsParsers.queryParameter('amount', amount),
+          ...QueryParamsParsers.queryParameter('transactionId', transactionId),
+          ...QueryParamsParsers.queryParameter('originationId', originationId),
+          ...QueryParamsParsers.queryParameter('migrationId', migrationId),
+          ...QueryParamsParsers.queryParameter('sort', sort),
+          ...QueryParamsParsers.queryParameter('offset', offset),
+          ...QueryParamsParsers.queryParameter('select', select),
+        })
+      )}`,
+      {
+        ...opts,
+      }
+    )
+  );
+}
+/**
+ * Get historical token balances
+ */
+export function tokensGetTokenBalances2(
+  level: number,
+  {
+    account,
+    tokenId,
+    tokenContract,
+    tokenTokenId,
+    tokenStandard,
+    tokenMetadata,
+    tokenHasFilters,
+    balance,
+    sort,
+    offset,
+    limit,
+    select,
+  }: {
+    account?: AccountParameter | null;
+    tokenId?: Int32Parameter | null;
+    tokenContract?: AccountParameter | null;
+    tokenTokenId?: NatParameter | null;
+    tokenStandard?: TokenStandardParameter | null;
+    tokenMetadata?: JsonParameter | null;
+    tokenHasFilters?: boolean;
+    balance?: NatParameter | null;
+    sort?: SortParameter | null;
+    offset?: OffsetParameter | null;
+    limit?: number;
+    select?: SelectionParameter | null;
+  } = {},
+  opts?: Oazapfts.RequestOpts
+) {
+  return oazapfts.ok(
+    oazapfts.fetchJson<{
+      status: 200;
+      data: TokenBalanceShort[];
+    }>(
+      `/v1/tokens/historical_balances/${level}${QS.query(
+        QS.form({
+          'token.HasFilters': tokenHasFilters,
+          limit,
+          ...QueryParamsParsers.queryParameter('account', account),
+          ...QueryParamsParsers.queryParameter('token.id', tokenId),
+          ...QueryParamsParsers.queryParameter('token.contract', tokenContract),
+          ...QueryParamsParsers.queryParameter('token.tokenId', tokenTokenId),
+          ...QueryParamsParsers.queryParameter('token.standard', tokenStandard),
+          ...QueryParamsParsers.jsonParameter('token.metadata', tokenMetadata),
+          ...QueryParamsParsers.queryParameter('balance', balance),
+          ...QueryParamsParsers.queryParameter('sort', sort),
+          ...QueryParamsParsers.queryParameter('offset', offset),
           ...QueryParamsParsers.queryParameter('select', select),
         })
       )}`,
