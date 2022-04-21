@@ -10,6 +10,8 @@ npm i @tzkt/sdk-api
 
 ## Use
 
+Simplest example of getting double baking operations, accused of being such by a certain address.
+
 ```ts
 import { operationsGetDoubleBaking } from '@tzkt/sdk-api'
 
@@ -19,9 +21,6 @@ await operationsGetDoubleBaking(
     accuser: {
       in: ['tz3VEZ4k6a4Wx42iyev6i2aVAptTRLEAivNN']
     }
-  },
-  {
-    baseUrl: 'https://api.tzkt.io'
   }
 )
 ```
