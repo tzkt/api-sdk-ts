@@ -52,6 +52,6 @@ npm run fix
 - Publish this package (and other packages in this monorepo)
 
 ```bash
-lerna build
-lerna publish
+npx lerna build
+npx lerna publish
 ```
