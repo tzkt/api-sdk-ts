@@ -8,9 +8,11 @@ jobs:
   release:
     name: Publish packages to gh registry
     runs-on: ubuntu-latest
+    env:
+      NPM_AUTH_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
     strategy:
       matrix:
-        node-version: [12.x]
+        node-version: [16.10]
     steps:
       - name: Git Checkout
         uses: actions/checkout@master
