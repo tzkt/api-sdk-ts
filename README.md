@@ -1,5 +1,7 @@
 # TzKt API SDK written in Typescript
 
+[![lerna](https://img.shields.io/badge/maintained%20with-lerna-cc00ff.svg)](https://lerna.js.org/)
+
 Not written, but rather generated using [@tzkt/oazapfts](https://github.com/tzkt/oazapfts).
 
 ## Install
