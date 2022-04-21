@@ -7,13 +7,13 @@ Not written, but rather generated using [@tzkt/oazapfts](https://github.com/tzkt
 ## Install
 
 ```bash
-npm i @tzkt/api-sdk-ts
+npm i @tzkt/sdk-api
 ```
 
 ## Use
 
 ```ts
-import { operationsGetDoubleBaking } from '@tzkt/api-sdk-ts'
+import { operationsGetDoubleBaking } from '@tzkt/sdk-api'
 
 await operationsGetDoubleBaking(
   {
