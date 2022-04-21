@@ -1,6 +1,7 @@
-# Changelog
+# Change Log
 
-All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
+All notable changes to this project will be documented in this file.
+See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
 ### [0.0.10](https://github.com/tzkt/api-sdk-ts/compare/v0.0.9...v0.0.10) (2022-04-14)
 
