@@ -46,12 +46,8 @@ npm run generate
 npm run fix
 ```
 
-### From the root of this repo
+### Building and publishing
 
-- Build this package (and other packages in this monorepo)
-- Publish this package (and other packages in this monorepo)
+You may build this package for local testing with simple `npm run build`. For publishing and deploying to production all builds should be done via Lerna.
 
-```bash
-npx lerna build
-npx lerna publish
-```
+After you've committed your changes and ready to publish, please follow [Build and publish](/README.md#overriding-the-defaults) instructions in the root of this repository.
