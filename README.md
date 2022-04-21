@@ -1,51 +1,48 @@
 # TzKt API SDK written in Typescript
 
-Not written, but rather generated using [@tzkt/oazapfts](https://github.com/tzkt/oazapfts).
+[![lerna](https://img.shields.io/badge/maintained%20with-lerna-cc00ff.svg)](https://lerna.js.org/)
+
+A collection of packages simplifying working with TzKT APIs.
+
+Please note, this is a monorepository. Documentation for packages provided by it may be found in readme files in respective project folders.
 
 ## Install
 
-```bash
-npm i @tzkt/api-sdk-ts
-```
-
-## Use
-
-```ts
-import { operationsGetDoubleBaking } from '@tzkt/api-sdk-ts'
-
-await operationsGetDoubleBaking(
-  {
-    quote: 'Btc',
-    accuser: {
-      in: ['tz3VEZ4k6a4Wx42iyev6i2aVAptTRLEAivNN']
-    }
-  },
-  {
-    baseUrl: 'https://api.tzkt.io'
-  }
-)
-```
-
-## With node.js or a custom fetch library
-
-Please refer to the [documentation](https://github.com/cellular/oazapfts#overriding-the-defaults) of the original codegen library.
-
-## Update & publish
-
-- Get the latest swagger file
-- Use it to re-generate APIs
-- Fix linting and prettify
-- Build
+Installing any package from this repository for use in you project is as simple as running
 
 ```bash
-npm run sync-swagger
-npm run generate
-npm run fix
-npm run build
+npm i @tzkt/<package_name>
 ```
 
-To update package version use
+| Name                | Description                      | NPM                                                            |
+| ------------------- | -------------------------------- | -------------------------------------------------------------- |
+| [@tzkt/sdk-api](https://github.com/tzkt/api-sdk-ts/tree/master/packages/sdk-api)     | Wrappers for TzKT API endpoints written in TS |  |
+
+## Contributing and publishing
+
+This repository and packages inside of it are managed by Lerna. The preferred package manager is npm. That said - you will need at least `node > 14` and `npm > 6` to proceed.
+
+### Development and update
+
+Documentation on development and updating of packages may be found in the respective folders. Below are some bootstrapping commands that you first need to run in the root of this repository.
+
+Install dependencies (this will install Lerna and any shared dependencies).
 
 ```bash
-npm run version
+npm install
+```
+
+Bootstrap it all together - installs local dependencies and ties it all up.
+
+```bash
+npx lerna bootstrap
+```
+
+### Build and publish
+
+After you're done with making your changes, you will need to build packages in this repo and then publish.
+
+```bash
+npx lerna run build
+npx lerna publish
 ```

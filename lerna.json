@@ -1,0 +1,16 @@
+{
+  "packages": [
+    "packages/*"
+  ],
+  "version": "0.1.2",
+  "conventionalCommits": true,
+  "changelogPreset": "conventionalcommits",
+  "command": {
+    "version": {
+      "message": "chore(release): %v"
+    },
+    "publish": {
+      "registry": "https://npm.pkg.github.com"
+    }
+  }
+}
