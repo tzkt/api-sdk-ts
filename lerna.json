@@ -3,5 +3,10 @@
     "packages/*"
   ],
   "version": "0.0.10",
-  "changelogPreset": "conventionalcommits"
+  "changelogPreset": "conventionalcommits",
+  "command": {
+    "version": {
+      "message": "chore(release): %v"
+    }
+  }
 }
