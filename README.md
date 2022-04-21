@@ -16,7 +16,7 @@ npm i @tzkt/<package_name>
 
 | Name                | Description                      | NPM                                                            |
 | ------------------- | -------------------------------- | -------------------------------------------------------------- |
-| [@tzkt/sdk-api](https://github.com/tzkt/api-sdk-ts/tree/master/packages/sdk-api)     | Wrappers for TzKT API endpoints written in TS |  |
+| [@tzkt/sdk-api](https://github.com/tzkt/api-sdk-ts/tree/main/packages/sdk-api)     | Wrappers for TzKT API endpoints written in TS |  |
 
 ## Contributing and publishing
 
