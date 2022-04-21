@@ -3,6 +3,7 @@
     "packages/*"
   ],
   "version": "0.0.10",
+  "conventionalCommits": true,
   "changelogPreset": "conventionalcommits",
   "command": {
     "version": {
