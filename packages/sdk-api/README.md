@@ -50,4 +50,4 @@ npm run fix
 
 You may build this package for local testing with simple `npm run build`. For publishing and deploying to production all builds should be done via Lerna.
 
-After you've committed your changes and ready to publish, please follow [Build and publish](/README.md#overriding-the-defaults) instructions in the root of this repository.
+After you've committed your changes and ready to publish, please follow [Build and publish](/README.md#build-and-publish) instructions in the root of this repository.
