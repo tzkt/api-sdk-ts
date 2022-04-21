@@ -10,6 +10,8 @@ npm i @tzkt/sdk-api
 
 ## Use
 
+### Simplest request
+
 Simplest example of getting double baking operations, accused of being such by a certain address.
 
 ```ts
@@ -24,6 +26,28 @@ await operationsGetDoubleBaking(
   }
 )
 ```
+
+### Overriding base API URL
+
+You may override base URL used by the package in the following manner. This may come useful should you want to make requests to a test network or to your custom server.
+
+```ts
+import * as api from "@tzkt/sdk-api";
+
+api.defaults.baseUrl = "https://api.ithacanet.tzkt.io/";
+```
+
+In case you need to override request headers, this is also possible.
+
+```ts
+import * as api from "@tzkt/sdk-api";
+
+api.defaults.headers = {
+  access_token: "secret",
+};
+```
+
+Please refer to the [original documentation](https://github.com/cellular/oazapfts#overriding-the-defaults) for more details on how to configure defaults.
 
 ## With node.js or a custom fetch library
 
