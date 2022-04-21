@@ -8,7 +8,7 @@
   "repository": "git://github.com/tzkt/api-sdk-ts.git",
   "publishConfig": {
     "access": "public",
-    "registry": "https://npm.pkg.github.com/@tzkt"
+    "registry": "https://npm.pkg.github.com"
   },
   "license": "MIT",
   "keywords": [],
