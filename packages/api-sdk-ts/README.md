@@ -32,20 +32,26 @@ Please refer to the [documentation](https://github.com/cellular/oazapfts#overrid
 
 ## Update & publish
 
+This package is managed by Lerna. All publishing and dep management should be done using it. Only regeneration of APIs is kept local (for now).
+
+### Inside this package
+
 - Get the latest swagger file
 - Use it to re-generate APIs
 - Fix linting and prettify
-- Build
 
 ```bash
 npm run sync-swagger
 npm run generate
 npm run fix
-npm run build
 ```
 
-To update package version use
+### From the root of this repo
+
+- Build this package (and other packages in this monorepo)
+- Publish this package (and other packages in this monorepo)
 
 ```bash
-npm run version
+lerna build
+lerna publish
 ```
