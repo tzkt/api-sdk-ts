@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+### [0.1.2](https://github.com/tzkt/api-sdk-ts/compare/v0.1.1...v0.1.2) (2022-04-21)
+
+
+### Bug Fixes
+
+* **readme:** use local lerna package for scripts ([ca0da3d](https://github.com/tzkt/api-sdk-ts/commit/ca0da3dd39e8f16bf7621b5b92231767a599e38a))
+
+
+
 ### [0.1.1](https://github.com/tzkt/api-sdk-ts/compare/v0.1.0...v0.1.1) (2022-04-21)
 
 **Note:** Version bump only for package root
