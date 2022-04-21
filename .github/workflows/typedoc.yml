@@ -1,12 +1,12 @@
-name: Release
+name: Typedoc
 on:
   push:
-#    tags:
-#      - '*.*.*'
+#    branches:
+#      - master
 
 jobs:
   release:
-    name: Publish packages to gh registry
+    name: Generate TS docs and publish to ghp
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -29,14 +29,12 @@ jobs:
       - name: Bootstrap learna
         run: npx lerna bootstrap
 
-      - name: Build packages
-        run: npx lerna run build
+      - name: Generate docs
+        run: npx typedoc packages/ --exclude **/*.spec.ts --out typedoc
 
-      - name: Publish packages
-        run: npx lerna publish --no-git-tag-version --no-push --dist-tag beta
-
-      - name: Build github release
-        uses: "marvinpinto/action-automatic-releases@latest"
+      - name: Deploy to GH Pages
+        uses: peaceiris/actions-gh-pages@v3
         with:
-          repo_token: "${{ secrets.GITHUB_TOKEN }}"
-          prerelease: false
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./typedoc
+          #cname: sdk.tzkt.io
