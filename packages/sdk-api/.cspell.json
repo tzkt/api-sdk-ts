@@ -1,5 +1,5 @@
 {
-  "version": "0.1",
+  "version": "0.2",
   "$schema": "https://raw.githubusercontent.com/streetsidesoftware/cspell/master/cspell.schema.json",
   "language": "en",
   "words": [
@@ -37,7 +37,12 @@
     "tzkt",
     "untracked",
     "upvoted",
-    "upvotes"
+    "upvotes",
+    "preendorsing",
+    "entrypoint",
+    "anyof",
+    "preendorsement",
+    "preendorsements"
   ],
   "flagWords": [],
   "ignorePaths": [
@@ -47,5 +52,9 @@
     "tsconfig.json",
     "node_modules/**",
     "swagger.json"
+  ],
+  "ignoreRegExpList": [
+    "(tz|KT)[1-9A-HJ-NP-Za-km-z]{34}",
+    "o[1-9A-HJ-NP-Za-km-z]{50}"
   ]
 }

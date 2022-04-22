@@ -14,7 +14,9 @@ const jsonParameter: QueryParamParser = (paramName, p?) => {
 
     const { jsonPath, jsonValue } = v;
     if (jsonValue === undefined || jsonValue === null)
-      throw new Error(`Expected jsonValue in ${paramName} -> ${k}, found: ${jsonValue}`);
+      throw new Error(
+        `Expected jsonValue in ${paramName} -> ${k}, found: ${jsonValue}`
+      );
 
     // k is top eq, ne, in, etc.
     const parameterPathParts = [paramName, jsonPath, k];

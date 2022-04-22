@@ -1,0 +1,40 @@
+name: Typedoc
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  release:
+    name: Generate TS docs and publish to ghp
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [16]
+    steps:
+      - name: Git Checkout
+        uses: actions/checkout@master
+
+      - name: Setup Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v2
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - name: Setup npm
+        run: npm set "//npm.pkg.github.com/:_authToken=${{ secrets.GITHUB_TOKEN }}"
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Bootstrap lerna
+        run: npm run bootstrap
+
+      - name: Generate docs
+        run: npx typedoc
+
+      - name: Deploy to GH Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./build/typedoc
+          cname: sdk.tzkt.io
