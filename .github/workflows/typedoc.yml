@@ -27,7 +27,7 @@ jobs:
         run: npm install
 
       - name: Bootstrap lerna
-        run: npx lerna bootstrap
+        run: npm run bootstrap
 
       - name: Generate docs
         run: npx typedoc

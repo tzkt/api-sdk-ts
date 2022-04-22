@@ -32,10 +32,10 @@ Install dependencies (this will install Lerna and any shared dependencies).
 npm install
 ```
 
-Bootstrap it all together - installs local dependencies and ties it all up.
+Bootstrap it all together - installs local dependencies and ties it all up. Under the hood it uses `lerna bootstrap` with strict hoisting flags passed to it.
 
 ```bash
-npx lerna bootstrap
+npm run bootstrap
 ```
 
 ### Build and publish
