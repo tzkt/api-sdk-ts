@@ -24,7 +24,7 @@ jobs:
       - name: Install dependencies
         run: npm install
         
-      - name: Bootstrap learna
+      - name: Bootstrap lerna
         run: npx lerna bootstrap
 
       - name: Run tests
