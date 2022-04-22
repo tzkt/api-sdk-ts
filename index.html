@@ -39,8 +39,8 @@
 <p>Install dependencies (this will install Lerna and any shared dependencies).</p>
 <pre><code class="language-bash"><span class="hl-0">npm install</span>
 </code></pre>
-<p>Bootstrap it all together - installs local dependencies and ties it all up.</p>
-<pre><code class="language-bash"><span class="hl-0">npx lerna bootstrap</span>
+<p>Bootstrap it all together - installs local dependencies and ties it all up. Under the hood it uses <code>lerna bootstrap</code> with strict hoisting flags passed to it.</p>
+<pre><code class="language-bash"><span class="hl-0">npm run bootstrap</span>
 </code></pre>
 
 <a href="#build-and-publish" id="build-and-publish" style="color: inherit; text-decoration: none;">
