@@ -1,8 +1,8 @@
 name: Typedoc
 on:
   push:
-#    branches:
-#      - master
+    branches:
+      - master
 
 jobs:
   release:
@@ -30,11 +30,11 @@ jobs:
         run: npx lerna bootstrap
 
       - name: Generate docs
-        run: npx typedoc packages/ --exclude **/*.spec.ts --out typedoc
+        run: npx typedoc
 
       - name: Deploy to GH Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./typedoc
-          #cname: sdk.tzkt.io
+          publish_dir: ./build/typedoc
+          cname: sdk.tzkt.io

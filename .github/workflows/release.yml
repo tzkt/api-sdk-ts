@@ -1,8 +1,8 @@
 name: Release
 on:
   push:
-#    tags:
-#      - '*.*.*'
+    tags:
+      - 'v*.*.*'
 
 jobs:
   release:
@@ -14,26 +14,6 @@ jobs:
     steps:
       - name: Git Checkout
         uses: actions/checkout@master
-
-      - name: Setup Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v2
-        with:
-          node-version: ${{ matrix.node-version }}
-
-      - name: Setup npm
-        run: npm set "//npm.pkg.github.com/:_authToken=${{ secrets.GITHUB_TOKEN }}"
-
-      - name: Install dependencies
-        run: npm install
-
-      - name: Bootstrap learna
-        run: npx lerna bootstrap
-
-      - name: Build packages
-        run: npx lerna run build
-
-      - name: Publish packages
-        run: npx lerna publish --no-git-tag-version --no-push --dist-tag beta
 
       - name: Build github release
         uses: "marvinpinto/action-automatic-releases@latest"

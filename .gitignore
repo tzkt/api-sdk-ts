@@ -4,3 +4,5 @@ node_modules
 yarn.lock
 .DS_Store
 swagger.json
+*.tsbuildinfo
+build/
