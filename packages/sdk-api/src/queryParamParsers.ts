@@ -12,24 +12,16 @@ const jsonParameter: QueryParamParser = (paramName, p?) => {
       );
     }
 
-    if (!('jsonPath' in v)) {
-      throw new Error(
-        `Expected jsonPath in ${paramName} value to be object, received ${v}`
-      );
-    }
-
-    if (!('jsonValue' in v)) {
-      throw new Error(
-        `Expected jsonValue in ${paramName} value to be object, received ${v}`
-      );
-    }
-
     const { jsonPath, jsonValue } = v;
-    if (!jsonValue)
-      throw new Error(`Expected jsonValue in ${paramName} -> ${k}`);
+    if (jsonValue === undefined || jsonValue === null)
+      throw new Error(`Expected jsonValue in ${paramName} -> ${k}, found: ${jsonValue}`);
 
     // k is top eq, ne, in, etc.
-    const parameterPath = `${paramName}.${jsonPath}.${k}`;
+    const parameterPathParts = [paramName, jsonPath, k];
+
+    const parameterPath = parameterPathParts
+      .filter((p) => p !== undefined)
+      .join('.');
     mainParamsObj[parameterPath] = jsonValue;
   });
 
