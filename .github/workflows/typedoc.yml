@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node-version: [16.10]
+        node-version: [16]
     steps:
       - name: Git Checkout
         uses: actions/checkout@master
