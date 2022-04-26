@@ -6,10 +6,6 @@
   "typings": "build/main/index.d.ts",
   "module": "build/module/index.js",
   "repository": "git://github.com/tzkt/api-sdk-ts.git",
-  "publishConfig": {
-    "access": "public",
-    "registry": "https://npm.pkg.github.com"
-  },
   "license": "MIT",
   "keywords": [],
   "scripts": {
