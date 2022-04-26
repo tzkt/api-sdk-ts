@@ -23,6 +23,8 @@ jobs:
         
       - name: Bootstrap lerna
         run: npm run bootstrap
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Run tests
         run: npx lerna run test
