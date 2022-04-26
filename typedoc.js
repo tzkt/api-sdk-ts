@@ -1,6 +1,6 @@
 module.exports = {
     out: 'build/typedoc',
-    readme: './README.md',
+    theme: 'category',
     entryPoints: [
       './packages/sdk-api/src/index.ts'
     ],
