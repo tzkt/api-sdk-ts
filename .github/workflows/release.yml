@@ -33,7 +33,7 @@ jobs:
         run: npx lerna run build
 
       - name: Setup npm
-        run: npm set "//npmjs.com/:_authToken=${{ secrets.NPM_AUTH_TOKEN }}"
+        run: npm set "//registry.npmjs.org/:_authToken=${{ secrets.NPM_AUTH_TOKEN }}"
 
       - name: Publish to npmjs
         run: npx lerna publish from-package --yes --registry https://registry.npmjs.org/ --loglevel debug
