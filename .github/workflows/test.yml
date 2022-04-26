@@ -18,9 +18,6 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
 
-      - name: Setup npm
-        run: npm set "//npm.pkg.github.com/:_authToken=${{ secrets.GITHUB_TOKEN }}"
-
       - name: Install dependencies
         run: npm install
         

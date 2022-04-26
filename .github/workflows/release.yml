@@ -12,6 +12,26 @@ jobs:
       - name: Git Checkout
         uses: actions/checkout@master
 
+      - name: Setup Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v2
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - name: Install dependencies
+        run: npm install
+        
+      - name: Bootstrap lerna
+        run: npm run bootstrap
+
+      - name: Build packages
+        run: npx lerna run build
+
+      - name: Setup npm
+        run: npm set "//npmjs.com/:_authToken=${{ secrets.NPM_AUTH_TOKEN }}"
+
+      - name: Publish to npmjs
+        run: npx lerna publish from-package --yes --registry https://npmjs.com
+
       - name: Build github release
         uses: "marvinpinto/action-automatic-releases@latest"
         with:
