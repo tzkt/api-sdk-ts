@@ -20,13 +20,14 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
 
+      - name: Setup npm
+        run: npm set "//npm.pkg.github.com/:_authToken=${{ secrets.GITHUB_TOKEN }}"
+
       - name: Install dependencies
         run: npm install
 
       - name: Bootstrap lerna
         run: npm run bootstrap
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Generate docs
         run: npx typedoc
