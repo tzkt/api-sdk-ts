@@ -24,7 +24,7 @@ jobs:
         run: npm set "//npm.pkg.github.com/:_authToken=${{ secrets.GITHUB_TOKEN }}"
 
       - name: Install dependencies
-        run: npm install --no-package-lock
+        run: npm install
         
       - name: Bootstrap lerna
         run: npm run bootstrap
@@ -36,7 +36,7 @@ jobs:
         run: npm set "//npmjs.com/:_authToken=${{ secrets.NPM_AUTH_TOKEN }}"
 
       - name: Publish to npmjs
-        run: npx lerna publish from-package --yes --registry https://npmjs.com
+        run: npx lerna publish from-package --yes --registry https://npmjs.com --loglevel debug
 
       - name: Build github release
         uses: "marvinpinto/action-automatic-releases@latest"
