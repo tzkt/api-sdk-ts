@@ -24,7 +24,7 @@ jobs:
         run: npm set "//npm.pkg.github.com/:_authToken=${{ secrets.GITHUB_TOKEN }}"
 
       - name: Install dependencies
-        run: npm install
+        run: npm install --no-package-lock
         
       - name: Bootstrap lerna
         run: npm run bootstrap
