@@ -4,6 +4,8 @@
   "language": "en",
   "words": [
     "annots",
+    "anyof",
+    "Atomex",
     "bigmap",
     "bigmaps",
     "bitauth",
@@ -17,6 +19,7 @@
     "Delegators",
     "dependabot",
     "editorconfig",
+    "entrypoint",
     "entrypoints",
     "esnext",
     "execa",
@@ -26,8 +29,12 @@
     "micheline",
     "mkdir",
     "oazapfts",
+    "OBJKT",
     "openapi",
     "originations",
+    "preendorsement",
+    "preendorsements",
+    "preendorsing",
     "prettierignore",
     "sandboxed",
     "supermajority",
@@ -37,12 +44,7 @@
     "tzkt",
     "untracked",
     "upvoted",
-    "upvotes",
-    "preendorsing",
-    "entrypoint",
-    "anyof",
-    "preendorsement",
-    "preendorsements"
+    "upvotes"
   ],
   "flagWords": [],
   "ignorePaths": [
