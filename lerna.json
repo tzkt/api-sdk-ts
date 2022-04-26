@@ -8,9 +8,6 @@
   "command": {
     "version": {
       "message": "chore(release): %v"
-    },
-    "publish": {
-      "registry": "https://npm.pkg.github.com"
     }
   }
 }
