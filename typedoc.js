@@ -1,8 +1,8 @@
 module.exports = {
     out: 'build/typedoc',
-    theme: 'category',
     entryPoints: [
-      './packages/sdk-api/src/index.ts'
+      './packages/sdk-api/src/index.ts',
+      './packages/sdk-events/src/index.ts'
     ],
     exclude: [
       '**/*.spec.ts',
