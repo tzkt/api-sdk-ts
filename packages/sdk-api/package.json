@@ -85,7 +85,7 @@
     "CHANGELOG.md",
     "LICENSE",
     "README.md",
-    'src'
+    "src"
   ],
   "ava": {
     "failFast": true,
