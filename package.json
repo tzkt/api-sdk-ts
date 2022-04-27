@@ -9,6 +9,7 @@
     "typescript": "^4.6.3"
   },
   "scripts": {
-    "bootstrap": "lerna bootstrap --hoist --strict"
+    "bootstrap": "lerna bootstrap --hoist --strict",
+    "publish": "lerna publish --registry https://npm.pkg.github.com"
   }
 }

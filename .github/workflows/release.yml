@@ -6,11 +6,36 @@ on:
 
 jobs:
   release:
-    name: Publish packages to gh registry
+    name: Publish packages to npmjs
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [16]
     steps:
       - name: Git Checkout
         uses: actions/checkout@master
+
+      - name: Setup Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v2
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - name: Setup npm
+        run: npm set "//npm.pkg.github.com/:_authToken=${{ secrets.GITHUB_TOKEN }}"
+
+      - name: Install dependencies
+        run: npm install --no-package-lock
+        
+      - name: Bootstrap lerna
+        run: npm run bootstrap
+
+      - name: Build packages
+        run: npx lerna run build
+
+      - name: Publish to npmjs
+        run: npx lerna publish from-package --yes --registry https://registry.npmjs.org/ --loglevel debug --no-git-tag-version --no-push
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
 
       - name: Build github release
         uses: "marvinpinto/action-automatic-releases@latest"

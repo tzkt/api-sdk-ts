@@ -44,5 +44,5 @@ After you're done with making your changes, you will need to build packages in t
 
 ```bash
 npx lerna run build
-npx lerna publish
+npx run publish
 ```
