@@ -1,4 +1,5 @@
 import {
+  Account,
   ActivationOperation,
   BakingOperation,
   BallotOperation,
@@ -36,7 +37,10 @@ export interface Event {
 }
 
 export interface Message extends Event {
-  data?: ResponseTypes;
+  data?:
+    | Account
+    | State
+    | Array<Block | TezosOperation | BigMapUpdate | TokenTransfer>;
 }
 
 export type TezosOperation =
@@ -60,6 +64,10 @@ export type TezosOperation =
   | EndorsingRewardOperation
   | BakingOperation;
 
+export interface AccountSubscriptionParameters {
+  addresses?: Array<string>;
+}
+
 export interface OperationSubscriptionParameters {
   address?: string;
   types?: Array<OperationKind>;
@@ -78,35 +86,6 @@ export interface TokenTransferSubscriptionParameters {
   tokenId?: string;
 }
 
-export class BigMapParametersX {
-  constructor(
-    readonly contract?: string,
-    readonly ptr?: number,
-    readonly path?: string,
-    readonly tags?: Array<BigMapTag>
-  ) {}
-
-  public is(update: BigMapUpdate): boolean {
-    if (this.contract) {
-      if (this.contract !== update.contract) {
-        return false;
-      }
-    }
-    if (this.ptr) {
-      if (this.ptr !== update.bigmap) {
-        return false;
-      }
-    }
-    if (this.path) {
-      if (!update.path?.startsWith(this.path)) {
-        return false;
-      }
-    }
-    // TODO: filter by tags
-    return true;
-  }
-}
-
 export interface EventsConfig {
   url: string;
   reconnect?: boolean;
@@ -119,6 +98,7 @@ export enum BIGMAPTAG {
 
 export enum CHANNEL {
   HEAD = 'head',
+  ACCOUNT = 'account',
   BLOCKS = 'blocks',
   OPERATIONS = 'operations',
   BIGMAPS = 'bigmaps',
@@ -127,6 +107,7 @@ export enum CHANNEL {
 
 export enum METHOD {
   HEAD = 'SubscribeToHead',
+  ACCOUNT = 'SubscribeToAccount',
   BLOCKS = 'SubscribeToBlocks',
   OPERATIONS = 'SubscribeToOperations',
   BIGMAPS = 'SubscribeToBigMaps',
@@ -137,6 +118,9 @@ export function channelToMethod(channel: CHANNEL): METHOD {
   switch (channel) {
     case CHANNEL.HEAD: {
       return METHOD.HEAD;
+    }
+    case CHANNEL.ACCOUNT: {
+      return METHOD.ACCOUNT;
     }
     case CHANNEL.BLOCKS: {
       return METHOD.BLOCKS;
@@ -180,11 +164,13 @@ export type OperationKind =
 
 export type ResponseTypes =
   | State
+  | Account
   | Block
   | TezosOperation
   | BigMapUpdate
   | TokenTransfer;
 export type SubscriptionParameters =
+  | AccountSubscriptionParameters
   | OperationSubscriptionParameters
   | BigMapSubscriptionParameters
   | TokenTransferSubscriptionParameters;

@@ -1,24 +1,11 @@
-# vue-mempool-filters
+# Demo: Tezos token transfers subscription
 
-## Project setup
+## Install
 ```
-yarn install
-```
-
-### Compiles and hot-reloads for development
-```
-yarn serve
+npm run install
 ```
 
-### Compiles and minifies for production
+## Run
 ```
-yarn build
+npm run serve
 ```
-
-### Lints and fixes files
-```
-yarn lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).

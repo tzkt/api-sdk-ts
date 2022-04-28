@@ -22,7 +22,7 @@ export {
   EventType,
 } from './types';
 export {
-  State,
+  Account,
   Block,
   BigMapUpdate,
   TokenTransfer,

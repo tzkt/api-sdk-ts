@@ -1,5 +1,6 @@
 import * as signalR from '@microsoft/signalr';
 import {
+  Account,
   ActivationOperation,
   BakingOperation,
   BallotOperation,
@@ -27,6 +28,7 @@ import {
 import Observable from 'zen-observable';
 
 import {
+  AccountSubscriptionParameters,
   BigMapSubscriptionParameters,
   CHANNEL,
   channelToMethod,
@@ -44,6 +46,7 @@ import {
 
 export type StatusObservable = Observable<signalR.HubConnectionState>;
 export type EventObservable = Observable<Event>;
+export type AccountObservable = Observable<SubscriptionMessage<Account>>;
 export type StateObservable = Observable<SubscriptionMessage<State>>;
 export type BlockObservable = Observable<SubscriptionMessage<Block>>;
 export type OperationObservable = Observable<
@@ -89,6 +92,9 @@ export class EventsService {
 
     this.connection.on(CHANNEL.HEAD, (msg) =>
       this.onMessage(CHANNEL.HEAD, msg)
+    );
+    this.connection.on(CHANNEL.ACCOUNT, (msg) =>
+      this.onMessage(CHANNEL.ACCOUNT, msg)
     );
     this.connection.on(CHANNEL.BLOCKS, (msg) =>
       this.onMessage(CHANNEL.BLOCKS, msg)
@@ -208,6 +214,19 @@ export class EventsService {
   }
 
   /*
+   * account
+   */
+  public account(params: AccountSubscriptionParameters): AccountObservable {
+    return new Observable<SubscriptionMessage<Account>>((observer) => {
+      return this.createSubscription<Account>(
+        CHANNEL.ACCOUNT,
+        observer,
+        params
+      );
+    });
+  }
+
+  /*
    * blocks
    */
   public blocks(): BlockObservable {
@@ -281,32 +300,39 @@ export class EventsService {
     };
   }
 
-  private handle(channel: CHANNEL, items: Array<ResponseTypes>, state: number) {
-    items.forEach((item) => {
-      this.subscriptions.forEach((sub) => {
-        if (sub.observer.next && sub.match(channel, item)) {
-          sub.observer.next({
-            data: item,
-            state: state,
-          });
-        }
-      });
-    }, this);
+  private handle(channel: CHANNEL, item: ResponseTypes, state: number) {
+    this.subscriptions.forEach((sub) => {
+      if (sub.observer.next && sub.match(channel, item)) {
+        sub.observer.next({
+          data: item,
+          state: state,
+        });
+      }
+    });
   }
 
   private onMessage(channel: CHANNEL, message: Message) {
     switch (message.type) {
-      case EventType.Init: {
-        this.onEvent(message);
-        break;
-      }
+      case EventType.Init:
+        return this.onEvent(message);
+      case EventType.Reorg:
+        return this.onEvent(message);
       case EventType.Data: {
-        this.handle(channel, [message.data as State], message.state);
-        break;
-      }
-      case EventType.Reorg: {
-        this.onEvent(message);
-        break;
+        switch (channel) {
+          case CHANNEL.HEAD:
+            return this.handle(channel, message.data as State, message.state);
+          case CHANNEL.ACCOUNT:
+            return this.handle(channel, message.data as Account, message.state);
+          default: {
+            const items = message.data as Array<
+              Block | TezosOperation | BigMapUpdate | TokenTransfer
+            >;
+            return items.forEach(
+              (item) => this.handle(channel, item, message.state),
+              this
+            );
+          }
+        }
       }
     }
   }
@@ -329,7 +355,7 @@ export class EventsService {
 }
 
 export interface SubscriptionMessage<Type> {
-  data: Type | null;
+  data: Type;
   state: number;
 }
 
@@ -350,6 +376,11 @@ class Subscription<Type> {
     }
     if (this.params) {
       switch (channel) {
+        case CHANNEL.ACCOUNT:
+          return this.matchAccount(
+            item as Account,
+            this.params as AccountSubscriptionParameters
+          );
         case CHANNEL.OPERATIONS:
           return this.matchOperation(
             item as TezosOperation,
@@ -367,6 +398,14 @@ class Subscription<Type> {
           );
       }
     }
+    return true;
+  }
+
+  private matchAccount(
+    _account: Account,
+    _params: AccountSubscriptionParameters
+  ): boolean {
+    // TODO: Account model either not generated correctly or not valid in the openapi spec
     return true;
   }
 
