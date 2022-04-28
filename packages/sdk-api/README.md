@@ -1,7 +1,7 @@
 # TzKT API SDK
 
 Auto-generated from OpenApi spec using [@tzkt/oazapfts](https://github.com/tzkt/oazapfts).  
-Supports most of the TzKT features including deep fitering and deep sorting.
+Supports most of the TzKT features including deep filtering and deep sorting.
 
 ## Install
 
