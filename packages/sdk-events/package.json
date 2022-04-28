@@ -38,9 +38,7 @@
     "doc:json": "typedoc src/ --exclude **/*.spec.ts --json build/docs/typedoc.json",
     "doc:publish": "gh-pages -m \"[ci skip] Updates\" -d build/docs",
     "reset-hard": "git clean -dfx && git reset --hard && npm i",
-    "prepare-release": "run-s reset-hard test cov:check doc:html version doc:publish",
-    "generate": "oazapfts --optimistic swagger.json src/index.ts",
-    "sync-swagger": "curl -O https://api.tzkt.io/v1/swagger.json"
+    "prepare-release": "run-s reset-hard test cov:check doc:html version doc:publish"
   },
   "engines": {
     "node": ">=14",

@@ -1,45 +1,47 @@
 import * as signalR from "@microsoft/signalr";
-import {
-    EventsConfig,
-    Message,
-    OperationKind,
-    TezosOperation,
-    OperationSubscriptionParameters,
-    BigMapSubscriptionParameters,
-    TokenTransferSubscriptionParameters,
-    SubscriptionParameters,
-    ResponseTypes,
-    CHANNEL,
-    channelToMethod,
-    EventType,
-    Event,
-} from './types';
-import Observable from "zen-observable";
 import { 
-    State, 
-    Block, 
-    BigMapUpdate, 
-    TokenTransfer,
-    ActivationOperation,
-    BallotOperation,
+    ActivationOperation, 
+    BakingOperation, 
+    BallotOperation, 
+    BigMapUpdate,
+    Block,
     DelegationOperation,
     DoubleBakingOperation,
     DoubleEndorsingOperation,
+    DoublePreendorsingOperation,
     EndorsementOperation,
+    EndorsingRewardOperation,
+    MigrationOperation,
     NonceRevelationOperation,
     OriginationOperation,
-    ProposalOperation,
-    RevealOperation,
-    TransactionOperation,
-    RegisterConstantOperation,
     PreendorsementOperation,
-    DoublePreendorsingOperation,
+    ProposalOperation,
+    RegisterConstantOperation,
+    RevealOperation,
     RevelationPenaltyOperation,
     SetDepositsLimitOperation,
-    MigrationOperation,
-    EndorsingRewardOperation,
-    BakingOperation
+    State,
+    TokenTransfer,
+    TransactionOperation
 } from '@tzkt/sdk-api';
+import Observable from "zen-observable";
+
+import {
+    BigMapSubscriptionParameters,
+    CHANNEL,
+    channelToMethod,
+    Event,
+    EventsConfig,
+    EventType,
+    Message,
+    OperationKind,
+    OperationSubscriptionParameters,
+    ResponseTypes,
+    SubscriptionParameters,
+    TezosOperation,
+    TokenTransferSubscriptionParameters,
+} from './types';
+
 
 
 export type StatusObservable = Observable<signalR.HubConnectionState>;
@@ -54,14 +56,14 @@ export type ZenSubscription = ZenObservable.Subscription;
 
 export class EventsService {
     private connection: signalR.HubConnection;
-    private subscriptions: Set<Subscription<any>>;
+    private subscriptions: Set<Subscription<ResponseTypes>>;
     private networkEvents: Observable<Event>;
     private statusChanges: Observable<signalR.HubConnectionState>;
     private eventObservers: Set<ZenObservable.Observer<Event>>;
     private statusObservers: Set<ZenObservable.Observer<signalR.HubConnectionState>>
 
     constructor({ url, reconnect = true }: EventsConfig) {
-        this.subscriptions = new Set<Subscription<any>>();
+        this.subscriptions = new Set<Subscription<ResponseTypes>>();
         this.eventObservers = new Set<ZenObservable.Observer<Event>>();
         this.statusObservers = new Set<ZenObservable.Observer<signalR.HubConnectionState>>();
 
@@ -144,7 +146,7 @@ export class EventsService {
         }
     }
 
-    private async invoke(sub: Subscription<any>) {
+    private async invoke(sub: Subscription<ResponseTypes>) {
         if (sub.params) {
             return await this.connection.invoke(sub.method, sub.params);
         }
