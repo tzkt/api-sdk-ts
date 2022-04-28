@@ -44,7 +44,12 @@
     "tzkt",
     "untracked",
     "upvoted",
-    "upvotes"
+    "upvotes",
+    "signalr",
+    "tezos",
+    "onreconnecting",
+    "onreconnected",
+    "BIGMAPTAG"
   ],
   "flagWords": [],
   "ignorePaths": [

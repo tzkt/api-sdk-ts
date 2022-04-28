@@ -1,6 +1,6 @@
 # TzKT Events SDK
 
-Fully typed cliend for working with TzKT subscriptions API.  
+Fully typed client for working with TzKT subscriptions API.  
 A thin wrapper on top of SignalR converting subscriptions to observables.
 
 ## Install
