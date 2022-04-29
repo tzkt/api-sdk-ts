@@ -1,6 +1,7 @@
-# TzKt API SDK written in Typescript
+# TzKT API SDK
 
-Not written, but rather generated using [@tzkt/oazapfts](https://github.com/tzkt/oazapfts).
+Auto-generated from OpenApi spec using [@tzkt/oazapfts](https://github.com/tzkt/oazapfts).  
+Supports most of the TzKT features including deep filtering and deep sorting.
 
 ## Install
 

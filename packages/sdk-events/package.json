@@ -1,17 +1,17 @@
 {
-  "name": "@tzkt/sdk-api",
+  "name": "@tzkt/sdk-events",
   "version": "0.1.3",
-  "description": "TzKt API SDK written in Typescript",
+  "description": "Fully typed client for TzKT subscription API",
   "main": "build/main/index.js",
   "types": "build/main/index.d.ts",
   "typings": "build/main/index.d.ts",
   "module": "build/module/index.js",
-  "repository": "git://github.com/tzkt/api-sdk-ts.git",
-  "publishConfig": {
-    "access": "public"
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tzkt/api-sdk-ts.git"
   },
+  "author": "Michael Zaikin <mz@baking-bad.org>",
   "license": "MIT",
-  "keywords": [],
   "scripts": {
     "build": "run-p build:*",
     "build:main": "tsc -p tsconfig.json",
@@ -38,30 +38,32 @@
     "doc:json": "typedoc src/ --exclude **/*.spec.ts --json build/docs/typedoc.json",
     "doc:publish": "gh-pages -m \"[ci skip] Updates\" -d build/docs",
     "reset-hard": "git clean -dfx && git reset --hard && npm i",
-    "prepare-release": "run-s reset-hard test cov:check doc:html version doc:publish",
-    "generate": "oazapfts --optimistic swagger.json src/index.ts",
-    "sync-swagger": "curl -O https://api.tzkt.io/v1/swagger.json"
+    "prepare-release": "run-s reset-hard test cov:check doc:html version doc:publish"
   },
   "engines": {
     "node": ">=14",
     "npm": ">=6"
   },
   "engineStrict": true,
-  "dependencies": {
-    "@tzkt/oazapfts": "^3.5.2"
-  },
   "devDependencies": {
+    "@types/jest": "^26.0.14",
+    "@types/ws": "^7.4.5",
+    "@types/zen-observable": "^0.8.3",
+    "jest": "^26.6.3",
+    "ts-jest": "^26.4.1",
+    "ts-node": "^9.0.0",
+    "@typescript-eslint/eslint-plugin": "^4.18.0",
+    "@typescript-eslint/parser": "^4.18.0",
+    "eslint": "^7.10.0",
+    "typescript": "^4.6.3",
     "@ava/typescript": "^1.1.1",
     "@istanbuljs/nyc-config-typescript": "^1.0.1",
     "@types/lodash": "^4.14.178",
     "@types/node": "^16.0.0",
-    "@typescript-eslint/eslint-plugin": "^4.18.0",
-    "@typescript-eslint/parser": "^4.18.0",
     "ava": "^3.12.1",
     "codecov": "^3.5.0",
     "cspell": "^4.1.0",
     "cz-conventional-changelog": "^3.3.0",
-    "eslint": "^7.10.0",
     "eslint-config-prettier": "^6.11.0",
     "eslint-plugin-eslint-comments": "^3.2.0",
     "eslint-plugin-functional": "^3.0.2",
@@ -73,21 +75,13 @@
     "open-cli": "^6.0.1",
     "openapi-types": "^10.0.0",
     "prettier": "^2.1.1",
-    "standard-version": "^9.0.0",
-    "ts-node": "^9.0.0",
-    "typedoc": "^0.22.15",
-    "typescript": "^4.6.3"
+    "standard-version": "^9.0.0"
   },
-  "files": [
-    "build/main",
-    "build/module",
-    "!**/*.spec.*",
-    "!**/*.json",
-    "CHANGELOG.md",
-    "LICENSE",
-    "README.md",
-    "src"
-  ],
+  "dependencies": {
+    "@tzkt/sdk-api": "^0.1.3",
+    "@microsoft/signalr": "^5.0.8",
+    "zen-observable": "^0.8.15"
+  },
   "ava": {
     "failFast": true,
     "timeout": "60s",
