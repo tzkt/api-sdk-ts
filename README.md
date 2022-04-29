@@ -17,7 +17,7 @@ npm i @tzkt/<package_name>
 | Name                | Description                      | NPM                                                            |
 | ------------------- | -------------------------------- | -------------------------------------------------------------- |
 | [@tzkt/sdk-api](packages/sdk-api/README.md)     | Wrappers for TzKT API endpoints written in TS | [![npm version](https://badge.fury.io/js/%40tzkt%2Fsdk-api.svg)](https://badge.fury.io/js/%40tzkt2Fsdk-api) |
-| [@tzkt/sdk-event](packages/sdk-events/README.md)     | Subscription manager for TzKT events | [![npm version](https://badge.fury.io/js/%40tzkt%2Fsdk-events.svg)](https://badge.fury.io/js/%40tzkt2Fsdk-events) |
+| [@tzkt/sdk-events](packages/sdk-events/README.md)     | Subscription manager for TzKT events | [![npm version](https://badge.fury.io/js/%40tzkt%2Fsdk-events.svg)](https://badge.fury.io/js/%40tzkt2Fsdk-events) |
 
 ## Contributing and publishing
 
