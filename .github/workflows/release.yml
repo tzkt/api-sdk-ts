@@ -20,9 +20,6 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
 
-      - name: Setup npm
-        run: npm set "//npm.pkg.github.com/:_authToken=${{ secrets.GITHUB_TOKEN }}"
-
       - name: Install dependencies
         run: npm install --no-package-lock
         
@@ -32,10 +29,17 @@ jobs:
       - name: Build packages
         run: npx lerna run build
 
+      - name: Setup npm
+        run: npm set "//registry.npmjs.org/:_authToken=${{ secrets.NPM_AUTH_TOKEN }}"
+
       - name: Publish to npmjs
         run: npx lerna publish from-package --yes --registry https://registry.npmjs.org/ --loglevel debug --no-git-tag-version --no-push
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
+
+      - name: Setup npm
+        run: npm set "//npm.pkg.github.com/:_authToken=${{ secrets.GITHUB_TOKEN }}"
+
+      - name: Publish to github packages
+        run: npx lerna publish from-package --yes --registry https://npm.pkg.github.com/ --loglevel debug --no-git-tag-version --no-push
 
       - name: Build github release
         uses: "marvinpinto/action-automatic-releases@latest"
