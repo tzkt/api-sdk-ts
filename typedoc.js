@@ -1,9 +1,16 @@
 module.exports = {
     out: 'build/typedoc',
     entryPoints: [
-      './packages/sdk-api/src/index.ts',
-      './packages/sdk-events/src/index.ts'
+      'packages/*',
     ],
+    entryPointStrategy: 'packages',
+    pluginPages: {
+      pages: [
+        { title: 'VIRTUAL', childrenDir: '../', children: [
+          { title: 'Changelog', source: 'CHANGELOG.md' },
+        ] },
+      ]
+    },
     exclude: [
       '**/*.spec.ts',
       '**/data/**',
@@ -11,7 +18,7 @@ module.exports = {
       '**/node_modules/**',
       '**/rollup*.ts',
       '**/test/**',
-      '/coverage/**',
+      'examples/**'
     ],
     name: 'TzKT SDK',
     excludePrivate: true,

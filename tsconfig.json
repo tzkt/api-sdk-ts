@@ -45,5 +45,6 @@
     "@tzkt/sdk-events": [
       "sdk-events/src/index.ts"
     ]
-  }
+  },
+  "exclude": ["examples/**"],
 }
