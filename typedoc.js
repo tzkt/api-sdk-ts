@@ -1,7 +1,8 @@
 module.exports = {
     out: 'build/typedoc',
     entryPoints: [
-      'packages/*',
+      'packages/sdk-api',
+      'packages/sdk-events'
     ],
     entryPointStrategy: 'packages',
     pluginPages: {
