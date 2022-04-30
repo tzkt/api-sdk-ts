@@ -1,6 +1,6 @@
 {
   "name": "@tzkt/sdk-api",
-  "version": "0.1.3",
+  "version": "0.2.0",
   "description": "TzKt API SDK written in Typescript",
   "main": "build/main/index.js",
   "types": "build/main/index.d.ts",

@@ -3,6 +3,21 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.2.0](https://github.com/tzkt/api-sdk-ts/compare/v0.1.2...v0.2.0) (2022-04-30)
+
+
+### Features
+
+* update readme ([#7](https://github.com/tzkt/api-sdk-ts/issues/7)) ([31b1d90](https://github.com/tzkt/api-sdk-ts/commit/31b1d90baa7f1926f8d1541ac64faebc4eafce97))
+
+
+### Bug Fixes
+
+* distribute src for sourcemaps ([#9](https://github.com/tzkt/api-sdk-ts/issues/9)) ([d135489](https://github.com/tzkt/api-sdk-ts/commit/d135489ac53b92bf57af2709c026eb5e1c52eb35))
+* **queryParamParsers:** allow for empty `jsonPath` ([3112820](https://github.com/tzkt/api-sdk-ts/commit/31128205047d6daddcb6af716d7a1c5683140f54))
+
+
+
 ### [0.1.3](https://github.com/tzkt/api-sdk-ts/compare/v0.1.2...v0.1.3) (2022-04-21)
 
 **Note:** Version bump only for package @tzkt/sdk-api
