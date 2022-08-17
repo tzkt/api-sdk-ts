@@ -2,7 +2,6 @@ import * as _ from "lodash"
 import { OpenAPIV3 } from "openapi-types"
 import ts, { factory, UnionTypeNode } from "typescript"
 import { ParameterParserExtension, QueryStringParserExtension, SchemaParserExtension, OazapftsExtensions } from "@tzkt/oazapfts/lib/codegen/extensions"
-
 const tzKtExtensionKey = 'x-tzkt-extension'
 
 type TzKtExtended<T> = T & {
@@ -30,25 +29,41 @@ const anyofParameterExtension: ParameterParserExtension = (p, helpers) => {
   const rawAnyof = p['x-tzkt-anyof-parameter']
   if (typeof rawAnyof !== 'string') return
 
-  const types = rawAnyof.split(',')
-
+  const types =  rawAnyof.split(',').map(t => factory.createLiteralTypeNode(factory.createStringLiteral(t)))
+  // @ts-ignore
   const valNode = helpers.createPropertySignature({
     name: 'value',
-    questionToken: false,
-    type: helpers.defaultParameterTypeParser(p)
+    questionToken: true,
+    type: factory.createUnionTypeNode([helpers.keywordType.string, helpers.keywordType.null]),
+  })
+
+  const eqNode = helpers.createPropertySignature({
+    name: 'eq',
+    questionToken: true,
+    type: factory.createUnionTypeNode(types),
+  })
+
+  const nullNode = helpers.createPropertySignature({
+    name: 'null',
+    questionToken: true,
+    type: helpers.keywordType.boolean,
+  })
+
+  const inNode = helpers.createPropertySignature({
+    name: 'in',
+    questionToken: true,
+    type: factory.createArrayTypeNode(factory.createUnionTypeNode(types)),
   })
 
   const pathNode = helpers.createPropertySignature({
     name: 'fields',
-    questionToken: false,
+    questionToken: true,
     type: factory.createArrayTypeNode(
-      factory.createUnionTypeNode(
-        types.map(t => factory.createLiteralTypeNode(factory.createStringLiteral(t)))
-      )
+      factory.createUnionTypeNode(types)
     )
   })
 
-  return factory.createTypeLiteralNode([valNode, pathNode])
+  return factory.createTypeLiteralNode([valNode, pathNode, inNode, nullNode, eqNode])
 }
 
 const jsonParameterExtension: SchemaParserExtension = (s, helpers) => {

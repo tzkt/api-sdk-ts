@@ -53,16 +53,29 @@ const anyofParameter: QueryParamParser = (paramName, p) => {
   };
 
   // never really returns but oh well
-  if (!validateFields(fields)) return {};
+  if(fields) {
+    if (!validateFields(fields)) return {};
 
-  const mainParamsObj: Record<string, unknown> = {};
+    const mainParamsObj: Record<string, unknown> = {};
+    const anyof = fields.join('.');
+    const prefixedKey = `${paramName}.${anyof}`;
 
-  const anyof = fields.join('.');
-  const prefixedKey = `${paramName}.${anyof}`;
+    mainParamsObj[prefixedKey] = p.value;
+    console.log(prefixedKey, 'prefixedKey')
+    return prefixedKey;
+  }
 
-  mainParamsObj[prefixedKey] = p.value;
+  let result = '';
 
-  return mainParamsObj;
+  Object.entries(p).map(([value, key]) => {
+    if(key) {
+      result += `${key}.${value}.`
+    } else {
+      result += `${value}.`
+    }
+  })
+
+  return result.replace(/(.+)\.$/, '$1');
 };
 
 const queryParameter: QueryParamParser = (paramName, p) => {
