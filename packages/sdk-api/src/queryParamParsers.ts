@@ -59,15 +59,17 @@ const anyofParameter: QueryParamParser = (paramName, p) => {
 
   const anyof = fields.join('.');
 
-  if(p.value) {
+  if (p.value) {
     const prefixedKey = `${paramName}.${anyof}`;
     mainParamsObj[prefixedKey] = p.value;
   }
 
   for (const param of ['in', 'eq', 'null']) {
-    if(p[param]) {
+    if (p[param]) {
       const prefixedKey = `${paramName}.${anyof}.${param}`;
-      mainParamsObj[prefixedKey] = Array.isArray(p[param]) ? p[param].join(',') : p[param];
+      mainParamsObj[prefixedKey] = Array.isArray(p[param])
+        ? p[param].join(',')
+        : p[param];
       return mainParamsObj;
     }
   }
