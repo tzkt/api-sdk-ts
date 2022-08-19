@@ -1,6 +1,6 @@
 import * as _ from "lodash";
 import { OpenAPIV3 } from "openapi-types";
-import ts, { factory, UnionTypeNode } from "typescript";
+import {factory, TypeElement, UnionTypeNode} from "typescript";
 import {
   ParameterParserExtension,
   QueryStringParserExtension,
@@ -170,7 +170,7 @@ const queryParameterExtension: SchemaParserExtension = (s, helpers) => {
   };
 
   const { required } = s;
-  const members: ts.TypeElement[] = Object.entries(props).map(
+  const members: TypeElement[] = Object.entries(props).map(
     ([name, prop]) => {
       const isRequired = required?.includes(name);
       return helpers.createPropertySignature({

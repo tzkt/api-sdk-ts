@@ -5,6 +5,7 @@
  */
 import * as Oazapfts from "@tzkt/oazapfts/lib/runtime";
 import * as QS from "@tzkt/oazapfts/lib/runtime/query";
+
 import QueryParamsParsers from "./queryParamParsers";
 export const defaults: Oazapfts.RequestOpts = {
   baseUrl: "https://api.tzkt.io",
