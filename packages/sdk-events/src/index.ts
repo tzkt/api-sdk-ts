@@ -45,4 +45,4 @@ export {
   MigrationOperation,
   EndorsingRewardOperation,
   BakingOperation,
-} from '@tzkt/sdk-api@tzkt/sdk-api';
+} from '@tzkt/sdk-api';
