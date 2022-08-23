@@ -10,6 +10,8 @@
     "bigmaps",
     "bitauth",
     "bitjson",
+    "ticketer",
+    "rollups",
     "cimg",
     "circleci",
     "codecov",

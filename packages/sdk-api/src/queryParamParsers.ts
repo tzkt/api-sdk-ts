@@ -58,9 +58,21 @@ const anyofParameter: QueryParamParser = (paramName, p) => {
   const mainParamsObj: Record<string, unknown> = {};
 
   const anyof = fields.join('.');
-  const prefixedKey = `${paramName}.${anyof}`;
 
-  mainParamsObj[prefixedKey] = p.value;
+  if (p.value) {
+    const prefixedKey = `${paramName}.${anyof}`;
+    mainParamsObj[prefixedKey] = p.value;
+  }
+
+  for (const param of ['in', 'eq', 'null']) {
+    if (p[param]) {
+      const prefixedKey = `${paramName}.${anyof}.${param}`;
+      mainParamsObj[prefixedKey] = Array.isArray(p[param])
+        ? p[param].join(',')
+        : p[param];
+      return mainParamsObj;
+    }
+  }
 
   return mainParamsObj;
 };
