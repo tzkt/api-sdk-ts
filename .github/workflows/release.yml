@@ -33,13 +33,13 @@ jobs:
         run: npm set "//registry.npmjs.org/:_authToken=${{ secrets.NPM_AUTH_TOKEN }}"
 
       - name: Publish to npmjs
-        run: npx lerna publish from-package --yes --registry https://registry.npmjs.org/ --loglevel debug --no-git-tag-version --no-push
+        run: npx lerna publish from-package --yes --registry https://registry.npmjs.org/ --loglevel debug --no-git-tag-version --no-push --no-verify-access
 
       - name: Setup npm
         run: npm set "//npm.pkg.github.com/:_authToken=${{ secrets.GITHUB_TOKEN }}"
 
       - name: Publish to github packages
-        run: npx lerna publish from-package --yes --registry https://npm.pkg.github.com/ --loglevel debug --no-git-tag-version --no-push
+        run: npx lerna publish from-package --yes --registry https://npm.pkg.github.com/ --loglevel debug --no-git-tag-version --no-push --no-verify-access
 
       - name: Build github release
         uses: "marvinpinto/action-automatic-releases@latest"
