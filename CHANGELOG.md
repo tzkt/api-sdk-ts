@@ -5,6 +5,14 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ## [0.3.0](https://github.com/tzkt/api-sdk-ts/compare/v0.2.0...v0.3.0) (2022-08-25)
 
+**Note:** Version bump only for package root
+
+
+
+
+
+## [0.3.0](https://github.com/tzkt/api-sdk-ts/compare/v0.2.0...v0.3.0) (2022-08-25)
+
 ### Features
 
 * Latest TzKT version supported: TORU operations
