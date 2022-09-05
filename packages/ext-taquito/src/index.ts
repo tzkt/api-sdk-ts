@@ -1,19 +1,14 @@
 import {Context, Extension} from "@taquito/taquito";
 
 import {ApiRequests} from "./apiRequests";
-import { ReadProviderWrapper } from './readProviderWrapper';
+import {ReadProviderWrapper} from './readProviderWrapper';
 
 
-class TzktExtension extends ApiRequests implements Extension{
-  constructor(apiUrl: string) {
-    super(apiUrl)
-  }
-
+class TzktExtension extends ApiRequests implements Extension {
   configureContext(context: Context): void {
-    context.registerProviderDecorator((context: Context) => {
-      context.readProvider = new ReadProviderWrapper(context.readProvider, this);
-      return context;
-    })
+    const readProvider = new ReadProviderWrapper(context.readProvider, this);
+
+    Object.assign(context, {readProvider});
   }
 }
 

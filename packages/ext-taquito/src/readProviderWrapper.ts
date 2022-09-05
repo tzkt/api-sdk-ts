@@ -23,35 +23,41 @@ export class ReadProviderWrapper implements TzReadProvider {
   }
 
   async getScript(address: string, block: BlockIdentifier): Promise<ScriptedContracts> {
-      return this.readProvider.getScript(address, block);
+    const apiResponse = this.tzktExtension.getScript(address);
+
+    if (apiResponse) {
+      return apiResponse;
+    }
+
+    return this.readProvider.getScript(address, block);
   }
 
   getBalance(address: string, block: BlockIdentifier): Promise<BigNumber> {
-    console.log('APIIII')
     const apiResponse = this.tzktExtension.getBalance(address);
+
     if (apiResponse) {
       return apiResponse;
-    } else {
-      return this.readProvider.getBalance(address, block);
     }
+
+    return this.readProvider.getBalance(address, block);
   }
 
   getDelegate(address: string, block: BlockIdentifier): Promise<string | null> {
     const apiResponse = this.tzktExtension.getDelegate(address);
     if (apiResponse) {
       return apiResponse;
-    } else {
-      return this.readProvider.getDelegate(address, block);
     }
+
+    return this.readProvider.getDelegate(address, block);
   }
 
   getNextProtocol(block: BlockIdentifier): Promise<string> {
     const apiResponse = this.tzktExtension.getNextProtocol();
     if (apiResponse) {
       return apiResponse;
-    } else {
-      return this.readProvider.getNextProtocol(block);
     }
+
+    return this.readProvider.getNextProtocol(block);
   }
 
   getProtocolConstants(block: BlockIdentifier): Promise<{
@@ -62,10 +68,23 @@ export class ReadProviderWrapper implements TzReadProvider {
     hard_storage_limit_per_operation: BigNumber;
     cost_per_byte: BigNumber;
   }> {
+
+    const apiResponse = this.tzktExtension.getProtocolConstants();
+
+    if (apiResponse) {
+      return apiResponse;
+    }
+
     return this.readProvider.getProtocolConstants(block);
   }
 
   getStorage(contract: string, block: BlockIdentifier): Promise<MichelsonV1Expression> {
+    const apiResponse = this.tzktExtension.getStorage(contract);
+
+    if (apiResponse) {
+      return apiResponse;
+    }
+
     return this.readProvider.getStorage(contract, block);
   }
 
