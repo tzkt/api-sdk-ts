@@ -19,6 +19,12 @@ export class ReadProviderWrapper implements TzReadProvider {
   constructor(private readProvider: TzReadProvider, private tzktExtension: TzktExtension) {}
 
   async getEntrypoints(contract: string): Promise<EntrypointsResponse> {
+    const apiResponse = this.tzktExtension.getEntrypoints(contract);
+
+    if (apiResponse) {
+      return apiResponse;
+    }
+
     return this.readProvider.getEntrypoints(contract);
   }
 
@@ -89,22 +95,52 @@ export class ReadProviderWrapper implements TzReadProvider {
   }
 
   getBlockHash(block: BlockIdentifier): Promise<string> {
+    const apiResponse = this.tzktExtension.getBlockHash(block);
+
+    if (apiResponse) {
+      return apiResponse;
+    }
+
     return this.readProvider.getBlockHash(block);
   }
 
   getBlockLevel(block: BlockIdentifier): Promise<number> {
+    const apiResponse = this.tzktExtension.getBlockLevel(block);
+
+    if (apiResponse) {
+      return apiResponse;
+    }
+
     return this.readProvider.getBlockLevel(block);
   }
 
   getCounter(pkh: string, block: BlockIdentifier): Promise<string> {
+    const apiResponse = this.tzktExtension.getCounter(pkh);
+
+    if (apiResponse) {
+      return apiResponse;
+    }
+
     return this.readProvider.getCounter(pkh, block);
   }
 
   getBlockTimestamp(block: BlockIdentifier): Promise<string> {
+    const apiResponse = this.tzktExtension.getBlockTimestamp(block);
+
+    if (apiResponse) {
+      return apiResponse;
+    }
+
     return this.readProvider.getBlockTimestamp(block);
   }
 
   getBigMapValue(bigMapQuery: BigMapQuery, block: BlockIdentifier): Promise<MichelsonV1Expression> {
+    const apiResponse = this.tzktExtension.getBigMapValue(bigMapQuery);
+
+    if (apiResponse) {
+      return apiResponse;
+    }
+
     return this.readProvider.getBigMapValue(bigMapQuery, block);
   }
 
@@ -116,10 +152,22 @@ export class ReadProviderWrapper implements TzReadProvider {
   }
 
   getChainId(): Promise<string> {
+    const apiResponse = this.tzktExtension.getChainId();
+
+    if (apiResponse) {
+      return apiResponse;
+    }
+
     return this.readProvider.getChainId();
   }
 
   isAccountRevealed(publicKeyHash: string, block: BlockIdentifier): Promise<boolean> {
+    const apiResponse = this.tzktExtension.isAccountRevealed(publicKeyHash);
+
+    if (apiResponse !== null) {
+      return apiResponse;
+    }
+
     return this.readProvider.isAccountRevealed(publicKeyHash, block);
   }
 
@@ -128,6 +176,12 @@ export class ReadProviderWrapper implements TzReadProvider {
   }
 
   getLiveBlocks(block: BlockIdentifier): Promise<string[]> {
+    const apiResponse = this.tzktExtension.getLiveBlocks(block);
+
+    if (apiResponse) {
+      return apiResponse;
+    }
+
     return this.readProvider.getLiveBlocks(block);
   }
 }

@@ -9,9 +9,9 @@ describe("request", () => {
   const extension = new ReadProviderWrapper(Tezos as any, new TzktExtension());
   Tezos.addExtension(new TzktExtension());
 
-  test('Get Balance should equal 7545356800906', async () => {
+  test('Get Balance should equal 7551134029044', async () => {
     const result = await Tezos.tz.getBalance('tz1iG3vqiT95KKSqNQuYnQEXNQk5gXQepM1r');
-    expect(result.toNumber()).toEqual(7548261274022);
+    expect(result.toNumber()).toEqual(7551134029044);
   });
 
   test('Get Delegate should equal tz1irJKkXS2DBWkU1NnmFQx1c1L7pbGg4yhk', async () => {
@@ -21,7 +21,6 @@ describe("request", () => {
 
   test('Get Next protocol should equal PtJakart2xVj7pYXJBXrqHgd82rdkLey5ZeeGwDgPp9rhQUbSqY', async () => {
     const result = await extension.getNextProtocol(2664043);
-    console.log(result, 'result')
     expect(result).toEqual('PtJakart2xVj7pYXJBXrqHgd82rdkLey5ZeeGwDgPp9rhQUbSqY');
   });
 
@@ -45,10 +44,53 @@ describe("request", () => {
     // @ts-ignore
     expect(result.prim).toEqual('Pair')
   });
-  //
+
   test('Get Script should to return valid data', async () => {
     const result = await Tezos.rpc.getScript('KT1Qej1k8WxPvBLUjGVtFXStgzQtcx3itSk5')
-    // @ts-ignore
     expect(result).toHaveProperty('storage')
+  });
+
+
+  test('getBlockHash should equal BMHZJm9ome4S7jTAs4ibeDH88rUrvsEm3RLe43Rrr9Xx4QwADP3', async () => {
+    const result = await extension.getBlockHash(2664043)
+    expect(result).toEqual('BMHZJm9ome4S7jTAs4ibeDH88rUrvsEm3RLe43Rrr9Xx4QwADP3')
+  });
+
+  test('getBlockLevel should equal 2664043', async () => {
+    const result = await extension.getBlockLevel('BMHZJm9ome4S7jTAs4ibeDH88rUrvsEm3RLe43Rrr9Xx4QwADP3')
+    expect(result).toEqual(2664043)
+  });
+
+  test('getCounter should equal 45141992', async () => {
+    const result = await extension.getCounter('tz1iG3vqiT95KKSqNQuYnQEXNQk5gXQepM1r', 2670937)
+    expect(Number(result)).toEqual(45141992)
+  });
+
+  test('getBlockTimestamp should equal 2022-08-29T12:06:59Z', async () => {
+    const result = await extension.getBlockTimestamp(2664043)
+    expect(result).toEqual('2022-08-29T12:06:59Z')
+  });
+
+
+  test('getBigMapValue should to return valida data', async () => {
+    const result = await extension.getBigMapValue({id: '4', expr: 'exprvS1VCPqQXtksURt9uuKPhvmBCbQuXXvHa1LkjundxjaFQBcrQk'}, 2672080)
+    // @ts-ignore
+    expect(result.prim).toEqual('Pair')
+  });
+
+  test('getChainId should equal NetXdQprcVkpaWU', async () => {
+    const result = await Tezos.rpc.getChainId()
+    expect(result).toEqual('NetXdQprcVkpaWU')
+  });
+
+  test('isAccountRevealed should equal true', async () => {
+    const result = await extension.isAccountRevealed('tz1iG3vqiT95KKSqNQuYnQEXNQk5gXQepM1r', 'head')
+    expect(result).toEqual(true)
+  });
+
+  test('getLiveBlocks length should toBeTruthy', async () => {
+    const result = await extension.getLiveBlocks(2664043)
+    expect(result.length > 0).toBeTruthy();
+
   });
 })
