@@ -138,7 +138,11 @@ class ApiRequests {
     const {data} = await blocksGet({
       level: {
         le: Number(block),
-      }, limit: 120, select: {fields: ['hash']}
+      },
+      sort: {
+        desc: 'level',
+      },
+      limit: 120, select: {fields: ['hash']}
     })
     // @ts-ignore
     return data
