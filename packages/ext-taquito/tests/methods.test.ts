@@ -1,12 +1,12 @@
-import { TzktExtension } from '../src';
+import {TzktExtension} from '../src';
 // @ts-ignore
 import {TezosToolkit} from '@taquito/taquito';
-import {ReadProviderWrapper} from "../src/readProviderWrapper";
+import {TzktReadProvider} from "../src/tzktReadProvider";
 // const request = require("supertest");
 
 describe("request", () => {
   const Tezos = new TezosToolkit('https://rpc.tzkt.io/mainnet');
-  const extension = new ReadProviderWrapper(Tezos as any, new TzktExtension());
+  const extension = new TzktReadProvider(Tezos as any);
   Tezos.addExtension(new TzktExtension());
 
   test('Get Balance should equal 7551134029044', async () => {
@@ -20,13 +20,13 @@ describe("request", () => {
   });
 
   test('Get Next protocol should equal PtJakart2xVj7pYXJBXrqHgd82rdkLey5ZeeGwDgPp9rhQUbSqY', async () => {
-    const result = await extension.getNextProtocol(2664043);
+    const result = await extension.getNextProtocol();
     expect(result).toEqual('PtJakart2xVj7pYXJBXrqHgd82rdkLey5ZeeGwDgPp9rhQUbSqY');
   });
 
 
   test('Ge Protocol Constants .hardBlockGasLimit should equal 5200000', async () => {
-    const result = await extension.getProtocolConstants(2664043);
+    const result = await extension.getProtocolConstants();
 
     expect({
       hard_gas_limit_per_block: result.hard_gas_limit_per_block.toNumber(),
@@ -62,7 +62,7 @@ describe("request", () => {
   });
 
   test('getCounter should equal 45141992', async () => {
-    const result = await extension.getCounter('tz1iG3vqiT95KKSqNQuYnQEXNQk5gXQepM1r', 2670937)
+    const result = await extension.getCounter('tz1iG3vqiT95KKSqNQuYnQEXNQk5gXQepM1r')
     expect(Number(result)).toEqual(45141992)
   });
 
@@ -73,7 +73,10 @@ describe("request", () => {
 
 
   test('getBigMapValue should to return valida data', async () => {
-    const result = await extension.getBigMapValue({id: '4', expr: 'exprvS1VCPqQXtksURt9uuKPhvmBCbQuXXvHa1LkjundxjaFQBcrQk'}, 2672080)
+    const result = await extension.getBigMapValue({
+      id: '4',
+      expr: 'exprvS1VCPqQXtksURt9uuKPhvmBCbQuXXvHa1LkjundxjaFQBcrQk'
+    })
     // @ts-ignore
     expect(result.prim).toEqual('Pair')
   });
@@ -84,13 +87,16 @@ describe("request", () => {
   });
 
   test('isAccountRevealed should equal true', async () => {
-    const result = await extension.isAccountRevealed('tz1iG3vqiT95KKSqNQuYnQEXNQk5gXQepM1r', 'head')
+    const result = await extension.isAccountRevealed('tz1iG3vqiT95KKSqNQuYnQEXNQk5gXQepM1r')
     expect(result).toEqual(true)
   });
 
   test('getLiveBlocks length should toBeTruthy', async () => {
     const result = await extension.getLiveBlocks(2664043)
-    expect(result.length > 0).toBeTruthy();
+    expect(
+      result.includes('BKjSBdD5pUyDTgv8o5FBTD1wBE7R2cwLptcPDBSVoWKtDzRKCf2') &&
+      result.includes('BMeHqAgX5pfqWuthAzBMMZhw3KqDPMctsa29Tner8iqJ3jMHR79')
+    ).toBeTruthy();
 
   });
 })

@@ -1,13 +1,11 @@
 import {Context, Extension} from "@taquito/taquito";
 
-import {ApiRequests} from "./apiRequests";
-import {ReadProviderWrapper} from './readProviderWrapper';
+import {TzktReadProvider} from './tzktReadProvider';
 
 
-class TzktExtension extends ApiRequests implements Extension {
+class TzktExtension implements Extension {
   configureContext(context: Context): void {
-    const readProvider = new ReadProviderWrapper(context.readProvider, this);
-
+    const readProvider = new TzktReadProvider(context.readProvider);
     Object.assign(context, {readProvider});
   }
 }

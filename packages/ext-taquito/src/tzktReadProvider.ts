@@ -1,16 +1,20 @@
 import 'cross-fetch/polyfill';
 import {
+  BlockResponse,
   EntrypointsResponse,
   MichelsonV1Expression,
-  ScriptedContracts,
+  SaplingDiffResponse, ScriptedContracts,
 } from '@taquito/rpc';
 import {
   BigMapQuery,
   BlockIdentifier,
+  SaplingStateQuery,
+  TzReadProvider
 } from '@taquito/taquito';
 import {
   accountsGetBalance,
-  accountsGetByAddress, accountsGetCounter, bigMapsGetKey, blocksGet,
+  accountsGetByAddress,
+  accountsGetCounter, bigMapsGetKey, Block, blocksGet,
   blocksGetByHash,
   blocksGetByLevel,
   contractsGetEntrypoints,
@@ -18,10 +22,26 @@ import {
   contractsGetStorageSchema, headGet,
   protocolsGetCurrent
 } from "@tzkt/sdk-api";
-import {BigNumber} from "bignumber.js";
+import {BigNumber} from 'bignumber.js';
 
 
-class ApiRequests {
+export class TzktReadProvider implements TzReadProvider {
+  constructor(private readProvider: TzReadProvider) {}
+
+  async getEntrypoints(contract: string): Promise<EntrypointsResponse> {
+    const {data} = await contractsGetEntrypoints(contract);
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    return data;
+  }
+
+  async getScript(address: string): Promise<ScriptedContracts> {
+    const {data} = await contractsGetStorageSchema(address);
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    return data;
+  }
+
   async getBalance(address: string): Promise<BigNumber> {
     const {data} = await accountsGetBalance(address);
     return new BigNumber(data);
@@ -29,6 +49,7 @@ class ApiRequests {
 
   async getDelegate(address: string): Promise<string | null> {
     const {data} = await accountsGetByAddress(address);
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
     return data?.delegate?.address
   }
@@ -46,6 +67,7 @@ class ApiRequests {
     hard_storage_limit_per_operation: BigNumber;
     cost_per_byte: BigNumber;
   }> {
+
     const {data} = await protocolsGetCurrent()
 
     return {
@@ -60,21 +82,7 @@ class ApiRequests {
 
   async getStorage(contract: string): Promise<MichelsonV1Expression> {
     const {data} = await contractsGetStorage(contract)
-    // @ts-ignore
-    return data;
-  }
-
-
-  async getScript(address: string): Promise<ScriptedContracts> {
-    const {data} = await contractsGetStorageSchema(address);
-
-    // @ts-ignore
-    return data;
-  }
-
-  async getEntrypoints(contract: string): Promise<EntrypointsResponse> {
-    const {data} = await contractsGetEntrypoints(contract);
-
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
     return data;
   }
@@ -122,6 +130,13 @@ class ApiRequests {
     return data.value;
   }
 
+  getSaplingDiffById(
+    saplingStateQuery: SaplingStateQuery,
+    block: BlockIdentifier
+  ): Promise<SaplingDiffResponse> {
+    return this.readProvider.getSaplingDiffById(saplingStateQuery, block);
+  }
+
   async getChainId(): Promise<string> {
     const {data} = await headGet();
 
@@ -130,8 +145,13 @@ class ApiRequests {
 
   async isAccountRevealed(publicKeyHash: string): Promise<boolean> {
     const {data} = await accountsGetByAddress(publicKeyHash)
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
     return data?.revealed || null;
+  }
+
+  getBlock(block: BlockIdentifier): Promise<BlockResponse> {
+    return this.readProvider.getBlock(block);
   }
 
   async getLiveBlocks(block: BlockIdentifier): Promise<string[]> {
@@ -142,11 +162,8 @@ class ApiRequests {
       sort: {
         desc: 'level',
       },
-      limit: 120, select: {fields: ['hash']}
+      limit: 120, select: {fields: ['hash', 'timestamp']}
     })
-    // @ts-ignore
-    return data
+    return data.map((d: Block) => d?.hash || '')
   }
 }
-
-export {ApiRequests}
