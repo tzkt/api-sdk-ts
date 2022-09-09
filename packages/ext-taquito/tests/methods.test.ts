@@ -9,9 +9,9 @@ describe("request", () => {
   const extension = new TzktReadProvider(Tezos as any);
   Tezos.addExtension(new TzktExtension());
 
-  test('Get Balance should equal 7551134029044', async () => {
+  test('Get Balance should equal 7554173199759', async () => {
     const result = await Tezos.tz.getBalance('tz1iG3vqiT95KKSqNQuYnQEXNQk5gXQepM1r');
-    expect(result.toNumber()).toEqual(7551134029044);
+    expect(result.toNumber()).toEqual(7554173199759);
   });
 
   test('Get Delegate should equal tz1irJKkXS2DBWkU1NnmFQx1c1L7pbGg4yhk', async () => {

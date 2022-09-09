@@ -16,9 +16,8 @@ import {
   accountsGetByAddress,
   accountsGetCounter, bigMapsGetKey, Block, blocksGet,
   blocksGetByHash,
-  blocksGetByLevel,
-  contractsGetEntrypoints,
-  contractsGetStorage,
+  blocksGetByLevel, blocksGetCount,
+  contractsGetEntrypoints, contractsGetRawStorage,
   contractsGetStorageSchema, headGet,
   protocolsGetCurrent
 } from "@tzkt/sdk-api";
@@ -27,6 +26,36 @@ import {BigNumber} from 'bignumber.js';
 
 export class TzktReadProvider implements TzReadProvider {
   constructor(private readProvider: TzReadProvider) {}
+
+  private readonly liveBlockFilters = {
+    level: {},
+    sort: {
+      desc: 'level',
+    },
+    limit: 120, select: {fields: ['hash', 'timestamp']}
+  };
+
+
+  private async _getBlockIdentifier(block: BlockIdentifier): Promise<number> {
+    if(typeof block === 'number') {
+      return block
+    }
+
+    if(block === 'head' || !block) {
+      const {data} = await blocksGetCount();
+      return data
+    }
+
+    if(String(block).includes('head~')) {
+      const n = Number(String(block).split('head~')[1])
+      const {data} = await blocksGetCount();
+
+      return  Number(data) - n
+    }
+
+    const {data} = await blocksGetByHash(block);
+    return data?.level || 0
+  }
 
   async getEntrypoints(contract: string): Promise<EntrypointsResponse> {
     const {data} = await contractsGetEntrypoints(contract);
@@ -80,8 +109,9 @@ export class TzktReadProvider implements TzReadProvider {
     }
   }
 
-  async getStorage(contract: string): Promise<MichelsonV1Expression> {
-    const {data} = await contractsGetStorage(contract)
+  async getStorage(contract: string, block: BlockIdentifier): Promise<MichelsonV1Expression> {
+    const blockId = await this._getBlockIdentifier(block)
+    const {data} = await contractsGetRawStorage(contract, {level: blockId})
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
     return data;
@@ -98,12 +128,7 @@ export class TzktReadProvider implements TzReadProvider {
   }
 
   async getBlockLevel(block: BlockIdentifier): Promise<number> {
-    if (typeof block !== 'string') {
-      return 0
-    }
-
-    const {data} = await blocksGetByHash(block);
-    return data?.level || 0
+    return this._getBlockIdentifier(block)
   }
 
   async getCounter(pkh: string): Promise<string> {
@@ -112,17 +137,9 @@ export class TzktReadProvider implements TzReadProvider {
   }
 
   async getBlockTimestamp(block: BlockIdentifier): Promise<string> {
-    if (typeof block === 'string') {
-      const {data} = await blocksGetByHash(block);
-      return data?.timestamp || ''
-    }
-
-    if (typeof block === 'number') {
-      const {data} = await blocksGetByLevel(block);
-      return data?.timestamp || ''
-    }
-
-    return ''
+    const  blockId = await this._getBlockIdentifier(block)
+    const {data} = await blocksGetByLevel(blockId);
+    return data?.timestamp || ''
   }
 
   async getBigMapValue(bigMapQuery: BigMapQuery): Promise<MichelsonV1Expression> {
@@ -156,13 +173,10 @@ export class TzktReadProvider implements TzReadProvider {
 
   async getLiveBlocks(block: BlockIdentifier): Promise<string[]> {
     const {data} = await blocksGet({
+      ...this.liveBlockFilters,
       level: {
-        le: Number(block),
-      },
-      sort: {
-        desc: 'level',
-      },
-      limit: 120, select: {fields: ['hash', 'timestamp']}
+        le:  await this._getBlockIdentifier(block),
+      }
     })
     return data.map((d: Block) => d?.hash || '')
   }
