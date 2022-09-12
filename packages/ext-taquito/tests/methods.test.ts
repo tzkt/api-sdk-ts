@@ -10,8 +10,8 @@ describe("request", () => {
   Tezos.addExtension(new TzktExtension());
 
   test('Get Balance should equal 7554173199759', async () => {
-    const result = await Tezos.tz.getBalance('tz1iG3vqiT95KKSqNQuYnQEXNQk5gXQepM1r');
-    expect(result.toNumber()).toEqual(7554173199759);
+    const result = await extension.getBalance('tz1iG3vqiT95KKSqNQuYnQEXNQk5gXQepM1r',2664043 );
+    expect(result.toNumber()).toEqual(7542493683789);
   });
 
   test('Get Delegate should equal tz1irJKkXS2DBWkU1NnmFQx1c1L7pbGg4yhk', async () => {
@@ -26,7 +26,7 @@ describe("request", () => {
 
 
   test('Ge Protocol Constants .hardBlockGasLimit should equal 5200000', async () => {
-    const result = await extension.getProtocolConstants();
+    const result = await extension.getProtocolConstants(2703631);
 
     expect({
       hard_gas_limit_per_block: result.hard_gas_limit_per_block.toNumber(),

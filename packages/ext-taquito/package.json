@@ -118,7 +118,6 @@
   "dependencies": {
     "@taquito/http-utils": "^13.0.1",
     "@taquito/taquito": "^13.0.1",
-    "@tzkt/sdk-api": "^0.3.0",
     "cross-fetch": "^3.1.5"
   }
 }

@@ -12,16 +12,17 @@ import {
   TzReadProvider
 } from '@taquito/taquito';
 import {
-  accountsGetBalance,
+  accountsGetBalanceAtLevel,
   accountsGetByAddress,
   accountsGetCounter, bigMapsGetKey, Block, blocksGet,
   blocksGetByHash,
   blocksGetByLevel, blocksGetCount,
   contractsGetEntrypoints, contractsGetRawStorage,
-  contractsGetStorageSchema, headGet,
+  contractsGetStorageSchema, headGet, Protocol, protocolsGetByCycle,
   protocolsGetCurrent
-} from "@tzkt/sdk-api";
+} from '@tzkt/sdk-api';
 import {BigNumber} from 'bignumber.js';
+
 
 
 export class TzktReadProvider implements TzReadProvider {
@@ -71,8 +72,9 @@ export class TzktReadProvider implements TzReadProvider {
     return data;
   }
 
-  async getBalance(address: string): Promise<BigNumber> {
-    const {data} = await accountsGetBalance(address);
+  async getBalance(address: string, block: BlockIdentifier): Promise<BigNumber> {
+    const blockId = await this._getBlockIdentifier(block);
+    const {data} = await accountsGetBalanceAtLevel(address, blockId);
     return new BigNumber(data);
   }
 
@@ -88,7 +90,7 @@ export class TzktReadProvider implements TzReadProvider {
     return data?.hash || ''
   }
 
-  async getProtocolConstants(): Promise<{
+  async getProtocolConstants(block: BlockIdentifier): Promise<{
     time_between_blocks?: BigNumber[] | undefined;
     minimal_block_delay?: BigNumber | undefined;
     hard_gas_limit_per_operation: BigNumber;
@@ -97,15 +99,27 @@ export class TzktReadProvider implements TzReadProvider {
     cost_per_byte: BigNumber;
   }> {
 
-    const {data} = await protocolsGetCurrent()
+    let protocol: Protocol
+
+    if(block) {
+      const blockId = await this._getBlockIdentifier(block)
+      const blockByLevel = await blocksGetByLevel(blockId);
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
+      const {data} = await protocolsGetByCycle(blockByLevel.data.cycle || 0)
+      protocol = data;
+    } else {
+      const {data} = await protocolsGetCurrent()
+      protocol = data;
+    }
 
     return {
-      time_between_blocks: [new BigNumber(data?.constants?.timeBetweenBlocks || 0)] || undefined,
+      time_between_blocks: [new BigNumber(protocol?.constants?.timeBetweenBlocks || 0)] || undefined,
       minimal_block_delay: new BigNumber(0),
-      hard_gas_limit_per_operation: new BigNumber(data?.constants?.hardOperationGasLimit || 0),
-      hard_gas_limit_per_block: new BigNumber(data?.constants?.hardBlockGasLimit || 0),
-      hard_storage_limit_per_operation: new BigNumber(data?.constants?.hardOperationStorageLimit || 0),
-      cost_per_byte: new BigNumber(data?.constants?.byteCost || 0),
+      hard_gas_limit_per_operation: new BigNumber(protocol?.constants?.hardOperationGasLimit || 0),
+      hard_gas_limit_per_block: new BigNumber(protocol?.constants?.hardBlockGasLimit || 0),
+      hard_storage_limit_per_operation: new BigNumber(protocol?.constants?.hardOperationStorageLimit || 0),
+      cost_per_byte: new BigNumber(protocol?.constants?.byteCost || 0),
     }
   }
 
@@ -118,11 +132,8 @@ export class TzktReadProvider implements TzReadProvider {
   }
 
   async getBlockHash(block: BlockIdentifier): Promise<string> {
-    if (typeof block !== 'number') {
-      return ''
-    }
-
-    const {data} = await blocksGetByLevel(block);
+    const blockId = await this._getBlockIdentifier(block);
+    const {data} = await blocksGetByLevel(blockId);
 
     return data?.hash || ''
   }
@@ -162,6 +173,7 @@ export class TzktReadProvider implements TzReadProvider {
 
   async isAccountRevealed(publicKeyHash: string): Promise<boolean> {
     const {data} = await accountsGetByAddress(publicKeyHash)
+
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
     return data?.revealed || null;
