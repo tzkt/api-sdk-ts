@@ -8,6 +8,7 @@ const getBlocksRequestUrl = async (method: any, params: any) => {
     requestUrl = url
     return {
       ok: true,
+      status: 200,
       text: "",
       headers: {
         get: () => undefined,
@@ -15,9 +16,11 @@ const getBlocksRequestUrl = async (method: any, params: any) => {
     }
   };
 
-  await method(params, {
-    fetch: fetchMock  as any
+  const res = await method(params, {
+    fetch: fetchMock as any
   });
+
+  expect(res).toEqual(undefined);
 
   return requestUrl;
 }
