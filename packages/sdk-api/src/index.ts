@@ -1817,28 +1817,30 @@ export function accountsGet(
   } = {},
   opts?: Oazapfts.RequestOpts
 ) {
-  return oazapfts.fetchJson<{
-    status: 200;
-    data: Account[];
-  }>(
-    `/v1/accounts${QS.query(
-      QS.form({
-        limit,
-        ...QueryParamsParsers.queryParameter('id', id),
-        ...QueryParamsParsers.queryParameter('type', type),
-        ...QueryParamsParsers.queryParameter('kind', kind),
-        ...QueryParamsParsers.queryParameter('delegate', delegate),
-        ...QueryParamsParsers.queryParameter('balance', balance),
-        ...QueryParamsParsers.queryParameter('staked', staked),
-        ...QueryParamsParsers.queryParameter('lastActivity', lastActivity),
-        ...QueryParamsParsers.queryParameter('select', select),
-        ...QueryParamsParsers.queryParameter('sort', sort),
-        ...QueryParamsParsers.queryParameter('offset', offset),
-      })
-    )}`,
-    {
-      ...opts,
-    }
+  return oazapfts.ok(
+    oazapfts.fetchJson<{
+      status: 200;
+      data: Account[];
+    }>(
+      `/v1/accounts${QS.query(
+        QS.form({
+          limit,
+          ...QueryParamsParsers.queryParameter('id', id),
+          ...QueryParamsParsers.queryParameter('type', type),
+          ...QueryParamsParsers.queryParameter('kind', kind),
+          ...QueryParamsParsers.queryParameter('delegate', delegate),
+          ...QueryParamsParsers.queryParameter('balance', balance),
+          ...QueryParamsParsers.queryParameter('staked', staked),
+          ...QueryParamsParsers.queryParameter('lastActivity', lastActivity),
+          ...QueryParamsParsers.queryParameter('select', select),
+          ...QueryParamsParsers.queryParameter('sort', sort),
+          ...QueryParamsParsers.queryParameter('offset', offset),
+        })
+      )}`,
+      {
+        ...opts,
+      }
+    )
   );
 }
 /**
@@ -1860,22 +1862,24 @@ export function accountsGetCount(
   } = {},
   opts?: Oazapfts.RequestOpts
 ) {
-  return oazapfts.fetchJson<{
-    status: 200;
-    data: number;
-  }>(
-    `/v1/accounts/count${QS.query(
-      QS.form({
-        ...QueryParamsParsers.queryParameter('type', type),
-        ...QueryParamsParsers.queryParameter('kind', kind),
-        ...QueryParamsParsers.queryParameter('balance', balance),
-        ...QueryParamsParsers.queryParameter('staked', staked),
-        ...QueryParamsParsers.queryParameter('firstActivity', firstActivity),
-      })
-    )}`,
-    {
-      ...opts,
-    }
+  return oazapfts.ok(
+    oazapfts.fetchJson<{
+      status: 200;
+      data: number;
+    }>(
+      `/v1/accounts/count${QS.query(
+        QS.form({
+          ...QueryParamsParsers.queryParameter('type', type),
+          ...QueryParamsParsers.queryParameter('kind', kind),
+          ...QueryParamsParsers.queryParameter('balance', balance),
+          ...QueryParamsParsers.queryParameter('staked', staked),
+          ...QueryParamsParsers.queryParameter('firstActivity', firstActivity),
+        })
+      )}`,
+      {
+        ...opts,
+      }
+    )
   );
 }
 /**
@@ -1890,18 +1894,20 @@ export function accountsGetByAddress(
   } = {},
   opts?: Oazapfts.RequestOpts
 ) {
-  return oazapfts.fetchJson<{
-    status: 200;
-    data: Account;
-  }>(
-    `/v1/accounts/${address}${QS.query(
-      QS.form({
-        metadata,
-      })
-    )}`,
-    {
-      ...opts,
-    }
+  return oazapfts.ok(
+    oazapfts.fetchJson<{
+      status: 200;
+      data: Account;
+    }>(
+      `/v1/accounts/${address}${QS.query(
+        QS.form({
+          metadata,
+        })
+      )}`,
+      {
+        ...opts,
+      }
+    )
   );
 }
 /**
@@ -1920,20 +1926,22 @@ export function accountsGetContracts(
   } = {},
   opts?: Oazapfts.RequestOpts
 ) {
-  return oazapfts.fetchJson<{
-    status: 200;
-    data: RelatedContract[];
-  }>(
-    `/v1/accounts/${address}/contracts${QS.query(
-      QS.form({
-        limit,
-        ...QueryParamsParsers.queryParameter('sort', sort),
-        ...QueryParamsParsers.queryParameter('offset', offset),
-      })
-    )}`,
-    {
-      ...opts,
-    }
+  return oazapfts.ok(
+    oazapfts.fetchJson<{
+      status: 200;
+      data: RelatedContract[];
+    }>(
+      `/v1/accounts/${address}/contracts${QS.query(
+        QS.form({
+          limit,
+          ...QueryParamsParsers.queryParameter('sort', sort),
+          ...QueryParamsParsers.queryParameter('offset', offset),
+        })
+      )}`,
+      {
+        ...opts,
+      }
+    )
   );
 }
 /**
@@ -1958,26 +1966,28 @@ export function accountsGetDelegators(
   } = {},
   opts?: Oazapfts.RequestOpts
 ) {
-  return oazapfts.fetchJson<{
-    status: 200;
-    data: Delegator[];
-  }>(
-    `/v1/accounts/${address}/delegators${QS.query(
-      QS.form({
-        limit,
-        ...QueryParamsParsers.queryParameter('type', type),
-        ...QueryParamsParsers.queryParameter('balance', balance),
-        ...QueryParamsParsers.queryParameter(
-          'delegationLevel',
-          delegationLevel
-        ),
-        ...QueryParamsParsers.queryParameter('sort', sort),
-        ...QueryParamsParsers.queryParameter('offset', offset),
-      })
-    )}`,
-    {
-      ...opts,
-    }
+  return oazapfts.ok(
+    oazapfts.fetchJson<{
+      status: 200;
+      data: Delegator[];
+    }>(
+      `/v1/accounts/${address}/delegators${QS.query(
+        QS.form({
+          limit,
+          ...QueryParamsParsers.queryParameter('type', type),
+          ...QueryParamsParsers.queryParameter('balance', balance),
+          ...QueryParamsParsers.queryParameter(
+            'delegationLevel',
+            delegationLevel
+          ),
+          ...QueryParamsParsers.queryParameter('sort', sort),
+          ...QueryParamsParsers.queryParameter('offset', offset),
+        })
+      )}`,
+      {
+        ...opts,
+      }
+    )
   );
 }
 /**
@@ -2036,49 +2046,51 @@ export function accountsGetOperations(
   } = {},
   opts?: Oazapfts.RequestOpts
 ) {
-  return oazapfts.fetchJson<{
-    status: 200;
-    data: Operation[];
-  }>(
-    `/v1/accounts/${address}/operations${QS.query(
-      QS.form({
-        type,
-        sort,
-        lastId,
-        limit,
-        micheline,
-        quote,
-        ...QueryParamsParsers.queryParameter('initiator', initiator),
-        ...QueryParamsParsers.queryParameter('sender', sender),
-        ...QueryParamsParsers.queryParameter('target', target),
-        ...QueryParamsParsers.queryParameter('prevDelegate', prevDelegate),
-        ...QueryParamsParsers.queryParameter('newDelegate', newDelegate),
-        ...QueryParamsParsers.queryParameter(
-          'contractManager',
-          contractManager
-        ),
-        ...QueryParamsParsers.queryParameter(
-          'contractDelegate',
-          contractDelegate
-        ),
-        ...QueryParamsParsers.queryParameter(
-          'originatedContract',
-          originatedContract
-        ),
-        ...QueryParamsParsers.queryParameter('accuser', accuser),
-        ...QueryParamsParsers.queryParameter('offender', offender),
-        ...QueryParamsParsers.queryParameter('baker', baker),
-        ...QueryParamsParsers.queryParameter('level', level),
-        ...QueryParamsParsers.queryParameter('timestamp', timestamp),
-        ...QueryParamsParsers.queryParameter('entrypoint', entrypoint),
-        ...QueryParamsParsers.jsonParameter('parameter', parameter),
-        ...QueryParamsParsers.queryParameter('hasInternals', hasInternals),
-        ...QueryParamsParsers.queryParameter('status', status),
-      })
-    )}`,
-    {
-      ...opts,
-    }
+  return oazapfts.ok(
+    oazapfts.fetchJson<{
+      status: 200;
+      data: Operation[];
+    }>(
+      `/v1/accounts/${address}/operations${QS.query(
+        QS.form({
+          type,
+          sort,
+          lastId,
+          limit,
+          micheline,
+          quote,
+          ...QueryParamsParsers.queryParameter('initiator', initiator),
+          ...QueryParamsParsers.queryParameter('sender', sender),
+          ...QueryParamsParsers.queryParameter('target', target),
+          ...QueryParamsParsers.queryParameter('prevDelegate', prevDelegate),
+          ...QueryParamsParsers.queryParameter('newDelegate', newDelegate),
+          ...QueryParamsParsers.queryParameter(
+            'contractManager',
+            contractManager
+          ),
+          ...QueryParamsParsers.queryParameter(
+            'contractDelegate',
+            contractDelegate
+          ),
+          ...QueryParamsParsers.queryParameter(
+            'originatedContract',
+            originatedContract
+          ),
+          ...QueryParamsParsers.queryParameter('accuser', accuser),
+          ...QueryParamsParsers.queryParameter('offender', offender),
+          ...QueryParamsParsers.queryParameter('baker', baker),
+          ...QueryParamsParsers.queryParameter('level', level),
+          ...QueryParamsParsers.queryParameter('timestamp', timestamp),
+          ...QueryParamsParsers.queryParameter('entrypoint', entrypoint),
+          ...QueryParamsParsers.jsonParameter('parameter', parameter),
+          ...QueryParamsParsers.queryParameter('hasInternals', hasInternals),
+          ...QueryParamsParsers.queryParameter('status', status),
+        })
+      )}`,
+      {
+        ...opts,
+      }
+    )
   );
 }
 /**
@@ -2088,12 +2100,14 @@ export function accountsGetMetadata(
   address: string | null,
   opts?: Oazapfts.RequestOpts
 ) {
-  return oazapfts.fetchJson<{
-    status: 200;
-    data: ProfileMetadata;
-  }>(`/v1/accounts/${address}/metadata`, {
-    ...opts,
-  });
+  return oazapfts.ok(
+    oazapfts.fetchJson<{
+      status: 200;
+      data: ProfileMetadata;
+    }>(`/v1/accounts/${address}/metadata`, {
+      ...opts,
+    })
+  );
 }
 /**
  * Get counter
@@ -2102,12 +2116,14 @@ export function accountsGetCounter(
   address: string | null,
   opts?: Oazapfts.RequestOpts
 ) {
-  return oazapfts.fetchJson<{
-    status: 200;
-    data: number;
-  }>(`/v1/accounts/${address}/counter`, {
-    ...opts,
-  });
+  return oazapfts.ok(
+    oazapfts.fetchJson<{
+      status: 200;
+      data: number;
+    }>(`/v1/accounts/${address}/counter`, {
+      ...opts,
+    })
+  );
 }
 /**
  * Get balance
@@ -2116,12 +2132,14 @@ export function accountsGetBalance(
   address: string | null,
   opts?: Oazapfts.RequestOpts
 ) {
-  return oazapfts.fetchJson<{
-    status: 200;
-    data: number;
-  }>(`/v1/accounts/${address}/balance`, {
-    ...opts,
-  });
+  return oazapfts.ok(
+    oazapfts.fetchJson<{
+      status: 200;
+      data: number;
+    }>(`/v1/accounts/${address}/balance`, {
+      ...opts,
+    })
+  );
 }
 /**
  * Get balance at level
@@ -2131,12 +2149,14 @@ export function accountsGetBalanceAtLevel(
   level: number,
   opts?: Oazapfts.RequestOpts
 ) {
-  return oazapfts.fetchJson<{
-    status: 200;
-    data: number;
-  }>(`/v1/accounts/${address}/balance_history/${level}`, {
-    ...opts,
-  });
+  return oazapfts.ok(
+    oazapfts.fetchJson<{
+      status: 200;
+      data: number;
+    }>(`/v1/accounts/${address}/balance_history/${level}`, {
+      ...opts,
+    })
+  );
 }
 /**
  * Get balance at date
@@ -2146,12 +2166,14 @@ export function accountsGetBalanceAtDate(
   datetime: string,
   opts?: Oazapfts.RequestOpts
 ) {
-  return oazapfts.fetchJson<{
-    status: 200;
-    data: number;
-  }>(`/v1/accounts/${address}/balance_history/${datetime}`, {
-    ...opts,
-  });
+  return oazapfts.ok(
+    oazapfts.fetchJson<{
+      status: 200;
+      data: number;
+    }>(`/v1/accounts/${address}/balance_history/${datetime}`, {
+      ...opts,
+    })
+  );
 }
 /**
  * Get balance history
@@ -2175,23 +2197,25 @@ export function accountsGetBalanceHistory(
   } = {},
   opts?: Oazapfts.RequestOpts
 ) {
-  return oazapfts.fetchJson<{
-    status: 200;
-    data: HistoricalBalance[];
-  }>(
-    `/v1/accounts/${address}/balance_history${QS.query(
-      QS.form({
-        step,
-        offset,
-        limit,
-        quote,
-        ...QueryParamsParsers.queryParameter('select', select),
-        ...QueryParamsParsers.queryParameter('sort', sort),
-      })
-    )}`,
-    {
-      ...opts,
-    }
+  return oazapfts.ok(
+    oazapfts.fetchJson<{
+      status: 200;
+      data: HistoricalBalance[];
+    }>(
+      `/v1/accounts/${address}/balance_history${QS.query(
+        QS.form({
+          step,
+          offset,
+          limit,
+          quote,
+          ...QueryParamsParsers.queryParameter('select', select),
+          ...QueryParamsParsers.queryParameter('sort', sort),
+        })
+      )}`,
+      {
+        ...opts,
+      }
+    )
   );
 }
 /**
@@ -2216,35 +2240,39 @@ export function accountsGetBalanceReport(
   } = {},
   opts?: Oazapfts.RequestOpts
 ) {
-  return oazapfts.fetchBlob<{
-    status: 200;
-    data: Blob;
-  }>(
-    `/v1/accounts/${address}/report${QS.query(
-      QS.form({
-        from,
-        to,
-        currency,
-        historical,
-        delimiter,
-        separator,
-      })
-    )}`,
-    {
-      ...opts,
-    }
+  return oazapfts.ok(
+    oazapfts.fetchBlob<{
+      status: 200;
+      data: Blob;
+    }>(
+      `/v1/accounts/${address}/report${QS.query(
+        QS.form({
+          from,
+          to,
+          currency,
+          historical,
+          delimiter,
+          separator,
+        })
+      )}`,
+      {
+        ...opts,
+      }
+    )
   );
 }
 /**
  * Get bigmaps count
  */
 export function bigMapsGetBigMapsCount(opts?: Oazapfts.RequestOpts) {
-  return oazapfts.fetchJson<{
-    status: 200;
-    data: number;
-  }>('/v1/bigmaps/count', {
-    ...opts,
-  });
+  return oazapfts.ok(
+    oazapfts.fetchJson<{
+      status: 200;
+      data: number;
+    }>('/v1/bigmaps/count', {
+      ...opts,
+    })
+  );
 }
 /**
  * Get bigmaps
@@ -2275,27 +2303,29 @@ export function bigMapsGetBigMaps(
   } = {},
   opts?: Oazapfts.RequestOpts
 ) {
-  return oazapfts.fetchJson<{
-    status: 200;
-    data: BigMap[];
-  }>(
-    `/v1/bigmaps${QS.query(
-      QS.form({
-        active,
-        limit,
-        micheline,
-        ...QueryParamsParsers.queryParameter('contract', contract),
-        ...QueryParamsParsers.queryParameter('path', path),
-        ...QueryParamsParsers.queryParameter('tags', tags),
-        ...QueryParamsParsers.queryParameter('lastLevel', lastLevel),
-        ...QueryParamsParsers.queryParameter('select', select),
-        ...QueryParamsParsers.queryParameter('sort', sort),
-        ...QueryParamsParsers.queryParameter('offset', offset),
-      })
-    )}`,
-    {
-      ...opts,
-    }
+  return oazapfts.ok(
+    oazapfts.fetchJson<{
+      status: 200;
+      data: BigMap[];
+    }>(
+      `/v1/bigmaps${QS.query(
+        QS.form({
+          active,
+          limit,
+          micheline,
+          ...QueryParamsParsers.queryParameter('contract', contract),
+          ...QueryParamsParsers.queryParameter('path', path),
+          ...QueryParamsParsers.queryParameter('tags', tags),
+          ...QueryParamsParsers.queryParameter('lastLevel', lastLevel),
+          ...QueryParamsParsers.queryParameter('select', select),
+          ...QueryParamsParsers.queryParameter('sort', sort),
+          ...QueryParamsParsers.queryParameter('offset', offset),
+        })
+      )}`,
+      {
+        ...opts,
+      }
+    )
   );
 }
 /**
@@ -2331,29 +2361,31 @@ export function bigMapsGetBigMapUpdates(
   } = {},
   opts?: Oazapfts.RequestOpts
 ) {
-  return oazapfts.fetchJson<{
-    status: 200;
-    data: BigMapUpdate[];
-  }>(
-    `/v1/bigmaps/updates${QS.query(
-      QS.form({
-        limit,
-        micheline,
-        ...QueryParamsParsers.queryParameter('bigmap', bigmap),
-        ...QueryParamsParsers.queryParameter('path', path),
-        ...QueryParamsParsers.queryParameter('contract', contract),
-        ...QueryParamsParsers.queryParameter('tags', tags),
-        ...QueryParamsParsers.queryParameter('action', action),
-        ...QueryParamsParsers.jsonParameter('value', value),
-        ...QueryParamsParsers.queryParameter('level', level),
-        ...QueryParamsParsers.queryParameter('timestamp', timestamp),
-        ...QueryParamsParsers.queryParameter('sort', sort),
-        ...QueryParamsParsers.queryParameter('offset', offset),
-      })
-    )}`,
-    {
-      ...opts,
-    }
+  return oazapfts.ok(
+    oazapfts.fetchJson<{
+      status: 200;
+      data: BigMapUpdate[];
+    }>(
+      `/v1/bigmaps/updates${QS.query(
+        QS.form({
+          limit,
+          micheline,
+          ...QueryParamsParsers.queryParameter('bigmap', bigmap),
+          ...QueryParamsParsers.queryParameter('path', path),
+          ...QueryParamsParsers.queryParameter('contract', contract),
+          ...QueryParamsParsers.queryParameter('tags', tags),
+          ...QueryParamsParsers.queryParameter('action', action),
+          ...QueryParamsParsers.jsonParameter('value', value),
+          ...QueryParamsParsers.queryParameter('level', level),
+          ...QueryParamsParsers.queryParameter('timestamp', timestamp),
+          ...QueryParamsParsers.queryParameter('sort', sort),
+          ...QueryParamsParsers.queryParameter('offset', offset),
+        })
+      )}`,
+      {
+        ...opts,
+      }
+    )
   );
 }
 /**
@@ -2368,30 +2400,34 @@ export function bigMapsGetBigMapById(
   } = {},
   opts?: Oazapfts.RequestOpts
 ) {
-  return oazapfts.fetchJson<{
-    status: 200;
-    data: BigMap;
-  }>(
-    `/v1/bigmaps/${id}${QS.query(
-      QS.form({
-        micheline,
-      })
-    )}`,
-    {
-      ...opts,
-    }
+  return oazapfts.ok(
+    oazapfts.fetchJson<{
+      status: 200;
+      data: BigMap;
+    }>(
+      `/v1/bigmaps/${id}${QS.query(
+        QS.form({
+          micheline,
+        })
+      )}`,
+      {
+        ...opts,
+      }
+    )
   );
 }
 /**
  * Get bigmap type
  */
 export function bigMapsGetBigMapType(id: number, opts?: Oazapfts.RequestOpts) {
-  return oazapfts.fetchJson<{
-    status: 200;
-    data: MichelinePrim;
-  }>(`/v1/bigmaps/${id}/type`, {
-    ...opts,
-  });
+  return oazapfts.ok(
+    oazapfts.fetchJson<{
+      status: 200;
+      data: MichelinePrim;
+    }>(`/v1/bigmaps/${id}/type`, {
+      ...opts,
+    })
+  );
 }
 /**
  * Get bigmap keys
@@ -2421,26 +2457,28 @@ export function bigMapsGetKeys(
   } = {},
   opts?: Oazapfts.RequestOpts
 ) {
-  return oazapfts.fetchJson<{
-    status: 200;
-    data: BigMapKey[];
-  }>(
-    `/v1/bigmaps/${id}/keys${QS.query(
-      QS.form({
-        active,
-        limit,
-        micheline,
-        ...QueryParamsParsers.jsonParameter('key', key),
-        ...QueryParamsParsers.jsonParameter('value', value),
-        ...QueryParamsParsers.queryParameter('lastLevel', lastLevel),
-        ...QueryParamsParsers.queryParameter('select', select),
-        ...QueryParamsParsers.queryParameter('sort', sort),
-        ...QueryParamsParsers.queryParameter('offset', offset),
-      })
-    )}`,
-    {
-      ...opts,
-    }
+  return oazapfts.ok(
+    oazapfts.fetchJson<{
+      status: 200;
+      data: BigMapKey[];
+    }>(
+      `/v1/bigmaps/${id}/keys${QS.query(
+        QS.form({
+          active,
+          limit,
+          micheline,
+          ...QueryParamsParsers.jsonParameter('key', key),
+          ...QueryParamsParsers.jsonParameter('value', value),
+          ...QueryParamsParsers.queryParameter('lastLevel', lastLevel),
+          ...QueryParamsParsers.queryParameter('select', select),
+          ...QueryParamsParsers.queryParameter('sort', sort),
+          ...QueryParamsParsers.queryParameter('offset', offset),
+        })
+      )}`,
+      {
+        ...opts,
+      }
+    )
   );
 }
 /**
@@ -2456,18 +2494,20 @@ export function bigMapsGetKey(
   } = {},
   opts?: Oazapfts.RequestOpts
 ) {
-  return oazapfts.fetchJson<{
-    status: 200;
-    data: BigMapKey;
-  }>(
-    `/v1/bigmaps/${id}/keys/${key}${QS.query(
-      QS.form({
-        micheline,
-      })
-    )}`,
-    {
-      ...opts,
-    }
+  return oazapfts.ok(
+    oazapfts.fetchJson<{
+      status: 200;
+      data: BigMapKey;
+    }>(
+      `/v1/bigmaps/${id}/keys/${key}${QS.query(
+        QS.form({
+          micheline,
+        })
+      )}`,
+      {
+        ...opts,
+      }
+    )
   );
 }
 /**
@@ -2489,21 +2529,23 @@ export function bigMapsGetKeyUpdates(
   } = {},
   opts?: Oazapfts.RequestOpts
 ) {
-  return oazapfts.fetchJson<{
-    status: 200;
-    data: BigMapKeyUpdate[];
-  }>(
-    `/v1/bigmaps/${id}/keys/${key}/updates${QS.query(
-      QS.form({
-        limit,
-        micheline,
-        ...QueryParamsParsers.queryParameter('sort', sort),
-        ...QueryParamsParsers.queryParameter('offset', offset),
-      })
-    )}`,
-    {
-      ...opts,
-    }
+  return oazapfts.ok(
+    oazapfts.fetchJson<{
+      status: 200;
+      data: BigMapKeyUpdate[];
+    }>(
+      `/v1/bigmaps/${id}/keys/${key}/updates${QS.query(
+        QS.form({
+          limit,
+          micheline,
+          ...QueryParamsParsers.queryParameter('sort', sort),
+          ...QueryParamsParsers.queryParameter('offset', offset),
+        })
+      )}`,
+      {
+        ...opts,
+      }
+    )
   );
 }
 /**
@@ -2533,25 +2575,27 @@ export function bigMapsGetHistoricalKeys(
   } = {},
   opts?: Oazapfts.RequestOpts
 ) {
-  return oazapfts.fetchJson<{
-    status: 200;
-    data: BigMapKeyHistorical[];
-  }>(
-    `/v1/bigmaps/${id}/historical_keys/${level}${QS.query(
-      QS.form({
-        active,
-        limit,
-        micheline,
-        ...QueryParamsParsers.jsonParameter('key', key),
-        ...QueryParamsParsers.jsonParameter('value', value),
-        ...QueryParamsParsers.queryParameter('select', select),
-        ...QueryParamsParsers.queryParameter('sort', sort),
-        ...QueryParamsParsers.queryParameter('offset', offset),
-      })
-    )}`,
-    {
-      ...opts,
-    }
+  return oazapfts.ok(
+    oazapfts.fetchJson<{
+      status: 200;
+      data: BigMapKeyHistorical[];
+    }>(
+      `/v1/bigmaps/${id}/historical_keys/${level}${QS.query(
+        QS.form({
+          active,
+          limit,
+          micheline,
+          ...QueryParamsParsers.jsonParameter('key', key),
+          ...QueryParamsParsers.jsonParameter('value', value),
+          ...QueryParamsParsers.queryParameter('select', select),
+          ...QueryParamsParsers.queryParameter('sort', sort),
+          ...QueryParamsParsers.queryParameter('offset', offset),
+        })
+      )}`,
+      {
+        ...opts,
+      }
+    )
   );
 }
 /**
@@ -2568,30 +2612,34 @@ export function bigMapsGetKey2(
   } = {},
   opts?: Oazapfts.RequestOpts
 ) {
-  return oazapfts.fetchJson<{
-    status: 200;
-    data: BigMapKeyHistorical;
-  }>(
-    `/v1/bigmaps/${id}/historical_keys/${level}/${key}${QS.query(
-      QS.form({
-        micheline,
-      })
-    )}`,
-    {
-      ...opts,
-    }
+  return oazapfts.ok(
+    oazapfts.fetchJson<{
+      status: 200;
+      data: BigMapKeyHistorical;
+    }>(
+      `/v1/bigmaps/${id}/historical_keys/${level}/${key}${QS.query(
+        QS.form({
+          micheline,
+        })
+      )}`,
+      {
+        ...opts,
+      }
+    )
   );
 }
 /**
  * Get blocks count
  */
 export function blocksGetCount(opts?: Oazapfts.RequestOpts) {
-  return oazapfts.fetchJson<{
-    status: 200;
-    data: number;
-  }>('/v1/blocks/count', {
-    ...opts,
-  });
+  return oazapfts.ok(
+    oazapfts.fetchJson<{
+      status: 200;
+      data: number;
+    }>('/v1/blocks/count', {
+      ...opts,
+    })
+  );
 }
 /**
  * Get blocks
@@ -2634,30 +2682,32 @@ export function blocksGet(
   } = {},
   opts?: Oazapfts.RequestOpts
 ) {
-  return oazapfts.fetchJson<{
-    status: 200;
-    data: Block[];
-  }>(
-    `/v1/blocks${QS.query(
-      QS.form({
-        limit,
-        quote,
-        ...QueryParamsParsers.queryParameter('baker', baker),
-        ...QueryParamsParsers.anyofParameter('anyof', anyof),
-        ...QueryParamsParsers.queryParameter('proposer', proposer),
-        ...QueryParamsParsers.queryParameter('producer', producer),
-        ...QueryParamsParsers.queryParameter('level', level),
-        ...QueryParamsParsers.queryParameter('timestamp', timestamp),
-        ...QueryParamsParsers.queryParameter('priority', priority),
-        ...QueryParamsParsers.queryParameter('blockRound', blockRound),
-        ...QueryParamsParsers.queryParameter('select', select),
-        ...QueryParamsParsers.queryParameter('sort', sort),
-        ...QueryParamsParsers.queryParameter('offset', offset),
-      })
-    )}`,
-    {
-      ...opts,
-    }
+  return oazapfts.ok(
+    oazapfts.fetchJson<{
+      status: 200;
+      data: Block[];
+    }>(
+      `/v1/blocks${QS.query(
+        QS.form({
+          limit,
+          quote,
+          ...QueryParamsParsers.queryParameter('baker', baker),
+          ...QueryParamsParsers.anyofParameter('anyof', anyof),
+          ...QueryParamsParsers.queryParameter('proposer', proposer),
+          ...QueryParamsParsers.queryParameter('producer', producer),
+          ...QueryParamsParsers.queryParameter('level', level),
+          ...QueryParamsParsers.queryParameter('timestamp', timestamp),
+          ...QueryParamsParsers.queryParameter('priority', priority),
+          ...QueryParamsParsers.queryParameter('blockRound', blockRound),
+          ...QueryParamsParsers.queryParameter('select', select),
+          ...QueryParamsParsers.queryParameter('sort', sort),
+          ...QueryParamsParsers.queryParameter('offset', offset),
+        })
+      )}`,
+      {
+        ...opts,
+      }
+    )
   );
 }
 /**
@@ -2676,20 +2726,22 @@ export function blocksGetByHash(
   } = {},
   opts?: Oazapfts.RequestOpts
 ) {
-  return oazapfts.fetchJson<{
-    status: 200;
-    data: Block;
-  }>(
-    `/v1/blocks/${hash}${QS.query(
-      QS.form({
-        operations,
-        micheline,
-        quote,
-      })
-    )}`,
-    {
-      ...opts,
-    }
+  return oazapfts.ok(
+    oazapfts.fetchJson<{
+      status: 200;
+      data: Block;
+    }>(
+      `/v1/blocks/${hash}${QS.query(
+        QS.form({
+          operations,
+          micheline,
+          quote,
+        })
+      )}`,
+      {
+        ...opts,
+      }
+    )
   );
 }
 /**
@@ -2708,32 +2760,36 @@ export function blocksGetByLevel(
   } = {},
   opts?: Oazapfts.RequestOpts
 ) {
-  return oazapfts.fetchJson<{
-    status: 200;
-    data: Block;
-  }>(
-    `/v1/blocks/${level}${QS.query(
-      QS.form({
-        operations,
-        micheline,
-        quote,
-      })
-    )}`,
-    {
-      ...opts,
-    }
+  return oazapfts.ok(
+    oazapfts.fetchJson<{
+      status: 200;
+      data: Block;
+    }>(
+      `/v1/blocks/${level}${QS.query(
+        QS.form({
+          operations,
+          micheline,
+          quote,
+        })
+      )}`,
+      {
+        ...opts,
+      }
+    )
   );
 }
 /**
  * Get timestamp by level
  */
 export function blocksGetByLevel2(level: number, opts?: Oazapfts.RequestOpts) {
-  return oazapfts.fetchJson<{
-    status: 200;
-    data: string;
-  }>(`/v1/blocks/${level}/timestamp`, {
-    ...opts,
-  });
+  return oazapfts.ok(
+    oazapfts.fetchJson<{
+      status: 200;
+      data: string;
+    }>(`/v1/blocks/${level}/timestamp`, {
+      ...opts,
+    })
+  );
 }
 /**
  * Get block by timestamp
@@ -2751,20 +2807,22 @@ export function blocksGetByDate(
   } = {},
   opts?: Oazapfts.RequestOpts
 ) {
-  return oazapfts.fetchJson<{
-    status: 200;
-    data: Block;
-  }>(
-    `/v1/blocks/${timestamp}${QS.query(
-      QS.form({
-        operations,
-        micheline,
-        quote,
-      })
-    )}`,
-    {
-      ...opts,
-    }
+  return oazapfts.ok(
+    oazapfts.fetchJson<{
+      status: 200;
+      data: Block;
+    }>(
+      `/v1/blocks/${timestamp}${QS.query(
+        QS.form({
+          operations,
+          micheline,
+          quote,
+        })
+      )}`,
+      {
+        ...opts,
+      }
+    )
   );
 }
 /**
@@ -2774,12 +2832,14 @@ export function blocksGetByDate2(
   timestamp: string,
   opts?: Oazapfts.RequestOpts
 ) {
-  return oazapfts.fetchJson<{
-    status: 200;
-    data: number;
-  }>(`/v1/blocks/${timestamp}/level`, {
-    ...opts,
-  });
+  return oazapfts.ok(
+    oazapfts.fetchJson<{
+      status: 200;
+      data: number;
+    }>(`/v1/blocks/${timestamp}/level`, {
+      ...opts,
+    })
+  );
 }
 /**
  * Get commitment by blinded address
@@ -2788,12 +2848,14 @@ export function commitmentsGet(
   address: string | null,
   opts?: Oazapfts.RequestOpts
 ) {
-  return oazapfts.fetchJson<{
-    status: 200;
-    data: Commitment;
-  }>(`/v1/commitments/${address}`, {
-    ...opts,
-  });
+  return oazapfts.ok(
+    oazapfts.fetchJson<{
+      status: 200;
+      data: Commitment;
+    }>(`/v1/commitments/${address}`, {
+      ...opts,
+    })
+  );
 }
 /**
  * Get commitments
@@ -2818,27 +2880,29 @@ export function commitmentsGetAll(
   } = {},
   opts?: Oazapfts.RequestOpts
 ) {
-  return oazapfts.fetchJson<{
-    status: 200;
-    data: Commitment[];
-  }>(
-    `/v1/commitments${QS.query(
-      QS.form({
-        activated,
-        limit,
-        ...QueryParamsParsers.queryParameter(
-          'activationLevel',
-          activationLevel
-        ),
-        ...QueryParamsParsers.queryParameter('balance', balance),
-        ...QueryParamsParsers.queryParameter('select', select),
-        ...QueryParamsParsers.queryParameter('sort', sort),
-        ...QueryParamsParsers.queryParameter('offset', offset),
-      })
-    )}`,
-    {
-      ...opts,
-    }
+  return oazapfts.ok(
+    oazapfts.fetchJson<{
+      status: 200;
+      data: Commitment[];
+    }>(
+      `/v1/commitments${QS.query(
+        QS.form({
+          activated,
+          limit,
+          ...QueryParamsParsers.queryParameter(
+            'activationLevel',
+            activationLevel
+          ),
+          ...QueryParamsParsers.queryParameter('balance', balance),
+          ...QueryParamsParsers.queryParameter('select', select),
+          ...QueryParamsParsers.queryParameter('sort', sort),
+          ...QueryParamsParsers.queryParameter('offset', offset),
+        })
+      )}`,
+      {
+        ...opts,
+      }
+    )
   );
 }
 /**
@@ -2854,19 +2918,21 @@ export function commitmentsGetCount(
   } = {},
   opts?: Oazapfts.RequestOpts
 ) {
-  return oazapfts.fetchJson<{
-    status: 200;
-    data: number;
-  }>(
-    `/v1/commitments/count${QS.query(
-      QS.form({
-        activated,
-        ...QueryParamsParsers.queryParameter('balance', balance),
-      })
-    )}`,
-    {
-      ...opts,
-    }
+  return oazapfts.ok(
+    oazapfts.fetchJson<{
+      status: 200;
+      data: number;
+    }>(
+      `/v1/commitments/count${QS.query(
+        QS.form({
+          activated,
+          ...QueryParamsParsers.queryParameter('balance', balance),
+        })
+      )}`,
+      {
+        ...opts,
+      }
+    )
   );
 }
 /**
@@ -2900,28 +2966,30 @@ export function constantsGet(
   } = {},
   opts?: Oazapfts.RequestOpts
 ) {
-  return oazapfts.fetchJson<{
-    status: 200;
-    data: Constant[];
-  }>(
-    `/v1/constants${QS.query(
-      QS.form({
-        limit,
-        format,
-        ...QueryParamsParsers.queryParameter('address', address),
-        ...QueryParamsParsers.queryParameter('creationLevel', creationLevel),
-        ...QueryParamsParsers.queryParameter('creationTime', creationTime),
-        ...QueryParamsParsers.queryParameter('creator', creator),
-        ...QueryParamsParsers.queryParameter('refs', refs),
-        ...QueryParamsParsers.queryParameter('size', size),
-        ...QueryParamsParsers.queryParameter('select', select),
-        ...QueryParamsParsers.queryParameter('sort', sort),
-        ...QueryParamsParsers.queryParameter('offset', offset),
-      })
-    )}`,
-    {
-      ...opts,
-    }
+  return oazapfts.ok(
+    oazapfts.fetchJson<{
+      status: 200;
+      data: Constant[];
+    }>(
+      `/v1/constants${QS.query(
+        QS.form({
+          limit,
+          format,
+          ...QueryParamsParsers.queryParameter('address', address),
+          ...QueryParamsParsers.queryParameter('creationLevel', creationLevel),
+          ...QueryParamsParsers.queryParameter('creationTime', creationTime),
+          ...QueryParamsParsers.queryParameter('creator', creator),
+          ...QueryParamsParsers.queryParameter('refs', refs),
+          ...QueryParamsParsers.queryParameter('size', size),
+          ...QueryParamsParsers.queryParameter('select', select),
+          ...QueryParamsParsers.queryParameter('sort', sort),
+          ...QueryParamsParsers.queryParameter('offset', offset),
+        })
+      )}`,
+      {
+        ...opts,
+      }
+    )
   );
 }
 /**
@@ -2936,18 +3004,20 @@ export function constantsGetByAddress(
   } = {},
   opts?: Oazapfts.RequestOpts
 ) {
-  return oazapfts.fetchJson<{
-    status: 200;
-    data: Constant;
-  }>(
-    `/v1/constants/${address}${QS.query(
-      QS.form({
-        format,
-      })
-    )}`,
-    {
-      ...opts,
-    }
+  return oazapfts.ok(
+    oazapfts.fetchJson<{
+      status: 200;
+      data: Constant;
+    }>(
+      `/v1/constants/${address}${QS.query(
+        QS.form({
+          format,
+        })
+      )}`,
+      {
+        ...opts,
+      }
+    )
   );
 }
 /**
@@ -2961,18 +3031,20 @@ export function constantsGetCount(
   } = {},
   opts?: Oazapfts.RequestOpts
 ) {
-  return oazapfts.fetchJson<{
-    status: 200;
-    data: number;
-  }>(
-    `/v1/constants/count${QS.query(
-      QS.form({
-        ...QueryParamsParsers.queryParameter('refs', refs),
-      })
-    )}`,
-    {
-      ...opts,
-    }
+  return oazapfts.ok(
+    oazapfts.fetchJson<{
+      status: 200;
+      data: number;
+    }>(
+      `/v1/constants/count${QS.query(
+        QS.form({
+          ...QueryParamsParsers.queryParameter('refs', refs),
+        })
+      )}`,
+      {
+        ...opts,
+      }
+    )
   );
 }
 /**
@@ -3012,31 +3084,33 @@ export function contractsGet(
   } = {},
   opts?: Oazapfts.RequestOpts
 ) {
-  return oazapfts.fetchJson<{
-    status: 200;
-    data: Contract[];
-  }>(
-    `/v1/contracts${QS.query(
-      QS.form({
-        limit,
-        includeStorage,
-        ...QueryParamsParsers.queryParameter('kind', kind),
-        ...QueryParamsParsers.queryParameter('tzips', tzips),
-        ...QueryParamsParsers.queryParameter('creator', creator),
-        ...QueryParamsParsers.queryParameter('manager', manager),
-        ...QueryParamsParsers.queryParameter('delegate', delegate),
-        ...QueryParamsParsers.queryParameter('balance', balance),
-        ...QueryParamsParsers.queryParameter('lastActivity', lastActivity),
-        ...QueryParamsParsers.queryParameter('typeHash', typeHash),
-        ...QueryParamsParsers.queryParameter('codeHash', codeHash),
-        ...QueryParamsParsers.queryParameter('select', select),
-        ...QueryParamsParsers.queryParameter('sort', sort),
-        ...QueryParamsParsers.queryParameter('offset', offset),
-      })
-    )}`,
-    {
-      ...opts,
-    }
+  return oazapfts.ok(
+    oazapfts.fetchJson<{
+      status: 200;
+      data: Contract[];
+    }>(
+      `/v1/contracts${QS.query(
+        QS.form({
+          limit,
+          includeStorage,
+          ...QueryParamsParsers.queryParameter('kind', kind),
+          ...QueryParamsParsers.queryParameter('tzips', tzips),
+          ...QueryParamsParsers.queryParameter('creator', creator),
+          ...QueryParamsParsers.queryParameter('manager', manager),
+          ...QueryParamsParsers.queryParameter('delegate', delegate),
+          ...QueryParamsParsers.queryParameter('balance', balance),
+          ...QueryParamsParsers.queryParameter('lastActivity', lastActivity),
+          ...QueryParamsParsers.queryParameter('typeHash', typeHash),
+          ...QueryParamsParsers.queryParameter('codeHash', codeHash),
+          ...QueryParamsParsers.queryParameter('select', select),
+          ...QueryParamsParsers.queryParameter('sort', sort),
+          ...QueryParamsParsers.queryParameter('offset', offset),
+        })
+      )}`,
+      {
+        ...opts,
+      }
+    )
   );
 }
 /**
@@ -3050,18 +3124,20 @@ export function contractsGetCount(
   } = {},
   opts?: Oazapfts.RequestOpts
 ) {
-  return oazapfts.fetchJson<{
-    status: 200;
-    data: number;
-  }>(
-    `/v1/contracts/count${QS.query(
-      QS.form({
-        ...QueryParamsParsers.queryParameter('kind', kind),
-      })
-    )}`,
-    {
-      ...opts,
-    }
+  return oazapfts.ok(
+    oazapfts.fetchJson<{
+      status: 200;
+      data: number;
+    }>(
+      `/v1/contracts/count${QS.query(
+        QS.form({
+          ...QueryParamsParsers.queryParameter('kind', kind),
+        })
+      )}`,
+      {
+        ...opts,
+      }
+    )
   );
 }
 /**
@@ -3071,12 +3147,14 @@ export function contractsGetByAddress(
   address: string | null,
   opts?: Oazapfts.RequestOpts
 ) {
-  return oazapfts.fetchJson<{
-    status: 200;
-    data: Contract;
-  }>(`/v1/contracts/${address}`, {
-    ...opts,
-  });
+  return oazapfts.ok(
+    oazapfts.fetchJson<{
+      status: 200;
+      data: Contract;
+    }>(`/v1/contracts/${address}`, {
+      ...opts,
+    })
+  );
 }
 /**
  * Get same contracts
@@ -3098,22 +3176,24 @@ export function contractsGetSame(
   } = {},
   opts?: Oazapfts.RequestOpts
 ) {
-  return oazapfts.fetchJson<{
-    status: 200;
-    data: Contract[];
-  }>(
-    `/v1/contracts/${address}/same${QS.query(
-      QS.form({
-        limit,
-        includeStorage,
-        ...QueryParamsParsers.queryParameter('select', select),
-        ...QueryParamsParsers.queryParameter('sort', sort),
-        ...QueryParamsParsers.queryParameter('offset', offset),
-      })
-    )}`,
-    {
-      ...opts,
-    }
+  return oazapfts.ok(
+    oazapfts.fetchJson<{
+      status: 200;
+      data: Contract[];
+    }>(
+      `/v1/contracts/${address}/same${QS.query(
+        QS.form({
+          limit,
+          includeStorage,
+          ...QueryParamsParsers.queryParameter('select', select),
+          ...QueryParamsParsers.queryParameter('sort', sort),
+          ...QueryParamsParsers.queryParameter('offset', offset),
+        })
+      )}`,
+      {
+        ...opts,
+      }
+    )
   );
 }
 /**
@@ -3136,22 +3216,24 @@ export function contractsGetSimilar(
   } = {},
   opts?: Oazapfts.RequestOpts
 ) {
-  return oazapfts.fetchJson<{
-    status: 200;
-    data: Contract[];
-  }>(
-    `/v1/contracts/${address}/similar${QS.query(
-      QS.form({
-        limit,
-        includeStorage,
-        ...QueryParamsParsers.queryParameter('select', select),
-        ...QueryParamsParsers.queryParameter('sort', sort),
-        ...QueryParamsParsers.queryParameter('offset', offset),
-      })
-    )}`,
-    {
-      ...opts,
-    }
+  return oazapfts.ok(
+    oazapfts.fetchJson<{
+      status: 200;
+      data: Contract[];
+    }>(
+      `/v1/contracts/${address}/similar${QS.query(
+        QS.form({
+          limit,
+          includeStorage,
+          ...QueryParamsParsers.queryParameter('select', select),
+          ...QueryParamsParsers.queryParameter('sort', sort),
+          ...QueryParamsParsers.queryParameter('offset', offset),
+        })
+      )}`,
+      {
+        ...opts,
+      }
+    )
   );
 }
 /**
@@ -3168,19 +3250,21 @@ export function contractsGetCode(
   } = {},
   opts?: Oazapfts.RequestOpts
 ) {
-  return oazapfts.fetchBlob<{
-    status: 200;
-    data: Blob;
-  }>(
-    `/v1/contracts/${address}/code${QS.query(
-      QS.form({
-        level,
-        format,
-      })
-    )}`,
-    {
-      ...opts,
-    }
+  return oazapfts.ok(
+    oazapfts.fetchBlob<{
+      status: 200;
+      data: Blob;
+    }>(
+      `/v1/contracts/${address}/code${QS.query(
+        QS.form({
+          level,
+          format,
+        })
+      )}`,
+      {
+        ...opts,
+      }
+    )
   );
 }
 /**
@@ -3190,12 +3274,14 @@ export function contractsGetInterface(
   address: string | null,
   opts?: Oazapfts.RequestOpts
 ) {
-  return oazapfts.fetchJson<{
-    status: 200;
-    data: ContractInterface;
-  }>(`/v1/contracts/${address}/interface`, {
-    ...opts,
-  });
+  return oazapfts.ok(
+    oazapfts.fetchJson<{
+      status: 200;
+      data: ContractInterface;
+    }>(`/v1/contracts/${address}/interface`, {
+      ...opts,
+    })
+  );
 }
 /**
  * Get contract entrypoints
@@ -3215,21 +3301,23 @@ export function contractsGetEntrypoints(
   } = {},
   opts?: Oazapfts.RequestOpts
 ) {
-  return oazapfts.fetchJson<{
-    status: 200;
-    data: Entrypoint[];
-  }>(
-    `/v1/contracts/${address}/entrypoints${QS.query(
-      QS.form({
-        all,
-        json,
-        micheline,
-        michelson,
-      })
-    )}`,
-    {
-      ...opts,
-    }
+  return oazapfts.ok(
+    oazapfts.fetchJson<{
+      status: 200;
+      data: Entrypoint[];
+    }>(
+      `/v1/contracts/${address}/entrypoints${QS.query(
+        QS.form({
+          all,
+          json,
+          micheline,
+          michelson,
+        })
+      )}`,
+      {
+        ...opts,
+      }
+    )
   );
 }
 /**
@@ -3249,20 +3337,22 @@ export function contractsGetEntrypointByName(
   } = {},
   opts?: Oazapfts.RequestOpts
 ) {
-  return oazapfts.fetchJson<{
-    status: 200;
-    data: Entrypoint;
-  }>(
-    `/v1/contracts/${address}/entrypoints/${name}${QS.query(
-      QS.form({
-        json,
-        micheline,
-        michelson,
-      })
-    )}`,
-    {
-      ...opts,
-    }
+  return oazapfts.ok(
+    oazapfts.fetchJson<{
+      status: 200;
+      data: Entrypoint;
+    }>(
+      `/v1/contracts/${address}/entrypoints/${name}${QS.query(
+        QS.form({
+          json,
+          micheline,
+          michelson,
+        })
+      )}`,
+      {
+        ...opts,
+      }
+    )
   );
 }
 /**
@@ -3281,20 +3371,22 @@ export function contractsGetContractViews(
   } = {},
   opts?: Oazapfts.RequestOpts
 ) {
-  return oazapfts.fetchJson<{
-    status: 200;
-    data: ContractView[];
-  }>(
-    `/v1/contracts/${address}/views${QS.query(
-      QS.form({
-        json,
-        micheline,
-        michelson,
-      })
-    )}`,
-    {
-      ...opts,
-    }
+  return oazapfts.ok(
+    oazapfts.fetchJson<{
+      status: 200;
+      data: ContractView[];
+    }>(
+      `/v1/contracts/${address}/views${QS.query(
+        QS.form({
+          json,
+          micheline,
+          michelson,
+        })
+      )}`,
+      {
+        ...opts,
+      }
+    )
   );
 }
 /**
@@ -3314,20 +3406,22 @@ export function contractsGetContractViewByName(
   } = {},
   opts?: Oazapfts.RequestOpts
 ) {
-  return oazapfts.fetchJson<{
-    status: 200;
-    data: ContractView;
-  }>(
-    `/v1/contracts/${address}/views/${name}${QS.query(
-      QS.form({
-        json,
-        micheline,
-        michelson,
-      })
-    )}`,
-    {
-      ...opts,
-    }
+  return oazapfts.ok(
+    oazapfts.fetchJson<{
+      status: 200;
+      data: ContractView;
+    }>(
+      `/v1/contracts/${address}/views/${name}${QS.query(
+        QS.form({
+          json,
+          micheline,
+          michelson,
+        })
+      )}`,
+      {
+        ...opts,
+      }
+    )
   );
 }
 /**
@@ -3343,18 +3437,20 @@ export function contractsBuildEntrypointParametersGet(
   } = {},
   opts?: Oazapfts.RequestOpts
 ) {
-  return oazapfts.fetchBlob<{
-    status: 200;
-    data: Blob;
-  }>(
-    `/v1/contracts/${address}/entrypoints/${name}/build${QS.query(
-      QS.form({
-        value,
-      })
-    )}`,
-    {
-      ...opts,
-    }
+  return oazapfts.ok(
+    oazapfts.fetchBlob<{
+      status: 200;
+      data: Blob;
+    }>(
+      `/v1/contracts/${address}/entrypoints/${name}/build${QS.query(
+        QS.form({
+          value,
+        })
+      )}`,
+      {
+        ...opts,
+      }
+    )
   );
 }
 /**
@@ -3366,16 +3462,18 @@ export function contractsBuildEntrypointParametersPost(
   body: any,
   opts?: Oazapfts.RequestOpts
 ) {
-  return oazapfts.fetchBlob<{
-    status: 200;
-    data: Blob;
-  }>(
-    `/v1/contracts/${address}/entrypoints/${name}/build`,
-    oazapfts.json({
-      ...opts,
-      method: 'POST',
-      body,
-    })
+  return oazapfts.ok(
+    oazapfts.fetchBlob<{
+      status: 200;
+      data: Blob;
+    }>(
+      `/v1/contracts/${address}/entrypoints/${name}/build`,
+      oazapfts.json({
+        ...opts,
+        method: 'POST',
+        body,
+      })
+    )
   );
 }
 /**
@@ -3392,19 +3490,21 @@ export function contractsGetStorage(
   } = {},
   opts?: Oazapfts.RequestOpts
 ) {
-  return oazapfts.fetchBlob<{
-    status: 200;
-    data: Blob;
-  }>(
-    `/v1/contracts/${address}/storage${QS.query(
-      QS.form({
-        level,
-        path,
-      })
-    )}`,
-    {
-      ...opts,
-    }
+  return oazapfts.ok(
+    oazapfts.fetchBlob<{
+      status: 200;
+      data: Blob;
+    }>(
+      `/v1/contracts/${address}/storage${QS.query(
+        QS.form({
+          level,
+          path,
+        })
+      )}`,
+      {
+        ...opts,
+      }
+    )
   );
 }
 /**
@@ -3419,18 +3519,20 @@ export function contractsGetStorageSchema(
   } = {},
   opts?: Oazapfts.RequestOpts
 ) {
-  return oazapfts.fetchBlob<{
-    status: 200;
-    data: Blob;
-  }>(
-    `/v1/contracts/${address}/storage/schema${QS.query(
-      QS.form({
-        level,
-      })
-    )}`,
-    {
-      ...opts,
-    }
+  return oazapfts.ok(
+    oazapfts.fetchBlob<{
+      status: 200;
+      data: Blob;
+    }>(
+      `/v1/contracts/${address}/storage/schema${QS.query(
+        QS.form({
+          level,
+        })
+      )}`,
+      {
+        ...opts,
+      }
+    )
   );
 }
 /**
@@ -3447,19 +3549,21 @@ export function contractsGetStorageHistory(
   } = {},
   opts?: Oazapfts.RequestOpts
 ) {
-  return oazapfts.fetchJson<{
-    status: 200;
-    data: StorageRecord[];
-  }>(
-    `/v1/contracts/${address}/storage/history${QS.query(
-      QS.form({
-        lastId,
-        limit,
-      })
-    )}`,
-    {
-      ...opts,
-    }
+  return oazapfts.ok(
+    oazapfts.fetchJson<{
+      status: 200;
+      data: StorageRecord[];
+    }>(
+      `/v1/contracts/${address}/storage/history${QS.query(
+        QS.form({
+          lastId,
+          limit,
+        })
+      )}`,
+      {
+        ...opts,
+      }
+    )
   );
 }
 /**
@@ -3474,18 +3578,20 @@ export function contractsGetRawStorage(
   } = {},
   opts?: Oazapfts.RequestOpts
 ) {
-  return oazapfts.fetchJson<{
-    status: 200;
-    data: IMicheline;
-  }>(
-    `/v1/contracts/${address}/storage/raw${QS.query(
-      QS.form({
-        level,
-      })
-    )}`,
-    {
-      ...opts,
-    }
+  return oazapfts.ok(
+    oazapfts.fetchJson<{
+      status: 200;
+      data: IMicheline;
+    }>(
+      `/v1/contracts/${address}/storage/raw${QS.query(
+        QS.form({
+          level,
+        })
+      )}`,
+      {
+        ...opts,
+      }
+    )
   );
 }
 /**
@@ -3500,18 +3606,20 @@ export function contractsGetRawStorageSchema(
   } = {},
   opts?: Oazapfts.RequestOpts
 ) {
-  return oazapfts.fetchJson<{
-    status: 200;
-    data: IMicheline;
-  }>(
-    `/v1/contracts/${address}/storage/raw/schema${QS.query(
-      QS.form({
-        level,
-      })
-    )}`,
-    {
-      ...opts,
-    }
+  return oazapfts.ok(
+    oazapfts.fetchJson<{
+      status: 200;
+      data: IMicheline;
+    }>(
+      `/v1/contracts/${address}/storage/raw/schema${QS.query(
+        QS.form({
+          level,
+        })
+      )}`,
+      {
+        ...opts,
+      }
+    )
   );
 }
 /**
@@ -3528,19 +3636,21 @@ export function contractsGetRawStorageHistory(
   } = {},
   opts?: Oazapfts.RequestOpts
 ) {
-  return oazapfts.fetchJson<{
-    status: 200;
-    data: StorageRecord[];
-  }>(
-    `/v1/contracts/${address}/storage/raw/history${QS.query(
-      QS.form({
-        lastId,
-        limit,
-      })
-    )}`,
-    {
-      ...opts,
-    }
+  return oazapfts.ok(
+    oazapfts.fetchJson<{
+      status: 200;
+      data: StorageRecord[];
+    }>(
+      `/v1/contracts/${address}/storage/raw/history${QS.query(
+        QS.form({
+          lastId,
+          limit,
+        })
+      )}`,
+      {
+        ...opts,
+      }
+    )
   );
 }
 /**
@@ -3565,23 +3675,25 @@ export function contractsGetBigMaps(
   } = {},
   opts?: Oazapfts.RequestOpts
 ) {
-  return oazapfts.fetchJson<{
-    status: 200;
-    data: BigMap[];
-  }>(
-    `/v1/contracts/${address}/bigmaps${QS.query(
-      QS.form({
-        limit,
-        micheline,
-        ...QueryParamsParsers.queryParameter('tags', tags),
-        ...QueryParamsParsers.queryParameter('select', select),
-        ...QueryParamsParsers.queryParameter('sort', sort),
-        ...QueryParamsParsers.queryParameter('offset', offset),
-      })
-    )}`,
-    {
-      ...opts,
-    }
+  return oazapfts.ok(
+    oazapfts.fetchJson<{
+      status: 200;
+      data: BigMap[];
+    }>(
+      `/v1/contracts/${address}/bigmaps${QS.query(
+        QS.form({
+          limit,
+          micheline,
+          ...QueryParamsParsers.queryParameter('tags', tags),
+          ...QueryParamsParsers.queryParameter('select', select),
+          ...QueryParamsParsers.queryParameter('sort', sort),
+          ...QueryParamsParsers.queryParameter('offset', offset),
+        })
+      )}`,
+      {
+        ...opts,
+      }
+    )
   );
 }
 /**
@@ -3597,18 +3709,20 @@ export function contractsGetBigMapByName(
   } = {},
   opts?: Oazapfts.RequestOpts
 ) {
-  return oazapfts.fetchJson<{
-    status: 200;
-    data: BigMap;
-  }>(
-    `/v1/contracts/${address}/bigmaps/${name}${QS.query(
-      QS.form({
-        micheline,
-      })
-    )}`,
-    {
-      ...opts,
-    }
+  return oazapfts.ok(
+    oazapfts.fetchJson<{
+      status: 200;
+      data: BigMap;
+    }>(
+      `/v1/contracts/${address}/bigmaps/${name}${QS.query(
+        QS.form({
+          micheline,
+        })
+      )}`,
+      {
+        ...opts,
+      }
+    )
   );
 }
 /**
@@ -3640,26 +3754,28 @@ export function contractsGetBigMapByNameKeys(
   } = {},
   opts?: Oazapfts.RequestOpts
 ) {
-  return oazapfts.fetchJson<{
-    status: 200;
-    data: BigMapKey[];
-  }>(
-    `/v1/contracts/${address}/bigmaps/${name}/keys${QS.query(
-      QS.form({
-        active,
-        limit,
-        micheline,
-        ...QueryParamsParsers.jsonParameter('key', key),
-        ...QueryParamsParsers.jsonParameter('value', value),
-        ...QueryParamsParsers.queryParameter('lastLevel', lastLevel),
-        ...QueryParamsParsers.queryParameter('select', select),
-        ...QueryParamsParsers.queryParameter('sort', sort),
-        ...QueryParamsParsers.queryParameter('offset', offset),
-      })
-    )}`,
-    {
-      ...opts,
-    }
+  return oazapfts.ok(
+    oazapfts.fetchJson<{
+      status: 200;
+      data: BigMapKey[];
+    }>(
+      `/v1/contracts/${address}/bigmaps/${name}/keys${QS.query(
+        QS.form({
+          active,
+          limit,
+          micheline,
+          ...QueryParamsParsers.jsonParameter('key', key),
+          ...QueryParamsParsers.jsonParameter('value', value),
+          ...QueryParamsParsers.queryParameter('lastLevel', lastLevel),
+          ...QueryParamsParsers.queryParameter('select', select),
+          ...QueryParamsParsers.queryParameter('sort', sort),
+          ...QueryParamsParsers.queryParameter('offset', offset),
+        })
+      )}`,
+      {
+        ...opts,
+      }
+    )
   );
 }
 /**
@@ -3676,18 +3792,20 @@ export function contractsGetKey(
   } = {},
   opts?: Oazapfts.RequestOpts
 ) {
-  return oazapfts.fetchJson<{
-    status: 200;
-    data: BigMapKey;
-  }>(
-    `/v1/contracts/${address}/bigmaps/${name}/keys/${key}${QS.query(
-      QS.form({
-        micheline,
-      })
-    )}`,
-    {
-      ...opts,
-    }
+  return oazapfts.ok(
+    oazapfts.fetchJson<{
+      status: 200;
+      data: BigMapKey;
+    }>(
+      `/v1/contracts/${address}/bigmaps/${name}/keys/${key}${QS.query(
+        QS.form({
+          micheline,
+        })
+      )}`,
+      {
+        ...opts,
+      }
+    )
   );
 }
 /**
@@ -3710,21 +3828,23 @@ export function contractsGetKeyUpdates(
   } = {},
   opts?: Oazapfts.RequestOpts
 ) {
-  return oazapfts.fetchJson<{
-    status: 200;
-    data: BigMapKeyUpdate[];
-  }>(
-    `/v1/contracts/${address}/bigmaps/${name}/keys/${key}/updates${QS.query(
-      QS.form({
-        limit,
-        micheline,
-        ...QueryParamsParsers.queryParameter('sort', sort),
-        ...QueryParamsParsers.queryParameter('offset', offset),
-      })
-    )}`,
-    {
-      ...opts,
-    }
+  return oazapfts.ok(
+    oazapfts.fetchJson<{
+      status: 200;
+      data: BigMapKeyUpdate[];
+    }>(
+      `/v1/contracts/${address}/bigmaps/${name}/keys/${key}/updates${QS.query(
+        QS.form({
+          limit,
+          micheline,
+          ...QueryParamsParsers.queryParameter('sort', sort),
+          ...QueryParamsParsers.queryParameter('offset', offset),
+        })
+      )}`,
+      {
+        ...opts,
+      }
+    )
   );
 }
 /**
@@ -3755,25 +3875,27 @@ export function contractsGetHistoricalKeys(
   } = {},
   opts?: Oazapfts.RequestOpts
 ) {
-  return oazapfts.fetchJson<{
-    status: 200;
-    data: BigMapKeyHistorical[];
-  }>(
-    `/v1/contracts/${address}/bigmaps/${name}/historical_keys/${level}${QS.query(
-      QS.form({
-        active,
-        limit,
-        micheline,
-        ...QueryParamsParsers.jsonParameter('key', key),
-        ...QueryParamsParsers.jsonParameter('value', value),
-        ...QueryParamsParsers.queryParameter('select', select),
-        ...QueryParamsParsers.queryParameter('sort', sort),
-        ...QueryParamsParsers.queryParameter('offset', offset),
-      })
-    )}`,
-    {
-      ...opts,
-    }
+  return oazapfts.ok(
+    oazapfts.fetchJson<{
+      status: 200;
+      data: BigMapKeyHistorical[];
+    }>(
+      `/v1/contracts/${address}/bigmaps/${name}/historical_keys/${level}${QS.query(
+        QS.form({
+          active,
+          limit,
+          micheline,
+          ...QueryParamsParsers.jsonParameter('key', key),
+          ...QueryParamsParsers.jsonParameter('value', value),
+          ...QueryParamsParsers.queryParameter('select', select),
+          ...QueryParamsParsers.queryParameter('sort', sort),
+          ...QueryParamsParsers.queryParameter('offset', offset),
+        })
+      )}`,
+      {
+        ...opts,
+      }
+    )
   );
 }
 /**
@@ -3791,30 +3913,34 @@ export function contractsGetKey2(
   } = {},
   opts?: Oazapfts.RequestOpts
 ) {
-  return oazapfts.fetchJson<{
-    status: 200;
-    data: BigMapKeyHistorical;
-  }>(
-    `/v1/contracts/${address}/bigmaps/${name}/historical_keys/${level}/${key}${QS.query(
-      QS.form({
-        micheline,
-      })
-    )}`,
-    {
-      ...opts,
-    }
+  return oazapfts.ok(
+    oazapfts.fetchJson<{
+      status: 200;
+      data: BigMapKeyHistorical;
+    }>(
+      `/v1/contracts/${address}/bigmaps/${name}/historical_keys/${level}/${key}${QS.query(
+        QS.form({
+          micheline,
+        })
+      )}`,
+      {
+        ...opts,
+      }
+    )
   );
 }
 /**
  * Get cycles count
  */
 export function cyclesGetCount(opts?: Oazapfts.RequestOpts) {
-  return oazapfts.fetchJson<{
-    status: 200;
-    data: number;
-  }>('/v1/cycles/count', {
-    ...opts,
-  });
+  return oazapfts.ok(
+    oazapfts.fetchJson<{
+      status: 200;
+      data: number;
+    }>('/v1/cycles/count', {
+      ...opts,
+    })
+  );
 }
 /**
  * Get cycles
@@ -3837,23 +3963,25 @@ export function cyclesGet(
   } = {},
   opts?: Oazapfts.RequestOpts
 ) {
-  return oazapfts.fetchJson<{
-    status: 200;
-    data: Cycle[];
-  }>(
-    `/v1/cycles${QS.query(
-      QS.form({
-        limit,
-        quote,
-        ...QueryParamsParsers.queryParameter('snapshotIndex', snapshotIndex),
-        ...QueryParamsParsers.queryParameter('select', select),
-        ...QueryParamsParsers.queryParameter('sort', sort),
-        ...QueryParamsParsers.queryParameter('offset', offset),
-      })
-    )}`,
-    {
-      ...opts,
-    }
+  return oazapfts.ok(
+    oazapfts.fetchJson<{
+      status: 200;
+      data: Cycle[];
+    }>(
+      `/v1/cycles${QS.query(
+        QS.form({
+          limit,
+          quote,
+          ...QueryParamsParsers.queryParameter('snapshotIndex', snapshotIndex),
+          ...QueryParamsParsers.queryParameter('select', select),
+          ...QueryParamsParsers.queryParameter('sort', sort),
+          ...QueryParamsParsers.queryParameter('offset', offset),
+        })
+      )}`,
+      {
+        ...opts,
+      }
+    )
   );
 }
 /**
@@ -3868,18 +3996,20 @@ export function cyclesGetByIndex(
   } = {},
   opts?: Oazapfts.RequestOpts
 ) {
-  return oazapfts.fetchJson<{
-    status: 200;
-    data: Cycle;
-  }>(
-    `/v1/cycles/${index}${QS.query(
-      QS.form({
-        quote,
-      })
-    )}`,
-    {
-      ...opts,
-    }
+  return oazapfts.ok(
+    oazapfts.fetchJson<{
+      status: 200;
+      data: Cycle;
+    }>(
+      `/v1/cycles/${index}${QS.query(
+        QS.form({
+          quote,
+        })
+      )}`,
+      {
+        ...opts,
+      }
+    )
   );
 }
 /**
@@ -3903,23 +4033,25 @@ export function delegatesGet(
   } = {},
   opts?: Oazapfts.RequestOpts
 ) {
-  return oazapfts.fetchJson<{
-    status: 200;
-    data: Delegate[];
-  }>(
-    `/v1/delegates${QS.query(
-      QS.form({
-        limit,
-        ...QueryParamsParsers.queryParameter('active', active),
-        ...QueryParamsParsers.queryParameter('lastActivity', lastActivity),
-        ...QueryParamsParsers.queryParameter('select', select),
-        ...QueryParamsParsers.queryParameter('sort', sort),
-        ...QueryParamsParsers.queryParameter('offset', offset),
-      })
-    )}`,
-    {
-      ...opts,
-    }
+  return oazapfts.ok(
+    oazapfts.fetchJson<{
+      status: 200;
+      data: Delegate[];
+    }>(
+      `/v1/delegates${QS.query(
+        QS.form({
+          limit,
+          ...QueryParamsParsers.queryParameter('active', active),
+          ...QueryParamsParsers.queryParameter('lastActivity', lastActivity),
+          ...QueryParamsParsers.queryParameter('select', select),
+          ...QueryParamsParsers.queryParameter('sort', sort),
+          ...QueryParamsParsers.queryParameter('offset', offset),
+        })
+      )}`,
+      {
+        ...opts,
+      }
+    )
   );
 }
 /**
@@ -3933,18 +4065,20 @@ export function delegatesGetCount(
   } = {},
   opts?: Oazapfts.RequestOpts
 ) {
-  return oazapfts.fetchJson<{
-    status: 200;
-    data: number;
-  }>(
-    `/v1/delegates/count${QS.query(
-      QS.form({
-        ...QueryParamsParsers.queryParameter('active', active),
-      })
-    )}`,
-    {
-      ...opts,
-    }
+  return oazapfts.ok(
+    oazapfts.fetchJson<{
+      status: 200;
+      data: number;
+    }>(
+      `/v1/delegates/count${QS.query(
+        QS.form({
+          ...QueryParamsParsers.queryParameter('active', active),
+        })
+      )}`,
+      {
+        ...opts,
+      }
+    )
   );
 }
 /**
@@ -3954,23 +4088,27 @@ export function delegatesGetByAddress(
   address: string | null,
   opts?: Oazapfts.RequestOpts
 ) {
-  return oazapfts.fetchJson<{
-    status: 200;
-    data: Delegate;
-  }>(`/v1/delegates/${address}`, {
-    ...opts,
-  });
+  return oazapfts.ok(
+    oazapfts.fetchJson<{
+      status: 200;
+      data: Delegate;
+    }>(`/v1/delegates/${address}`, {
+      ...opts,
+    })
+  );
 }
 /**
  * Get indexer head
  */
 export function headGet(opts?: Oazapfts.RequestOpts) {
-  return oazapfts.fetchJson<{
-    status: 200;
-    data: State;
-  }>('/v1/head', {
-    ...opts,
-  });
+  return oazapfts.ok(
+    oazapfts.fetchJson<{
+      status: 200;
+      data: State;
+    }>('/v1/head', {
+      ...opts,
+    })
+  );
 }
 /**
  * Get tx rollup remove commitment count
@@ -3985,19 +4123,21 @@ export function operationsGetTxRollupRemoveCommitmentOpsCount(
   } = {},
   opts?: Oazapfts.RequestOpts
 ) {
-  return oazapfts.fetchJson<{
-    status: 200;
-    data: number;
-  }>(
-    `/v1/operations/tx_rollup_remove_commitment/count${QS.query(
-      QS.form({
-        ...QueryParamsParsers.queryParameter('level', level),
-        ...QueryParamsParsers.queryParameter('timestamp', timestamp),
-      })
-    )}`,
-    {
-      ...opts,
-    }
+  return oazapfts.ok(
+    oazapfts.fetchJson<{
+      status: 200;
+      data: number;
+    }>(
+      `/v1/operations/tx_rollup_remove_commitment/count${QS.query(
+        QS.form({
+          ...QueryParamsParsers.queryParameter('level', level),
+          ...QueryParamsParsers.queryParameter('timestamp', timestamp),
+        })
+      )}`,
+      {
+        ...opts,
+      }
+    )
   );
 }
 /**
@@ -4029,27 +4169,29 @@ export function operationsGetTxRollupReturnBondOps(
   } = {},
   opts?: Oazapfts.RequestOpts
 ) {
-  return oazapfts.fetchJson<{
-    status: 200;
-    data: TxRollupReturnBondOperation[];
-  }>(
-    `/v1/operations/tx_rollup_return_bond${QS.query(
-      QS.form({
-        limit,
-        quote,
-        ...QueryParamsParsers.queryParameter('sender', sender),
-        ...QueryParamsParsers.queryParameter('rollup', rollup),
-        ...QueryParamsParsers.queryParameter('level', level),
-        ...QueryParamsParsers.queryParameter('timestamp', timestamp),
-        ...QueryParamsParsers.queryParameter('status', status),
-        ...QueryParamsParsers.queryParameter('select', select),
-        ...QueryParamsParsers.queryParameter('sort', sort),
-        ...QueryParamsParsers.queryParameter('offset', offset),
-      })
-    )}`,
-    {
-      ...opts,
-    }
+  return oazapfts.ok(
+    oazapfts.fetchJson<{
+      status: 200;
+      data: TxRollupReturnBondOperation[];
+    }>(
+      `/v1/operations/tx_rollup_return_bond${QS.query(
+        QS.form({
+          limit,
+          quote,
+          ...QueryParamsParsers.queryParameter('sender', sender),
+          ...QueryParamsParsers.queryParameter('rollup', rollup),
+          ...QueryParamsParsers.queryParameter('level', level),
+          ...QueryParamsParsers.queryParameter('timestamp', timestamp),
+          ...QueryParamsParsers.queryParameter('status', status),
+          ...QueryParamsParsers.queryParameter('select', select),
+          ...QueryParamsParsers.queryParameter('sort', sort),
+          ...QueryParamsParsers.queryParameter('offset', offset),
+        })
+      )}`,
+      {
+        ...opts,
+      }
+    )
   );
 }
 /**
@@ -4064,18 +4206,20 @@ export function operationsGetTxRollupReturnBondOpsByHash(
   } = {},
   opts?: Oazapfts.RequestOpts
 ) {
-  return oazapfts.fetchJson<{
-    status: 200;
-    data: TxRollupReturnBondOperation[];
-  }>(
-    `/v1/operations/tx_rollup_return_bond/${hash}${QS.query(
-      QS.form({
-        quote,
-      })
-    )}`,
-    {
-      ...opts,
-    }
+  return oazapfts.ok(
+    oazapfts.fetchJson<{
+      status: 200;
+      data: TxRollupReturnBondOperation[];
+    }>(
+      `/v1/operations/tx_rollup_return_bond/${hash}${QS.query(
+        QS.form({
+          quote,
+        })
+      )}`,
+      {
+        ...opts,
+      }
+    )
   );
 }
 /**
@@ -4085,12 +4229,14 @@ export function operationsGetTxRollupReturnBondStatus(
   hash: string | null,
   opts?: Oazapfts.RequestOpts
 ) {
-  return oazapfts.fetchJson<{
-    status: 200;
-    data: boolean | null;
-  }>(`/v1/operations/tx_rollup_return_bond/${hash}/status`, {
-    ...opts,
-  });
+  return oazapfts.ok(
+    oazapfts.fetchJson<{
+      status: 200;
+      data: boolean | null;
+    }>(`/v1/operations/tx_rollup_return_bond/${hash}/status`, {
+      ...opts,
+    })
+  );
 }
 /**
  * Get tx rollup return bond count
@@ -4105,19 +4251,21 @@ export function operationsGetTxRollupReturnBondOpsCount(
   } = {},
   opts?: Oazapfts.RequestOpts
 ) {
-  return oazapfts.fetchJson<{
-    status: 200;
-    data: number;
-  }>(
-    `/v1/operations/tx_rollup_return_bond/count${QS.query(
-      QS.form({
-        ...QueryParamsParsers.queryParameter('level', level),
-        ...QueryParamsParsers.queryParameter('timestamp', timestamp),
-      })
-    )}`,
-    {
-      ...opts,
-    }
+  return oazapfts.ok(
+    oazapfts.fetchJson<{
+      status: 200;
+      data: number;
+    }>(
+      `/v1/operations/tx_rollup_return_bond/count${QS.query(
+        QS.form({
+          ...QueryParamsParsers.queryParameter('level', level),
+          ...QueryParamsParsers.queryParameter('timestamp', timestamp),
+        })
+      )}`,
+      {
+        ...opts,
+      }
+    )
   );
 }
 /**
@@ -4149,27 +4297,29 @@ export function operationsGetTxRollupSubmitBatchOps(
   } = {},
   opts?: Oazapfts.RequestOpts
 ) {
-  return oazapfts.fetchJson<{
-    status: 200;
-    data: TxRollupSubmitBatchOperation[];
-  }>(
-    `/v1/operations/tx_rollup_submit_batch${QS.query(
-      QS.form({
-        limit,
-        quote,
-        ...QueryParamsParsers.queryParameter('sender', sender),
-        ...QueryParamsParsers.queryParameter('rollup', rollup),
-        ...QueryParamsParsers.queryParameter('level', level),
-        ...QueryParamsParsers.queryParameter('timestamp', timestamp),
-        ...QueryParamsParsers.queryParameter('status', status),
-        ...QueryParamsParsers.queryParameter('select', select),
-        ...QueryParamsParsers.queryParameter('sort', sort),
-        ...QueryParamsParsers.queryParameter('offset', offset),
-      })
-    )}`,
-    {
-      ...opts,
-    }
+  return oazapfts.ok(
+    oazapfts.fetchJson<{
+      status: 200;
+      data: TxRollupSubmitBatchOperation[];
+    }>(
+      `/v1/operations/tx_rollup_submit_batch${QS.query(
+        QS.form({
+          limit,
+          quote,
+          ...QueryParamsParsers.queryParameter('sender', sender),
+          ...QueryParamsParsers.queryParameter('rollup', rollup),
+          ...QueryParamsParsers.queryParameter('level', level),
+          ...QueryParamsParsers.queryParameter('timestamp', timestamp),
+          ...QueryParamsParsers.queryParameter('status', status),
+          ...QueryParamsParsers.queryParameter('select', select),
+          ...QueryParamsParsers.queryParameter('sort', sort),
+          ...QueryParamsParsers.queryParameter('offset', offset),
+        })
+      )}`,
+      {
+        ...opts,
+      }
+    )
   );
 }
 /**
@@ -4184,18 +4334,20 @@ export function operationsGetTxRollupSubmitBatchOpsByHash(
   } = {},
   opts?: Oazapfts.RequestOpts
 ) {
-  return oazapfts.fetchJson<{
-    status: 200;
-    data: TxRollupSubmitBatchOperation[];
-  }>(
-    `/v1/operations/tx_rollup_submit_batch/${hash}${QS.query(
-      QS.form({
-        quote,
-      })
-    )}`,
-    {
-      ...opts,
-    }
+  return oazapfts.ok(
+    oazapfts.fetchJson<{
+      status: 200;
+      data: TxRollupSubmitBatchOperation[];
+    }>(
+      `/v1/operations/tx_rollup_submit_batch/${hash}${QS.query(
+        QS.form({
+          quote,
+        })
+      )}`,
+      {
+        ...opts,
+      }
+    )
   );
 }
 /**
@@ -4205,12 +4357,14 @@ export function operationsGetTxRollupSubmitBatchStatus(
   hash: string | null,
   opts?: Oazapfts.RequestOpts
 ) {
-  return oazapfts.fetchJson<{
-    status: 200;
-    data: boolean | null;
-  }>(`/v1/operations/tx_rollup_submit_batch/${hash}/status`, {
-    ...opts,
-  });
+  return oazapfts.ok(
+    oazapfts.fetchJson<{
+      status: 200;
+      data: boolean | null;
+    }>(`/v1/operations/tx_rollup_submit_batch/${hash}/status`, {
+      ...opts,
+    })
+  );
 }
 /**
  * Get tx rollup submit batch count
@@ -4225,19 +4379,21 @@ export function operationsGetTxRollupSubmitBatchOpsCount(
   } = {},
   opts?: Oazapfts.RequestOpts
 ) {
-  return oazapfts.fetchJson<{
-    status: 200;
-    data: number;
-  }>(
-    `/v1/operations/tx_rollup_submit_batch/count${QS.query(
-      QS.form({
-        ...QueryParamsParsers.queryParameter('level', level),
-        ...QueryParamsParsers.queryParameter('timestamp', timestamp),
-      })
-    )}`,
-    {
-      ...opts,
-    }
+  return oazapfts.ok(
+    oazapfts.fetchJson<{
+      status: 200;
+      data: number;
+    }>(
+      `/v1/operations/tx_rollup_submit_batch/count${QS.query(
+        QS.form({
+          ...QueryParamsParsers.queryParameter('level', level),
+          ...QueryParamsParsers.queryParameter('timestamp', timestamp),
+        })
+      )}`,
+      {
+        ...opts,
+      }
+    )
   );
 }
 /**
@@ -4273,29 +4429,31 @@ export function operationsGetMigrations(
   } = {},
   opts?: Oazapfts.RequestOpts
 ) {
-  return oazapfts.fetchJson<{
-    status: 200;
-    data: MigrationOperation[];
-  }>(
-    `/v1/operations/migrations${QS.query(
-      QS.form({
-        limit,
-        micheline,
-        quote,
-        ...QueryParamsParsers.queryParameter('account', account),
-        ...QueryParamsParsers.queryParameter('kind', kind),
-        ...QueryParamsParsers.queryParameter('balanceChange', balanceChange),
-        ...QueryParamsParsers.queryParameter('id', id),
-        ...QueryParamsParsers.queryParameter('level', level),
-        ...QueryParamsParsers.queryParameter('timestamp', timestamp),
-        ...QueryParamsParsers.queryParameter('select', select),
-        ...QueryParamsParsers.queryParameter('sort', sort),
-        ...QueryParamsParsers.queryParameter('offset', offset),
-      })
-    )}`,
-    {
-      ...opts,
-    }
+  return oazapfts.ok(
+    oazapfts.fetchJson<{
+      status: 200;
+      data: MigrationOperation[];
+    }>(
+      `/v1/operations/migrations${QS.query(
+        QS.form({
+          limit,
+          micheline,
+          quote,
+          ...QueryParamsParsers.queryParameter('account', account),
+          ...QueryParamsParsers.queryParameter('kind', kind),
+          ...QueryParamsParsers.queryParameter('balanceChange', balanceChange),
+          ...QueryParamsParsers.queryParameter('id', id),
+          ...QueryParamsParsers.queryParameter('level', level),
+          ...QueryParamsParsers.queryParameter('timestamp', timestamp),
+          ...QueryParamsParsers.queryParameter('select', select),
+          ...QueryParamsParsers.queryParameter('sort', sort),
+          ...QueryParamsParsers.queryParameter('offset', offset),
+        })
+      )}`,
+      {
+        ...opts,
+      }
+    )
   );
 }
 /**
@@ -4312,19 +4470,21 @@ export function operationsGetMigrationById(
   } = {},
   opts?: Oazapfts.RequestOpts
 ) {
-  return oazapfts.fetchJson<{
-    status: 200;
-    data: MigrationOperation;
-  }>(
-    `/v1/operations/migrations/${id}${QS.query(
-      QS.form({
-        micheline,
-        quote,
-      })
-    )}`,
-    {
-      ...opts,
-    }
+  return oazapfts.ok(
+    oazapfts.fetchJson<{
+      status: 200;
+      data: MigrationOperation;
+    }>(
+      `/v1/operations/migrations/${id}${QS.query(
+        QS.form({
+          micheline,
+          quote,
+        })
+      )}`,
+      {
+        ...opts,
+      }
+    )
   );
 }
 /**
@@ -4340,19 +4500,21 @@ export function operationsGetMigrationsCount(
   } = {},
   opts?: Oazapfts.RequestOpts
 ) {
-  return oazapfts.fetchJson<{
-    status: 200;
-    data: number;
-  }>(
-    `/v1/operations/migrations/count${QS.query(
-      QS.form({
-        ...QueryParamsParsers.queryParameter('level', level),
-        ...QueryParamsParsers.queryParameter('timestamp', timestamp),
-      })
-    )}`,
-    {
-      ...opts,
-    }
+  return oazapfts.ok(
+    oazapfts.fetchJson<{
+      status: 200;
+      data: number;
+    }>(
+      `/v1/operations/migrations/count${QS.query(
+        QS.form({
+          ...QueryParamsParsers.queryParameter('level', level),
+          ...QueryParamsParsers.queryParameter('timestamp', timestamp),
+        })
+      )}`,
+      {
+        ...opts,
+      }
+    )
   );
 }
 /**
@@ -4380,25 +4542,27 @@ export function operationsGetRevelationPenalties(
   } = {},
   opts?: Oazapfts.RequestOpts
 ) {
-  return oazapfts.fetchJson<{
-    status: 200;
-    data: RevelationPenaltyOperation[];
-  }>(
-    `/v1/operations/revelation_penalties${QS.query(
-      QS.form({
-        limit,
-        quote,
-        ...QueryParamsParsers.queryParameter('baker', baker),
-        ...QueryParamsParsers.queryParameter('level', level),
-        ...QueryParamsParsers.queryParameter('timestamp', timestamp),
-        ...QueryParamsParsers.queryParameter('select', select),
-        ...QueryParamsParsers.queryParameter('sort', sort),
-        ...QueryParamsParsers.queryParameter('offset', offset),
-      })
-    )}`,
-    {
-      ...opts,
-    }
+  return oazapfts.ok(
+    oazapfts.fetchJson<{
+      status: 200;
+      data: RevelationPenaltyOperation[];
+    }>(
+      `/v1/operations/revelation_penalties${QS.query(
+        QS.form({
+          limit,
+          quote,
+          ...QueryParamsParsers.queryParameter('baker', baker),
+          ...QueryParamsParsers.queryParameter('level', level),
+          ...QueryParamsParsers.queryParameter('timestamp', timestamp),
+          ...QueryParamsParsers.queryParameter('select', select),
+          ...QueryParamsParsers.queryParameter('sort', sort),
+          ...QueryParamsParsers.queryParameter('offset', offset),
+        })
+      )}`,
+      {
+        ...opts,
+      }
+    )
   );
 }
 /**
@@ -4413,18 +4577,20 @@ export function operationsGetRevelationPenaltyById(
   } = {},
   opts?: Oazapfts.RequestOpts
 ) {
-  return oazapfts.fetchJson<{
-    status: 200;
-    data: RevelationPenaltyOperation;
-  }>(
-    `/v1/operations/revelation_penalties/${id}${QS.query(
-      QS.form({
-        quote,
-      })
-    )}`,
-    {
-      ...opts,
-    }
+  return oazapfts.ok(
+    oazapfts.fetchJson<{
+      status: 200;
+      data: RevelationPenaltyOperation;
+    }>(
+      `/v1/operations/revelation_penalties/${id}${QS.query(
+        QS.form({
+          quote,
+        })
+      )}`,
+      {
+        ...opts,
+      }
+    )
   );
 }
 /**
@@ -4440,19 +4606,21 @@ export function operationsGetRevelationPenaltiesCount(
   } = {},
   opts?: Oazapfts.RequestOpts
 ) {
-  return oazapfts.fetchJson<{
-    status: 200;
-    data: number;
-  }>(
-    `/v1/operations/revelation_penalties/count${QS.query(
-      QS.form({
-        ...QueryParamsParsers.queryParameter('level', level),
-        ...QueryParamsParsers.queryParameter('timestamp', timestamp),
-      })
-    )}`,
-    {
-      ...opts,
-    }
+  return oazapfts.ok(
+    oazapfts.fetchJson<{
+      status: 200;
+      data: number;
+    }>(
+      `/v1/operations/revelation_penalties/count${QS.query(
+        QS.form({
+          ...QueryParamsParsers.queryParameter('level', level),
+          ...QueryParamsParsers.queryParameter('timestamp', timestamp),
+        })
+      )}`,
+      {
+        ...opts,
+      }
+    )
   );
 }
 /**
@@ -4492,28 +4660,30 @@ export function operationsGetBaking(
   } = {},
   opts?: Oazapfts.RequestOpts
 ) {
-  return oazapfts.fetchJson<{
-    status: 200;
-    data: BakingOperation[];
-  }>(
-    `/v1/operations/baking${QS.query(
-      QS.form({
-        limit,
-        quote,
-        ...QueryParamsParsers.queryParameter('baker', baker),
-        ...QueryParamsParsers.anyofParameter('anyof', anyof),
-        ...QueryParamsParsers.queryParameter('proposer', proposer),
-        ...QueryParamsParsers.queryParameter('producer', producer),
-        ...QueryParamsParsers.queryParameter('level', level),
-        ...QueryParamsParsers.queryParameter('timestamp', timestamp),
-        ...QueryParamsParsers.queryParameter('select', select),
-        ...QueryParamsParsers.queryParameter('sort', sort),
-        ...QueryParamsParsers.queryParameter('offset', offset),
-      })
-    )}`,
-    {
-      ...opts,
-    }
+  return oazapfts.ok(
+    oazapfts.fetchJson<{
+      status: 200;
+      data: BakingOperation[];
+    }>(
+      `/v1/operations/baking${QS.query(
+        QS.form({
+          limit,
+          quote,
+          ...QueryParamsParsers.queryParameter('baker', baker),
+          ...QueryParamsParsers.anyofParameter('anyof', anyof),
+          ...QueryParamsParsers.queryParameter('proposer', proposer),
+          ...QueryParamsParsers.queryParameter('producer', producer),
+          ...QueryParamsParsers.queryParameter('level', level),
+          ...QueryParamsParsers.queryParameter('timestamp', timestamp),
+          ...QueryParamsParsers.queryParameter('select', select),
+          ...QueryParamsParsers.queryParameter('sort', sort),
+          ...QueryParamsParsers.queryParameter('offset', offset),
+        })
+      )}`,
+      {
+        ...opts,
+      }
+    )
   );
 }
 /**
@@ -4528,18 +4698,20 @@ export function operationsGetBakingById(
   } = {},
   opts?: Oazapfts.RequestOpts
 ) {
-  return oazapfts.fetchJson<{
-    status: 200;
-    data: BakingOperation;
-  }>(
-    `/v1/operations/baking/${id}${QS.query(
-      QS.form({
-        quote,
-      })
-    )}`,
-    {
-      ...opts,
-    }
+  return oazapfts.ok(
+    oazapfts.fetchJson<{
+      status: 200;
+      data: BakingOperation;
+    }>(
+      `/v1/operations/baking/${id}${QS.query(
+        QS.form({
+          quote,
+        })
+      )}`,
+      {
+        ...opts,
+      }
+    )
   );
 }
 /**
@@ -4555,19 +4727,21 @@ export function operationsGetBakingCount(
   } = {},
   opts?: Oazapfts.RequestOpts
 ) {
-  return oazapfts.fetchJson<{
-    status: 200;
-    data: number;
-  }>(
-    `/v1/operations/baking/count${QS.query(
-      QS.form({
-        ...QueryParamsParsers.queryParameter('level', level),
-        ...QueryParamsParsers.queryParameter('timestamp', timestamp),
-      })
-    )}`,
-    {
-      ...opts,
-    }
+  return oazapfts.ok(
+    oazapfts.fetchJson<{
+      status: 200;
+      data: number;
+    }>(
+      `/v1/operations/baking/count${QS.query(
+        QS.form({
+          ...QueryParamsParsers.queryParameter('level', level),
+          ...QueryParamsParsers.queryParameter('timestamp', timestamp),
+        })
+      )}`,
+      {
+        ...opts,
+      }
+    )
   );
 }
 /**
@@ -4595,25 +4769,27 @@ export function operationsGetEndorsingRewards(
   } = {},
   opts?: Oazapfts.RequestOpts
 ) {
-  return oazapfts.fetchJson<{
-    status: 200;
-    data: EndorsingRewardOperation[];
-  }>(
-    `/v1/operations/endorsing_rewards${QS.query(
-      QS.form({
-        limit,
-        quote,
-        ...QueryParamsParsers.queryParameter('baker', baker),
-        ...QueryParamsParsers.queryParameter('level', level),
-        ...QueryParamsParsers.queryParameter('timestamp', timestamp),
-        ...QueryParamsParsers.queryParameter('select', select),
-        ...QueryParamsParsers.queryParameter('sort', sort),
-        ...QueryParamsParsers.queryParameter('offset', offset),
-      })
-    )}`,
-    {
-      ...opts,
-    }
+  return oazapfts.ok(
+    oazapfts.fetchJson<{
+      status: 200;
+      data: EndorsingRewardOperation[];
+    }>(
+      `/v1/operations/endorsing_rewards${QS.query(
+        QS.form({
+          limit,
+          quote,
+          ...QueryParamsParsers.queryParameter('baker', baker),
+          ...QueryParamsParsers.queryParameter('level', level),
+          ...QueryParamsParsers.queryParameter('timestamp', timestamp),
+          ...QueryParamsParsers.queryParameter('select', select),
+          ...QueryParamsParsers.queryParameter('sort', sort),
+          ...QueryParamsParsers.queryParameter('offset', offset),
+        })
+      )}`,
+      {
+        ...opts,
+      }
+    )
   );
 }
 /**
@@ -4628,18 +4804,20 @@ export function operationsGetEndorsingRewardById(
   } = {},
   opts?: Oazapfts.RequestOpts
 ) {
-  return oazapfts.fetchJson<{
-    status: 200;
-    data: EndorsingRewardOperation;
-  }>(
-    `/v1/operations/endorsing_rewards/${id}${QS.query(
-      QS.form({
-        quote,
-      })
-    )}`,
-    {
-      ...opts,
-    }
+  return oazapfts.ok(
+    oazapfts.fetchJson<{
+      status: 200;
+      data: EndorsingRewardOperation;
+    }>(
+      `/v1/operations/endorsing_rewards/${id}${QS.query(
+        QS.form({
+          quote,
+        })
+      )}`,
+      {
+        ...opts,
+      }
+    )
   );
 }
 /**
@@ -4655,19 +4833,21 @@ export function operationsGetEndorsingRewardsCount(
   } = {},
   opts?: Oazapfts.RequestOpts
 ) {
-  return oazapfts.fetchJson<{
-    status: 200;
-    data: number;
-  }>(
-    `/v1/operations/endorsing_rewards/count${QS.query(
-      QS.form({
-        ...QueryParamsParsers.queryParameter('level', level),
-        ...QueryParamsParsers.queryParameter('timestamp', timestamp),
-      })
-    )}`,
-    {
-      ...opts,
-    }
+  return oazapfts.ok(
+    oazapfts.fetchJson<{
+      status: 200;
+      data: number;
+    }>(
+      `/v1/operations/endorsing_rewards/count${QS.query(
+        QS.form({
+          ...QueryParamsParsers.queryParameter('level', level),
+          ...QueryParamsParsers.queryParameter('timestamp', timestamp),
+        })
+      )}`,
+      {
+        ...opts,
+      }
+    )
   );
 }
 /**
@@ -4684,19 +4864,21 @@ export function operationsGetByHash(
   } = {},
   opts?: Oazapfts.RequestOpts
 ) {
-  return oazapfts.fetchJson<{
-    status: 200;
-    data: Operation[];
-  }>(
-    `/v1/operations/${hash}${QS.query(
-      QS.form({
-        micheline,
-        quote,
-      })
-    )}`,
-    {
-      ...opts,
-    }
+  return oazapfts.ok(
+    oazapfts.fetchJson<{
+      status: 200;
+      data: Operation[];
+    }>(
+      `/v1/operations/${hash}${QS.query(
+        QS.form({
+          micheline,
+          quote,
+        })
+      )}`,
+      {
+        ...opts,
+      }
+    )
   );
 }
 /**
@@ -4714,19 +4896,21 @@ export function operationsGetByHashCounter(
   } = {},
   opts?: Oazapfts.RequestOpts
 ) {
-  return oazapfts.fetchJson<{
-    status: 200;
-    data: Operation[];
-  }>(
-    `/v1/operations/${hash}/${counter}${QS.query(
-      QS.form({
-        micheline,
-        quote,
-      })
-    )}`,
-    {
-      ...opts,
-    }
+  return oazapfts.ok(
+    oazapfts.fetchJson<{
+      status: 200;
+      data: Operation[];
+    }>(
+      `/v1/operations/${hash}/${counter}${QS.query(
+        QS.form({
+          micheline,
+          quote,
+        })
+      )}`,
+      {
+        ...opts,
+      }
+    )
   );
 }
 /**
@@ -4745,19 +4929,21 @@ export function operationsGetByHashCounterNonce(
   } = {},
   opts?: Oazapfts.RequestOpts
 ) {
-  return oazapfts.fetchJson<{
-    status: 200;
-    data: Operation[];
-  }>(
-    `/v1/operations/${hash}/${counter}/${nonce}${QS.query(
-      QS.form({
-        micheline,
-        quote,
-      })
-    )}`,
-    {
-      ...opts,
-    }
+  return oazapfts.ok(
+    oazapfts.fetchJson<{
+      status: 200;
+      data: Operation[];
+    }>(
+      `/v1/operations/${hash}/${counter}/${nonce}${QS.query(
+        QS.form({
+          micheline,
+          quote,
+        })
+      )}`,
+      {
+        ...opts,
+      }
+    )
   );
 }
 /**
@@ -4767,12 +4953,14 @@ export function operationsGetStatus(
   hash: string | null,
   opts?: Oazapfts.RequestOpts
 ) {
-  return oazapfts.fetchJson<{
-    status: 200;
-    data: boolean | null;
-  }>(`/v1/operations/${hash}/status`, {
-    ...opts,
-  });
+  return oazapfts.ok(
+    oazapfts.fetchJson<{
+      status: 200;
+      data: boolean | null;
+    }>(`/v1/operations/${hash}/status`, {
+      ...opts,
+    })
+  );
 }
 /**
  * Get endorsements
@@ -4799,25 +4987,27 @@ export function operationsGetEndorsements(
   } = {},
   opts?: Oazapfts.RequestOpts
 ) {
-  return oazapfts.fetchJson<{
-    status: 200;
-    data: EndorsementOperation[];
-  }>(
-    `/v1/operations/endorsements${QS.query(
-      QS.form({
-        limit,
-        quote,
-        ...QueryParamsParsers.queryParameter('delegate', delegate),
-        ...QueryParamsParsers.queryParameter('level', level),
-        ...QueryParamsParsers.queryParameter('timestamp', timestamp),
-        ...QueryParamsParsers.queryParameter('select', select),
-        ...QueryParamsParsers.queryParameter('sort', sort),
-        ...QueryParamsParsers.queryParameter('offset', offset),
-      })
-    )}`,
-    {
-      ...opts,
-    }
+  return oazapfts.ok(
+    oazapfts.fetchJson<{
+      status: 200;
+      data: EndorsementOperation[];
+    }>(
+      `/v1/operations/endorsements${QS.query(
+        QS.form({
+          limit,
+          quote,
+          ...QueryParamsParsers.queryParameter('delegate', delegate),
+          ...QueryParamsParsers.queryParameter('level', level),
+          ...QueryParamsParsers.queryParameter('timestamp', timestamp),
+          ...QueryParamsParsers.queryParameter('select', select),
+          ...QueryParamsParsers.queryParameter('sort', sort),
+          ...QueryParamsParsers.queryParameter('offset', offset),
+        })
+      )}`,
+      {
+        ...opts,
+      }
+    )
   );
 }
 /**
@@ -4832,18 +5022,20 @@ export function operationsGetEndorsementByHash(
   } = {},
   opts?: Oazapfts.RequestOpts
 ) {
-  return oazapfts.fetchJson<{
-    status: 200;
-    data: EndorsementOperation[];
-  }>(
-    `/v1/operations/endorsements/${hash}${QS.query(
-      QS.form({
-        quote,
-      })
-    )}`,
-    {
-      ...opts,
-    }
+  return oazapfts.ok(
+    oazapfts.fetchJson<{
+      status: 200;
+      data: EndorsementOperation[];
+    }>(
+      `/v1/operations/endorsements/${hash}${QS.query(
+        QS.form({
+          quote,
+        })
+      )}`,
+      {
+        ...opts,
+      }
+    )
   );
 }
 /**
@@ -4859,19 +5051,21 @@ export function operationsGetEndorsementsCount(
   } = {},
   opts?: Oazapfts.RequestOpts
 ) {
-  return oazapfts.fetchJson<{
-    status: 200;
-    data: number;
-  }>(
-    `/v1/operations/endorsements/count${QS.query(
-      QS.form({
-        ...QueryParamsParsers.queryParameter('level', level),
-        ...QueryParamsParsers.queryParameter('timestamp', timestamp),
-      })
-    )}`,
-    {
-      ...opts,
-    }
+  return oazapfts.ok(
+    oazapfts.fetchJson<{
+      status: 200;
+      data: number;
+    }>(
+      `/v1/operations/endorsements/count${QS.query(
+        QS.form({
+          ...QueryParamsParsers.queryParameter('level', level),
+          ...QueryParamsParsers.queryParameter('timestamp', timestamp),
+        })
+      )}`,
+      {
+        ...opts,
+      }
+    )
   );
 }
 /**
@@ -4899,25 +5093,27 @@ export function operationsGetPreendorsements(
   } = {},
   opts?: Oazapfts.RequestOpts
 ) {
-  return oazapfts.fetchJson<{
-    status: 200;
-    data: PreendorsementOperation[];
-  }>(
-    `/v1/operations/preendorsements${QS.query(
-      QS.form({
-        limit,
-        quote,
-        ...QueryParamsParsers.queryParameter('delegate', delegate),
-        ...QueryParamsParsers.queryParameter('level', level),
-        ...QueryParamsParsers.queryParameter('timestamp', timestamp),
-        ...QueryParamsParsers.queryParameter('select', select),
-        ...QueryParamsParsers.queryParameter('sort', sort),
-        ...QueryParamsParsers.queryParameter('offset', offset),
-      })
-    )}`,
-    {
-      ...opts,
-    }
+  return oazapfts.ok(
+    oazapfts.fetchJson<{
+      status: 200;
+      data: PreendorsementOperation[];
+    }>(
+      `/v1/operations/preendorsements${QS.query(
+        QS.form({
+          limit,
+          quote,
+          ...QueryParamsParsers.queryParameter('delegate', delegate),
+          ...QueryParamsParsers.queryParameter('level', level),
+          ...QueryParamsParsers.queryParameter('timestamp', timestamp),
+          ...QueryParamsParsers.queryParameter('select', select),
+          ...QueryParamsParsers.queryParameter('sort', sort),
+          ...QueryParamsParsers.queryParameter('offset', offset),
+        })
+      )}`,
+      {
+        ...opts,
+      }
+    )
   );
 }
 /**
@@ -4932,18 +5128,20 @@ export function operationsGetPreendorsementByHash(
   } = {},
   opts?: Oazapfts.RequestOpts
 ) {
-  return oazapfts.fetchJson<{
-    status: 200;
-    data: PreendorsementOperation[];
-  }>(
-    `/v1/operations/preendorsements/${hash}${QS.query(
-      QS.form({
-        quote,
-      })
-    )}`,
-    {
-      ...opts,
-    }
+  return oazapfts.ok(
+    oazapfts.fetchJson<{
+      status: 200;
+      data: PreendorsementOperation[];
+    }>(
+      `/v1/operations/preendorsements/${hash}${QS.query(
+        QS.form({
+          quote,
+        })
+      )}`,
+      {
+        ...opts,
+      }
+    )
   );
 }
 /**
@@ -4959,19 +5157,21 @@ export function operationsGetPreendorsementsCount(
   } = {},
   opts?: Oazapfts.RequestOpts
 ) {
-  return oazapfts.fetchJson<{
-    status: 200;
-    data: number;
-  }>(
-    `/v1/operations/preendorsements/count${QS.query(
-      QS.form({
-        ...QueryParamsParsers.queryParameter('level', level),
-        ...QueryParamsParsers.queryParameter('timestamp', timestamp),
-      })
-    )}`,
-    {
-      ...opts,
-    }
+  return oazapfts.ok(
+    oazapfts.fetchJson<{
+      status: 200;
+      data: number;
+    }>(
+      `/v1/operations/preendorsements/count${QS.query(
+        QS.form({
+          ...QueryParamsParsers.queryParameter('level', level),
+          ...QueryParamsParsers.queryParameter('timestamp', timestamp),
+        })
+      )}`,
+      {
+        ...opts,
+      }
+    )
   );
 }
 /**
@@ -5007,29 +5207,31 @@ export function operationsGetBallots(
   } = {},
   opts?: Oazapfts.RequestOpts
 ) {
-  return oazapfts.fetchJson<{
-    status: 200;
-    data: BallotOperation[];
-  }>(
-    `/v1/operations/ballots${QS.query(
-      QS.form({
-        limit,
-        quote,
-        ...QueryParamsParsers.queryParameter('delegate', delegate),
-        ...QueryParamsParsers.queryParameter('level', level),
-        ...QueryParamsParsers.queryParameter('timestamp', timestamp),
-        ...QueryParamsParsers.queryParameter('epoch', epoch),
-        ...QueryParamsParsers.queryParameter('period', period),
-        ...QueryParamsParsers.queryParameter('proposal', proposal),
-        ...QueryParamsParsers.queryParameter('vote', vote),
-        ...QueryParamsParsers.queryParameter('select', select),
-        ...QueryParamsParsers.queryParameter('sort', sort),
-        ...QueryParamsParsers.queryParameter('offset', offset),
-      })
-    )}`,
-    {
-      ...opts,
-    }
+  return oazapfts.ok(
+    oazapfts.fetchJson<{
+      status: 200;
+      data: BallotOperation[];
+    }>(
+      `/v1/operations/ballots${QS.query(
+        QS.form({
+          limit,
+          quote,
+          ...QueryParamsParsers.queryParameter('delegate', delegate),
+          ...QueryParamsParsers.queryParameter('level', level),
+          ...QueryParamsParsers.queryParameter('timestamp', timestamp),
+          ...QueryParamsParsers.queryParameter('epoch', epoch),
+          ...QueryParamsParsers.queryParameter('period', period),
+          ...QueryParamsParsers.queryParameter('proposal', proposal),
+          ...QueryParamsParsers.queryParameter('vote', vote),
+          ...QueryParamsParsers.queryParameter('select', select),
+          ...QueryParamsParsers.queryParameter('sort', sort),
+          ...QueryParamsParsers.queryParameter('offset', offset),
+        })
+      )}`,
+      {
+        ...opts,
+      }
+    )
   );
 }
 /**
@@ -5044,18 +5246,20 @@ export function operationsGetBallotByHash(
   } = {},
   opts?: Oazapfts.RequestOpts
 ) {
-  return oazapfts.fetchJson<{
-    status: 200;
-    data: BallotOperation[];
-  }>(
-    `/v1/operations/ballots/${hash}${QS.query(
-      QS.form({
-        quote,
-      })
-    )}`,
-    {
-      ...opts,
-    }
+  return oazapfts.ok(
+    oazapfts.fetchJson<{
+      status: 200;
+      data: BallotOperation[];
+    }>(
+      `/v1/operations/ballots/${hash}${QS.query(
+        QS.form({
+          quote,
+        })
+      )}`,
+      {
+        ...opts,
+      }
+    )
   );
 }
 /**
@@ -5071,19 +5275,21 @@ export function operationsGetBallotsCount(
   } = {},
   opts?: Oazapfts.RequestOpts
 ) {
-  return oazapfts.fetchJson<{
-    status: 200;
-    data: number;
-  }>(
-    `/v1/operations/ballots/count${QS.query(
-      QS.form({
-        ...QueryParamsParsers.queryParameter('level', level),
-        ...QueryParamsParsers.queryParameter('timestamp', timestamp),
-      })
-    )}`,
-    {
-      ...opts,
-    }
+  return oazapfts.ok(
+    oazapfts.fetchJson<{
+      status: 200;
+      data: number;
+    }>(
+      `/v1/operations/ballots/count${QS.query(
+        QS.form({
+          ...QueryParamsParsers.queryParameter('level', level),
+          ...QueryParamsParsers.queryParameter('timestamp', timestamp),
+        })
+      )}`,
+      {
+        ...opts,
+      }
+    )
   );
 }
 /**
@@ -5119,29 +5325,31 @@ export function operationsGetProposals(
   } = {},
   opts?: Oazapfts.RequestOpts
 ) {
-  return oazapfts.fetchJson<{
-    status: 200;
-    data: ProposalOperation[];
-  }>(
-    `/v1/operations/proposals${QS.query(
-      QS.form({
-        limit,
-        quote,
-        ...QueryParamsParsers.queryParameter('delegate', delegate),
-        ...QueryParamsParsers.queryParameter('level', level),
-        ...QueryParamsParsers.queryParameter('timestamp', timestamp),
-        ...QueryParamsParsers.queryParameter('epoch', epoch),
-        ...QueryParamsParsers.queryParameter('period', period),
-        ...QueryParamsParsers.queryParameter('proposal', proposal),
-        ...QueryParamsParsers.queryParameter('duplicated', duplicated),
-        ...QueryParamsParsers.queryParameter('select', select),
-        ...QueryParamsParsers.queryParameter('sort', sort),
-        ...QueryParamsParsers.queryParameter('offset', offset),
-      })
-    )}`,
-    {
-      ...opts,
-    }
+  return oazapfts.ok(
+    oazapfts.fetchJson<{
+      status: 200;
+      data: ProposalOperation[];
+    }>(
+      `/v1/operations/proposals${QS.query(
+        QS.form({
+          limit,
+          quote,
+          ...QueryParamsParsers.queryParameter('delegate', delegate),
+          ...QueryParamsParsers.queryParameter('level', level),
+          ...QueryParamsParsers.queryParameter('timestamp', timestamp),
+          ...QueryParamsParsers.queryParameter('epoch', epoch),
+          ...QueryParamsParsers.queryParameter('period', period),
+          ...QueryParamsParsers.queryParameter('proposal', proposal),
+          ...QueryParamsParsers.queryParameter('duplicated', duplicated),
+          ...QueryParamsParsers.queryParameter('select', select),
+          ...QueryParamsParsers.queryParameter('sort', sort),
+          ...QueryParamsParsers.queryParameter('offset', offset),
+        })
+      )}`,
+      {
+        ...opts,
+      }
+    )
   );
 }
 /**
@@ -5156,18 +5364,20 @@ export function operationsGetProposalByHash(
   } = {},
   opts?: Oazapfts.RequestOpts
 ) {
-  return oazapfts.fetchJson<{
-    status: 200;
-    data: ProposalOperation[];
-  }>(
-    `/v1/operations/proposals/${hash}${QS.query(
-      QS.form({
-        quote,
-      })
-    )}`,
-    {
-      ...opts,
-    }
+  return oazapfts.ok(
+    oazapfts.fetchJson<{
+      status: 200;
+      data: ProposalOperation[];
+    }>(
+      `/v1/operations/proposals/${hash}${QS.query(
+        QS.form({
+          quote,
+        })
+      )}`,
+      {
+        ...opts,
+      }
+    )
   );
 }
 /**
@@ -5183,19 +5393,21 @@ export function operationsGetProposalsCount(
   } = {},
   opts?: Oazapfts.RequestOpts
 ) {
-  return oazapfts.fetchJson<{
-    status: 200;
-    data: number;
-  }>(
-    `/v1/operations/proposals/count${QS.query(
-      QS.form({
-        ...QueryParamsParsers.queryParameter('level', level),
-        ...QueryParamsParsers.queryParameter('timestamp', timestamp),
-      })
-    )}`,
-    {
-      ...opts,
-    }
+  return oazapfts.ok(
+    oazapfts.fetchJson<{
+      status: 200;
+      data: number;
+    }>(
+      `/v1/operations/proposals/count${QS.query(
+        QS.form({
+          ...QueryParamsParsers.queryParameter('level', level),
+          ...QueryParamsParsers.queryParameter('timestamp', timestamp),
+        })
+      )}`,
+      {
+        ...opts,
+      }
+    )
   );
 }
 /**
@@ -5223,25 +5435,27 @@ export function operationsGetActivations(
   } = {},
   opts?: Oazapfts.RequestOpts
 ) {
-  return oazapfts.fetchJson<{
-    status: 200;
-    data: ActivationOperation[];
-  }>(
-    `/v1/operations/activations${QS.query(
-      QS.form({
-        limit,
-        quote,
-        ...QueryParamsParsers.queryParameter('account', account),
-        ...QueryParamsParsers.queryParameter('level', level),
-        ...QueryParamsParsers.queryParameter('timestamp', timestamp),
-        ...QueryParamsParsers.queryParameter('select', select),
-        ...QueryParamsParsers.queryParameter('sort', sort),
-        ...QueryParamsParsers.queryParameter('offset', offset),
-      })
-    )}`,
-    {
-      ...opts,
-    }
+  return oazapfts.ok(
+    oazapfts.fetchJson<{
+      status: 200;
+      data: ActivationOperation[];
+    }>(
+      `/v1/operations/activations${QS.query(
+        QS.form({
+          limit,
+          quote,
+          ...QueryParamsParsers.queryParameter('account', account),
+          ...QueryParamsParsers.queryParameter('level', level),
+          ...QueryParamsParsers.queryParameter('timestamp', timestamp),
+          ...QueryParamsParsers.queryParameter('select', select),
+          ...QueryParamsParsers.queryParameter('sort', sort),
+          ...QueryParamsParsers.queryParameter('offset', offset),
+        })
+      )}`,
+      {
+        ...opts,
+      }
+    )
   );
 }
 /**
@@ -5256,18 +5470,20 @@ export function operationsGetActivationByHash(
   } = {},
   opts?: Oazapfts.RequestOpts
 ) {
-  return oazapfts.fetchJson<{
-    status: 200;
-    data: ActivationOperation[];
-  }>(
-    `/v1/operations/activations/${hash}${QS.query(
-      QS.form({
-        quote,
-      })
-    )}`,
-    {
-      ...opts,
-    }
+  return oazapfts.ok(
+    oazapfts.fetchJson<{
+      status: 200;
+      data: ActivationOperation[];
+    }>(
+      `/v1/operations/activations/${hash}${QS.query(
+        QS.form({
+          quote,
+        })
+      )}`,
+      {
+        ...opts,
+      }
+    )
   );
 }
 /**
@@ -5283,19 +5499,21 @@ export function operationsGetActivationsCount(
   } = {},
   opts?: Oazapfts.RequestOpts
 ) {
-  return oazapfts.fetchJson<{
-    status: 200;
-    data: number;
-  }>(
-    `/v1/operations/activations/count${QS.query(
-      QS.form({
-        ...QueryParamsParsers.queryParameter('level', level),
-        ...QueryParamsParsers.queryParameter('timestamp', timestamp),
-      })
-    )}`,
-    {
-      ...opts,
-    }
+  return oazapfts.ok(
+    oazapfts.fetchJson<{
+      status: 200;
+      data: number;
+    }>(
+      `/v1/operations/activations/count${QS.query(
+        QS.form({
+          ...QueryParamsParsers.queryParameter('level', level),
+          ...QueryParamsParsers.queryParameter('timestamp', timestamp),
+        })
+      )}`,
+      {
+        ...opts,
+      }
+    )
   );
 }
 /**
@@ -5333,27 +5551,29 @@ export function operationsGetDoubleBaking(
   } = {},
   opts?: Oazapfts.RequestOpts
 ) {
-  return oazapfts.fetchJson<{
-    status: 200;
-    data: DoubleBakingOperation[];
-  }>(
-    `/v1/operations/double_baking${QS.query(
-      QS.form({
-        limit,
-        quote,
-        ...QueryParamsParsers.anyofParameter('anyof', anyof),
-        ...QueryParamsParsers.queryParameter('accuser', accuser),
-        ...QueryParamsParsers.queryParameter('offender', offender),
-        ...QueryParamsParsers.queryParameter('level', level),
-        ...QueryParamsParsers.queryParameter('timestamp', timestamp),
-        ...QueryParamsParsers.queryParameter('select', select),
-        ...QueryParamsParsers.queryParameter('sort', sort),
-        ...QueryParamsParsers.queryParameter('offset', offset),
-      })
-    )}`,
-    {
-      ...opts,
-    }
+  return oazapfts.ok(
+    oazapfts.fetchJson<{
+      status: 200;
+      data: DoubleBakingOperation[];
+    }>(
+      `/v1/operations/double_baking${QS.query(
+        QS.form({
+          limit,
+          quote,
+          ...QueryParamsParsers.anyofParameter('anyof', anyof),
+          ...QueryParamsParsers.queryParameter('accuser', accuser),
+          ...QueryParamsParsers.queryParameter('offender', offender),
+          ...QueryParamsParsers.queryParameter('level', level),
+          ...QueryParamsParsers.queryParameter('timestamp', timestamp),
+          ...QueryParamsParsers.queryParameter('select', select),
+          ...QueryParamsParsers.queryParameter('sort', sort),
+          ...QueryParamsParsers.queryParameter('offset', offset),
+        })
+      )}`,
+      {
+        ...opts,
+      }
+    )
   );
 }
 /**
@@ -5368,18 +5588,20 @@ export function operationsGetDoubleBakingByHash(
   } = {},
   opts?: Oazapfts.RequestOpts
 ) {
-  return oazapfts.fetchJson<{
-    status: 200;
-    data: DoubleBakingOperation[];
-  }>(
-    `/v1/operations/double_baking/${hash}${QS.query(
-      QS.form({
-        quote,
-      })
-    )}`,
-    {
-      ...opts,
-    }
+  return oazapfts.ok(
+    oazapfts.fetchJson<{
+      status: 200;
+      data: DoubleBakingOperation[];
+    }>(
+      `/v1/operations/double_baking/${hash}${QS.query(
+        QS.form({
+          quote,
+        })
+      )}`,
+      {
+        ...opts,
+      }
+    )
   );
 }
 /**
@@ -5395,19 +5617,21 @@ export function operationsGetDoubleBakingCount(
   } = {},
   opts?: Oazapfts.RequestOpts
 ) {
-  return oazapfts.fetchJson<{
-    status: 200;
-    data: number;
-  }>(
-    `/v1/operations/double_baking/count${QS.query(
-      QS.form({
-        ...QueryParamsParsers.queryParameter('level', level),
-        ...QueryParamsParsers.queryParameter('timestamp', timestamp),
-      })
-    )}`,
-    {
-      ...opts,
-    }
+  return oazapfts.ok(
+    oazapfts.fetchJson<{
+      status: 200;
+      data: number;
+    }>(
+      `/v1/operations/double_baking/count${QS.query(
+        QS.form({
+          ...QueryParamsParsers.queryParameter('level', level),
+          ...QueryParamsParsers.queryParameter('timestamp', timestamp),
+        })
+      )}`,
+      {
+        ...opts,
+      }
+    )
   );
 }
 /**
@@ -5445,27 +5669,29 @@ export function operationsGetDoubleEndorsing(
   } = {},
   opts?: Oazapfts.RequestOpts
 ) {
-  return oazapfts.fetchJson<{
-    status: 200;
-    data: DoubleEndorsingOperation[];
-  }>(
-    `/v1/operations/double_endorsing${QS.query(
-      QS.form({
-        limit,
-        quote,
-        ...QueryParamsParsers.anyofParameter('anyof', anyof),
-        ...QueryParamsParsers.queryParameter('accuser', accuser),
-        ...QueryParamsParsers.queryParameter('offender', offender),
-        ...QueryParamsParsers.queryParameter('level', level),
-        ...QueryParamsParsers.queryParameter('timestamp', timestamp),
-        ...QueryParamsParsers.queryParameter('select', select),
-        ...QueryParamsParsers.queryParameter('sort', sort),
-        ...QueryParamsParsers.queryParameter('offset', offset),
-      })
-    )}`,
-    {
-      ...opts,
-    }
+  return oazapfts.ok(
+    oazapfts.fetchJson<{
+      status: 200;
+      data: DoubleEndorsingOperation[];
+    }>(
+      `/v1/operations/double_endorsing${QS.query(
+        QS.form({
+          limit,
+          quote,
+          ...QueryParamsParsers.anyofParameter('anyof', anyof),
+          ...QueryParamsParsers.queryParameter('accuser', accuser),
+          ...QueryParamsParsers.queryParameter('offender', offender),
+          ...QueryParamsParsers.queryParameter('level', level),
+          ...QueryParamsParsers.queryParameter('timestamp', timestamp),
+          ...QueryParamsParsers.queryParameter('select', select),
+          ...QueryParamsParsers.queryParameter('sort', sort),
+          ...QueryParamsParsers.queryParameter('offset', offset),
+        })
+      )}`,
+      {
+        ...opts,
+      }
+    )
   );
 }
 /**
@@ -5480,18 +5706,20 @@ export function operationsGetDoubleEndorsingByHash(
   } = {},
   opts?: Oazapfts.RequestOpts
 ) {
-  return oazapfts.fetchJson<{
-    status: 200;
-    data: DoubleEndorsingOperation[];
-  }>(
-    `/v1/operations/double_endorsing/${hash}${QS.query(
-      QS.form({
-        quote,
-      })
-    )}`,
-    {
-      ...opts,
-    }
+  return oazapfts.ok(
+    oazapfts.fetchJson<{
+      status: 200;
+      data: DoubleEndorsingOperation[];
+    }>(
+      `/v1/operations/double_endorsing/${hash}${QS.query(
+        QS.form({
+          quote,
+        })
+      )}`,
+      {
+        ...opts,
+      }
+    )
   );
 }
 /**
@@ -5507,19 +5735,21 @@ export function operationsGetDoubleEndorsingCount(
   } = {},
   opts?: Oazapfts.RequestOpts
 ) {
-  return oazapfts.fetchJson<{
-    status: 200;
-    data: number;
-  }>(
-    `/v1/operations/double_endorsing/count${QS.query(
-      QS.form({
-        ...QueryParamsParsers.queryParameter('level', level),
-        ...QueryParamsParsers.queryParameter('timestamp', timestamp),
-      })
-    )}`,
-    {
-      ...opts,
-    }
+  return oazapfts.ok(
+    oazapfts.fetchJson<{
+      status: 200;
+      data: number;
+    }>(
+      `/v1/operations/double_endorsing/count${QS.query(
+        QS.form({
+          ...QueryParamsParsers.queryParameter('level', level),
+          ...QueryParamsParsers.queryParameter('timestamp', timestamp),
+        })
+      )}`,
+      {
+        ...opts,
+      }
+    )
   );
 }
 /**
@@ -5557,27 +5787,29 @@ export function operationsGetDoublePreendorsing(
   } = {},
   opts?: Oazapfts.RequestOpts
 ) {
-  return oazapfts.fetchJson<{
-    status: 200;
-    data: DoublePreendorsingOperation[];
-  }>(
-    `/v1/operations/double_preendorsing${QS.query(
-      QS.form({
-        limit,
-        quote,
-        ...QueryParamsParsers.anyofParameter('anyof', anyof),
-        ...QueryParamsParsers.queryParameter('accuser', accuser),
-        ...QueryParamsParsers.queryParameter('offender', offender),
-        ...QueryParamsParsers.queryParameter('level', level),
-        ...QueryParamsParsers.queryParameter('timestamp', timestamp),
-        ...QueryParamsParsers.queryParameter('select', select),
-        ...QueryParamsParsers.queryParameter('sort', sort),
-        ...QueryParamsParsers.queryParameter('offset', offset),
-      })
-    )}`,
-    {
-      ...opts,
-    }
+  return oazapfts.ok(
+    oazapfts.fetchJson<{
+      status: 200;
+      data: DoublePreendorsingOperation[];
+    }>(
+      `/v1/operations/double_preendorsing${QS.query(
+        QS.form({
+          limit,
+          quote,
+          ...QueryParamsParsers.anyofParameter('anyof', anyof),
+          ...QueryParamsParsers.queryParameter('accuser', accuser),
+          ...QueryParamsParsers.queryParameter('offender', offender),
+          ...QueryParamsParsers.queryParameter('level', level),
+          ...QueryParamsParsers.queryParameter('timestamp', timestamp),
+          ...QueryParamsParsers.queryParameter('select', select),
+          ...QueryParamsParsers.queryParameter('sort', sort),
+          ...QueryParamsParsers.queryParameter('offset', offset),
+        })
+      )}`,
+      {
+        ...opts,
+      }
+    )
   );
 }
 /**
@@ -5592,18 +5824,20 @@ export function operationsGetDoublePreendorsingByHash(
   } = {},
   opts?: Oazapfts.RequestOpts
 ) {
-  return oazapfts.fetchJson<{
-    status: 200;
-    data: DoublePreendorsingOperation[];
-  }>(
-    `/v1/operations/double_preendorsing/${hash}${QS.query(
-      QS.form({
-        quote,
-      })
-    )}`,
-    {
-      ...opts,
-    }
+  return oazapfts.ok(
+    oazapfts.fetchJson<{
+      status: 200;
+      data: DoublePreendorsingOperation[];
+    }>(
+      `/v1/operations/double_preendorsing/${hash}${QS.query(
+        QS.form({
+          quote,
+        })
+      )}`,
+      {
+        ...opts,
+      }
+    )
   );
 }
 /**
@@ -5619,19 +5853,21 @@ export function operationsGetDoublePreendorsingCount(
   } = {},
   opts?: Oazapfts.RequestOpts
 ) {
-  return oazapfts.fetchJson<{
-    status: 200;
-    data: number;
-  }>(
-    `/v1/operations/double_preendorsing/count${QS.query(
-      QS.form({
-        ...QueryParamsParsers.queryParameter('level', level),
-        ...QueryParamsParsers.queryParameter('timestamp', timestamp),
-      })
-    )}`,
-    {
-      ...opts,
-    }
+  return oazapfts.ok(
+    oazapfts.fetchJson<{
+      status: 200;
+      data: number;
+    }>(
+      `/v1/operations/double_preendorsing/count${QS.query(
+        QS.form({
+          ...QueryParamsParsers.queryParameter('level', level),
+          ...QueryParamsParsers.queryParameter('timestamp', timestamp),
+        })
+      )}`,
+      {
+        ...opts,
+      }
+    )
   );
 }
 /**
@@ -5671,28 +5907,30 @@ export function operationsGetNonceRevelations(
   } = {},
   opts?: Oazapfts.RequestOpts
 ) {
-  return oazapfts.fetchJson<{
-    status: 200;
-    data: NonceRevelationOperation[];
-  }>(
-    `/v1/operations/nonce_revelations${QS.query(
-      QS.form({
-        limit,
-        quote,
-        ...QueryParamsParsers.anyofParameter('anyof', anyof),
-        ...QueryParamsParsers.queryParameter('baker', baker),
-        ...QueryParamsParsers.queryParameter('sender', sender),
-        ...QueryParamsParsers.queryParameter('level', level),
-        ...QueryParamsParsers.queryParameter('revealedCycle', revealedCycle),
-        ...QueryParamsParsers.queryParameter('timestamp', timestamp),
-        ...QueryParamsParsers.queryParameter('select', select),
-        ...QueryParamsParsers.queryParameter('sort', sort),
-        ...QueryParamsParsers.queryParameter('offset', offset),
-      })
-    )}`,
-    {
-      ...opts,
-    }
+  return oazapfts.ok(
+    oazapfts.fetchJson<{
+      status: 200;
+      data: NonceRevelationOperation[];
+    }>(
+      `/v1/operations/nonce_revelations${QS.query(
+        QS.form({
+          limit,
+          quote,
+          ...QueryParamsParsers.anyofParameter('anyof', anyof),
+          ...QueryParamsParsers.queryParameter('baker', baker),
+          ...QueryParamsParsers.queryParameter('sender', sender),
+          ...QueryParamsParsers.queryParameter('level', level),
+          ...QueryParamsParsers.queryParameter('revealedCycle', revealedCycle),
+          ...QueryParamsParsers.queryParameter('timestamp', timestamp),
+          ...QueryParamsParsers.queryParameter('select', select),
+          ...QueryParamsParsers.queryParameter('sort', sort),
+          ...QueryParamsParsers.queryParameter('offset', offset),
+        })
+      )}`,
+      {
+        ...opts,
+      }
+    )
   );
 }
 /**
@@ -5707,18 +5945,20 @@ export function operationsGetNonceRevelationByHash(
   } = {},
   opts?: Oazapfts.RequestOpts
 ) {
-  return oazapfts.fetchJson<{
-    status: 200;
-    data: NonceRevelationOperation[];
-  }>(
-    `/v1/operations/nonce_revelations/${hash}${QS.query(
-      QS.form({
-        quote,
-      })
-    )}`,
-    {
-      ...opts,
-    }
+  return oazapfts.ok(
+    oazapfts.fetchJson<{
+      status: 200;
+      data: NonceRevelationOperation[];
+    }>(
+      `/v1/operations/nonce_revelations/${hash}${QS.query(
+        QS.form({
+          quote,
+        })
+      )}`,
+      {
+        ...opts,
+      }
+    )
   );
 }
 /**
@@ -5734,19 +5974,21 @@ export function operationsGetNonceRevelationsCount(
   } = {},
   opts?: Oazapfts.RequestOpts
 ) {
-  return oazapfts.fetchJson<{
-    status: 200;
-    data: number;
-  }>(
-    `/v1/operations/nonce_revelations/count${QS.query(
-      QS.form({
-        ...QueryParamsParsers.queryParameter('level', level),
-        ...QueryParamsParsers.queryParameter('timestamp', timestamp),
-      })
-    )}`,
-    {
-      ...opts,
-    }
+  return oazapfts.ok(
+    oazapfts.fetchJson<{
+      status: 200;
+      data: number;
+    }>(
+      `/v1/operations/nonce_revelations/count${QS.query(
+        QS.form({
+          ...QueryParamsParsers.queryParameter('level', level),
+          ...QueryParamsParsers.queryParameter('timestamp', timestamp),
+        })
+      )}`,
+      {
+        ...opts,
+      }
+    )
   );
 }
 /**
@@ -5792,31 +6034,36 @@ export function operationsGetDelegations(
   } = {},
   opts?: Oazapfts.RequestOpts
 ) {
-  return oazapfts.fetchJson<{
-    status: 200;
-    data: DelegationOperation[];
-  }>(
-    `/v1/operations/delegations${QS.query(
-      QS.form({
-        limit,
-        quote,
-        ...QueryParamsParsers.anyofParameter('anyof', anyof),
-        ...QueryParamsParsers.queryParameter('initiator', initiator),
-        ...QueryParamsParsers.queryParameter('sender', sender),
-        ...QueryParamsParsers.queryParameter('prevDelegate', prevDelegate),
-        ...QueryParamsParsers.queryParameter('newDelegate', newDelegate),
-        ...QueryParamsParsers.queryParameter('level', level),
-        ...QueryParamsParsers.queryParameter('timestamp', timestamp),
-        ...QueryParamsParsers.queryParameter('senderCodeHash', senderCodeHash),
-        ...QueryParamsParsers.queryParameter('status', status),
-        ...QueryParamsParsers.queryParameter('select', select),
-        ...QueryParamsParsers.queryParameter('sort', sort),
-        ...QueryParamsParsers.queryParameter('offset', offset),
-      })
-    )}`,
-    {
-      ...opts,
-    }
+  return oazapfts.ok(
+    oazapfts.fetchJson<{
+      status: 200;
+      data: DelegationOperation[];
+    }>(
+      `/v1/operations/delegations${QS.query(
+        QS.form({
+          limit,
+          quote,
+          ...QueryParamsParsers.anyofParameter('anyof', anyof),
+          ...QueryParamsParsers.queryParameter('initiator', initiator),
+          ...QueryParamsParsers.queryParameter('sender', sender),
+          ...QueryParamsParsers.queryParameter('prevDelegate', prevDelegate),
+          ...QueryParamsParsers.queryParameter('newDelegate', newDelegate),
+          ...QueryParamsParsers.queryParameter('level', level),
+          ...QueryParamsParsers.queryParameter('timestamp', timestamp),
+          ...QueryParamsParsers.queryParameter(
+            'senderCodeHash',
+            senderCodeHash
+          ),
+          ...QueryParamsParsers.queryParameter('status', status),
+          ...QueryParamsParsers.queryParameter('select', select),
+          ...QueryParamsParsers.queryParameter('sort', sort),
+          ...QueryParamsParsers.queryParameter('offset', offset),
+        })
+      )}`,
+      {
+        ...opts,
+      }
+    )
   );
 }
 /**
@@ -5831,18 +6078,20 @@ export function operationsGetDelegationByHash(
   } = {},
   opts?: Oazapfts.RequestOpts
 ) {
-  return oazapfts.fetchJson<{
-    status: 200;
-    data: DelegationOperation[];
-  }>(
-    `/v1/operations/delegations/${hash}${QS.query(
-      QS.form({
-        quote,
-      })
-    )}`,
-    {
-      ...opts,
-    }
+  return oazapfts.ok(
+    oazapfts.fetchJson<{
+      status: 200;
+      data: DelegationOperation[];
+    }>(
+      `/v1/operations/delegations/${hash}${QS.query(
+        QS.form({
+          quote,
+        })
+      )}`,
+      {
+        ...opts,
+      }
+    )
   );
 }
 /**
@@ -5852,12 +6101,14 @@ export function operationsGetDelegationStatus(
   hash: string | null,
   opts?: Oazapfts.RequestOpts
 ) {
-  return oazapfts.fetchJson<{
-    status: 200;
-    data: boolean | null;
-  }>(`/v1/operations/delegations/${hash}/status`, {
-    ...opts,
-  });
+  return oazapfts.ok(
+    oazapfts.fetchJson<{
+      status: 200;
+      data: boolean | null;
+    }>(`/v1/operations/delegations/${hash}/status`, {
+      ...opts,
+    })
+  );
 }
 /**
  * Get delegations count
@@ -5872,19 +6123,21 @@ export function operationsGetDelegationsCount(
   } = {},
   opts?: Oazapfts.RequestOpts
 ) {
-  return oazapfts.fetchJson<{
-    status: 200;
-    data: number;
-  }>(
-    `/v1/operations/delegations/count${QS.query(
-      QS.form({
-        ...QueryParamsParsers.queryParameter('level', level),
-        ...QueryParamsParsers.queryParameter('timestamp', timestamp),
-      })
-    )}`,
-    {
-      ...opts,
-    }
+  return oazapfts.ok(
+    oazapfts.fetchJson<{
+      status: 200;
+      data: number;
+    }>(
+      `/v1/operations/delegations/count${QS.query(
+        QS.form({
+          ...QueryParamsParsers.queryParameter('level', level),
+          ...QueryParamsParsers.queryParameter('timestamp', timestamp),
+        })
+      )}`,
+      {
+        ...opts,
+      }
+    )
   );
 }
 /**
@@ -5948,46 +6201,51 @@ export function operationsGetOriginations(
   } = {},
   opts?: Oazapfts.RequestOpts
 ) {
-  return oazapfts.fetchJson<{
-    status: 200;
-    data: OriginationOperation[];
-  }>(
-    `/v1/operations/originations${QS.query(
-      QS.form({
-        limit,
-        micheline,
-        quote,
-        ...QueryParamsParsers.anyofParameter('anyof', anyof),
-        ...QueryParamsParsers.queryParameter('initiator', initiator),
-        ...QueryParamsParsers.queryParameter('sender', sender),
-        ...QueryParamsParsers.queryParameter(
-          'contractManager',
-          contractManager
-        ),
-        ...QueryParamsParsers.queryParameter(
-          'contractDelegate',
-          contractDelegate
-        ),
-        ...QueryParamsParsers.queryParameter(
-          'originatedContract',
-          originatedContract
-        ),
-        ...QueryParamsParsers.queryParameter('id', id),
-        ...QueryParamsParsers.queryParameter('typeHash', typeHash),
-        ...QueryParamsParsers.queryParameter('codeHash', codeHash),
-        ...QueryParamsParsers.queryParameter('level', level),
-        ...QueryParamsParsers.queryParameter('timestamp', timestamp),
-        ...QueryParamsParsers.queryParameter('senderCodeHash', senderCodeHash),
-        ...QueryParamsParsers.queryParameter('anyCodeHash', anyCodeHash),
-        ...QueryParamsParsers.queryParameter('status', status),
-        ...QueryParamsParsers.queryParameter('select', select),
-        ...QueryParamsParsers.queryParameter('sort', sort),
-        ...QueryParamsParsers.queryParameter('offset', offset),
-      })
-    )}`,
-    {
-      ...opts,
-    }
+  return oazapfts.ok(
+    oazapfts.fetchJson<{
+      status: 200;
+      data: OriginationOperation[];
+    }>(
+      `/v1/operations/originations${QS.query(
+        QS.form({
+          limit,
+          micheline,
+          quote,
+          ...QueryParamsParsers.anyofParameter('anyof', anyof),
+          ...QueryParamsParsers.queryParameter('initiator', initiator),
+          ...QueryParamsParsers.queryParameter('sender', sender),
+          ...QueryParamsParsers.queryParameter(
+            'contractManager',
+            contractManager
+          ),
+          ...QueryParamsParsers.queryParameter(
+            'contractDelegate',
+            contractDelegate
+          ),
+          ...QueryParamsParsers.queryParameter(
+            'originatedContract',
+            originatedContract
+          ),
+          ...QueryParamsParsers.queryParameter('id', id),
+          ...QueryParamsParsers.queryParameter('typeHash', typeHash),
+          ...QueryParamsParsers.queryParameter('codeHash', codeHash),
+          ...QueryParamsParsers.queryParameter('level', level),
+          ...QueryParamsParsers.queryParameter('timestamp', timestamp),
+          ...QueryParamsParsers.queryParameter(
+            'senderCodeHash',
+            senderCodeHash
+          ),
+          ...QueryParamsParsers.queryParameter('anyCodeHash', anyCodeHash),
+          ...QueryParamsParsers.queryParameter('status', status),
+          ...QueryParamsParsers.queryParameter('select', select),
+          ...QueryParamsParsers.queryParameter('sort', sort),
+          ...QueryParamsParsers.queryParameter('offset', offset),
+        })
+      )}`,
+      {
+        ...opts,
+      }
+    )
   );
 }
 /**
@@ -6004,19 +6262,21 @@ export function operationsGetOriginationByHash(
   } = {},
   opts?: Oazapfts.RequestOpts
 ) {
-  return oazapfts.fetchJson<{
-    status: 200;
-    data: OriginationOperation[];
-  }>(
-    `/v1/operations/originations/${hash}${QS.query(
-      QS.form({
-        micheline,
-        quote,
-      })
-    )}`,
-    {
-      ...opts,
-    }
+  return oazapfts.ok(
+    oazapfts.fetchJson<{
+      status: 200;
+      data: OriginationOperation[];
+    }>(
+      `/v1/operations/originations/${hash}${QS.query(
+        QS.form({
+          micheline,
+          quote,
+        })
+      )}`,
+      {
+        ...opts,
+      }
+    )
   );
 }
 /**
@@ -6026,12 +6286,14 @@ export function operationsGetOriginationStatus(
   hash: string | null,
   opts?: Oazapfts.RequestOpts
 ) {
-  return oazapfts.fetchJson<{
-    status: 200;
-    data: boolean | null;
-  }>(`/v1/operations/originations/${hash}/status`, {
-    ...opts,
-  });
+  return oazapfts.ok(
+    oazapfts.fetchJson<{
+      status: 200;
+      data: boolean | null;
+    }>(`/v1/operations/originations/${hash}/status`, {
+      ...opts,
+    })
+  );
 }
 /**
  * Get originations count
@@ -6046,19 +6308,21 @@ export function operationsGetOriginationsCount(
   } = {},
   opts?: Oazapfts.RequestOpts
 ) {
-  return oazapfts.fetchJson<{
-    status: 200;
-    data: number;
-  }>(
-    `/v1/operations/originations/count${QS.query(
-      QS.form({
-        ...QueryParamsParsers.queryParameter('level', level),
-        ...QueryParamsParsers.queryParameter('timestamp', timestamp),
-      })
-    )}`,
-    {
-      ...opts,
-    }
+  return oazapfts.ok(
+    oazapfts.fetchJson<{
+      status: 200;
+      data: number;
+    }>(
+      `/v1/operations/originations/count${QS.query(
+        QS.form({
+          ...QueryParamsParsers.queryParameter('level', level),
+          ...QueryParamsParsers.queryParameter('timestamp', timestamp),
+        })
+      )}`,
+      {
+        ...opts,
+      }
+    )
   );
 }
 /**
@@ -6118,38 +6382,46 @@ export function operationsGetTransactions(
   } = {},
   opts?: Oazapfts.RequestOpts
 ) {
-  return oazapfts.fetchJson<{
-    status: 200;
-    data: TransactionOperation[];
-  }>(
-    `/v1/operations/transactions${QS.query(
-      QS.form({
-        limit,
-        micheline,
-        quote,
-        ...QueryParamsParsers.anyofParameter('anyof', anyof),
-        ...QueryParamsParsers.queryParameter('initiator', initiator),
-        ...QueryParamsParsers.queryParameter('sender', sender),
-        ...QueryParamsParsers.queryParameter('target', target),
-        ...QueryParamsParsers.queryParameter('amount', amount),
-        ...QueryParamsParsers.queryParameter('id', id),
-        ...QueryParamsParsers.queryParameter('level', level),
-        ...QueryParamsParsers.queryParameter('timestamp', timestamp),
-        ...QueryParamsParsers.queryParameter('senderCodeHash', senderCodeHash),
-        ...QueryParamsParsers.queryParameter('targetCodeHash', targetCodeHash),
-        ...QueryParamsParsers.queryParameter('codeHash', codeHash),
-        ...QueryParamsParsers.queryParameter('entrypoint', entrypoint),
-        ...QueryParamsParsers.jsonParameter('parameter', parameter),
-        ...QueryParamsParsers.queryParameter('hasInternals', hasInternals),
-        ...QueryParamsParsers.queryParameter('status', status),
-        ...QueryParamsParsers.queryParameter('select', select),
-        ...QueryParamsParsers.queryParameter('sort', sort),
-        ...QueryParamsParsers.queryParameter('offset', offset),
-      })
-    )}`,
-    {
-      ...opts,
-    }
+  return oazapfts.ok(
+    oazapfts.fetchJson<{
+      status: 200;
+      data: TransactionOperation[];
+    }>(
+      `/v1/operations/transactions${QS.query(
+        QS.form({
+          limit,
+          micheline,
+          quote,
+          ...QueryParamsParsers.anyofParameter('anyof', anyof),
+          ...QueryParamsParsers.queryParameter('initiator', initiator),
+          ...QueryParamsParsers.queryParameter('sender', sender),
+          ...QueryParamsParsers.queryParameter('target', target),
+          ...QueryParamsParsers.queryParameter('amount', amount),
+          ...QueryParamsParsers.queryParameter('id', id),
+          ...QueryParamsParsers.queryParameter('level', level),
+          ...QueryParamsParsers.queryParameter('timestamp', timestamp),
+          ...QueryParamsParsers.queryParameter(
+            'senderCodeHash',
+            senderCodeHash
+          ),
+          ...QueryParamsParsers.queryParameter(
+            'targetCodeHash',
+            targetCodeHash
+          ),
+          ...QueryParamsParsers.queryParameter('codeHash', codeHash),
+          ...QueryParamsParsers.queryParameter('entrypoint', entrypoint),
+          ...QueryParamsParsers.jsonParameter('parameter', parameter),
+          ...QueryParamsParsers.queryParameter('hasInternals', hasInternals),
+          ...QueryParamsParsers.queryParameter('status', status),
+          ...QueryParamsParsers.queryParameter('select', select),
+          ...QueryParamsParsers.queryParameter('sort', sort),
+          ...QueryParamsParsers.queryParameter('offset', offset),
+        })
+      )}`,
+      {
+        ...opts,
+      }
+    )
   );
 }
 /**
@@ -6166,19 +6438,21 @@ export function operationsGetTransactionByHash(
   } = {},
   opts?: Oazapfts.RequestOpts
 ) {
-  return oazapfts.fetchJson<{
-    status: 200;
-    data: TransactionOperation[];
-  }>(
-    `/v1/operations/transactions/${hash}${QS.query(
-      QS.form({
-        micheline,
-        quote,
-      })
-    )}`,
-    {
-      ...opts,
-    }
+  return oazapfts.ok(
+    oazapfts.fetchJson<{
+      status: 200;
+      data: TransactionOperation[];
+    }>(
+      `/v1/operations/transactions/${hash}${QS.query(
+        QS.form({
+          micheline,
+          quote,
+        })
+      )}`,
+      {
+        ...opts,
+      }
+    )
   );
 }
 /**
@@ -6196,19 +6470,21 @@ export function operationsGetTransactionByHashCounter(
   } = {},
   opts?: Oazapfts.RequestOpts
 ) {
-  return oazapfts.fetchJson<{
-    status: 200;
-    data: TransactionOperation[];
-  }>(
-    `/v1/operations/transactions/${hash}/${counter}${QS.query(
-      QS.form({
-        micheline,
-        quote,
-      })
-    )}`,
-    {
-      ...opts,
-    }
+  return oazapfts.ok(
+    oazapfts.fetchJson<{
+      status: 200;
+      data: TransactionOperation[];
+    }>(
+      `/v1/operations/transactions/${hash}/${counter}${QS.query(
+        QS.form({
+          micheline,
+          quote,
+        })
+      )}`,
+      {
+        ...opts,
+      }
+    )
   );
 }
 /**
@@ -6227,19 +6503,21 @@ export function operationsGetTransactionByHashCounterNonce(
   } = {},
   opts?: Oazapfts.RequestOpts
 ) {
-  return oazapfts.fetchJson<{
-    status: 200;
-    data: TransactionOperation[];
-  }>(
-    `/v1/operations/transactions/${hash}/${counter}/${nonce}${QS.query(
-      QS.form({
-        micheline,
-        quote,
-      })
-    )}`,
-    {
-      ...opts,
-    }
+  return oazapfts.ok(
+    oazapfts.fetchJson<{
+      status: 200;
+      data: TransactionOperation[];
+    }>(
+      `/v1/operations/transactions/${hash}/${counter}/${nonce}${QS.query(
+        QS.form({
+          micheline,
+          quote,
+        })
+      )}`,
+      {
+        ...opts,
+      }
+    )
   );
 }
 /**
@@ -6249,12 +6527,14 @@ export function operationsGetTransactionStatus(
   hash: string | null,
   opts?: Oazapfts.RequestOpts
 ) {
-  return oazapfts.fetchJson<{
-    status: 200;
-    data: boolean | null;
-  }>(`/v1/operations/transactions/${hash}/status`, {
-    ...opts,
-  });
+  return oazapfts.ok(
+    oazapfts.fetchJson<{
+      status: 200;
+      data: boolean | null;
+    }>(`/v1/operations/transactions/${hash}/status`, {
+      ...opts,
+    })
+  );
 }
 /**
  * Get transactions count
@@ -6289,26 +6569,28 @@ export function operationsGetTransactionsCount(
   } = {},
   opts?: Oazapfts.RequestOpts
 ) {
-  return oazapfts.fetchJson<{
-    status: 200;
-    data: number;
-  }>(
-    `/v1/operations/transactions/count${QS.query(
-      QS.form({
-        ...QueryParamsParsers.anyofParameter('anyof', anyof),
-        ...QueryParamsParsers.queryParameter('initiator', initiator),
-        ...QueryParamsParsers.queryParameter('sender', sender),
-        ...QueryParamsParsers.queryParameter('target', target),
-        ...QueryParamsParsers.queryParameter('level', level),
-        ...QueryParamsParsers.queryParameter('timestamp', timestamp),
-        ...QueryParamsParsers.queryParameter('entrypoint', entrypoint),
-        ...QueryParamsParsers.jsonParameter('parameter', parameter),
-        ...QueryParamsParsers.queryParameter('status', status),
-      })
-    )}`,
-    {
-      ...opts,
-    }
+  return oazapfts.ok(
+    oazapfts.fetchJson<{
+      status: 200;
+      data: number;
+    }>(
+      `/v1/operations/transactions/count${QS.query(
+        QS.form({
+          ...QueryParamsParsers.anyofParameter('anyof', anyof),
+          ...QueryParamsParsers.queryParameter('initiator', initiator),
+          ...QueryParamsParsers.queryParameter('sender', sender),
+          ...QueryParamsParsers.queryParameter('target', target),
+          ...QueryParamsParsers.queryParameter('level', level),
+          ...QueryParamsParsers.queryParameter('timestamp', timestamp),
+          ...QueryParamsParsers.queryParameter('entrypoint', entrypoint),
+          ...QueryParamsParsers.jsonParameter('parameter', parameter),
+          ...QueryParamsParsers.queryParameter('status', status),
+        })
+      )}`,
+      {
+        ...opts,
+      }
+    )
   );
 }
 /**
@@ -6338,26 +6620,28 @@ export function operationsGetReveals(
   } = {},
   opts?: Oazapfts.RequestOpts
 ) {
-  return oazapfts.fetchJson<{
-    status: 200;
-    data: RevealOperation[];
-  }>(
-    `/v1/operations/reveals${QS.query(
-      QS.form({
-        limit,
-        quote,
-        ...QueryParamsParsers.queryParameter('sender', sender),
-        ...QueryParamsParsers.queryParameter('level', level),
-        ...QueryParamsParsers.queryParameter('timestamp', timestamp),
-        ...QueryParamsParsers.queryParameter('status', status),
-        ...QueryParamsParsers.queryParameter('select', select),
-        ...QueryParamsParsers.queryParameter('sort', sort),
-        ...QueryParamsParsers.queryParameter('offset', offset),
-      })
-    )}`,
-    {
-      ...opts,
-    }
+  return oazapfts.ok(
+    oazapfts.fetchJson<{
+      status: 200;
+      data: RevealOperation[];
+    }>(
+      `/v1/operations/reveals${QS.query(
+        QS.form({
+          limit,
+          quote,
+          ...QueryParamsParsers.queryParameter('sender', sender),
+          ...QueryParamsParsers.queryParameter('level', level),
+          ...QueryParamsParsers.queryParameter('timestamp', timestamp),
+          ...QueryParamsParsers.queryParameter('status', status),
+          ...QueryParamsParsers.queryParameter('select', select),
+          ...QueryParamsParsers.queryParameter('sort', sort),
+          ...QueryParamsParsers.queryParameter('offset', offset),
+        })
+      )}`,
+      {
+        ...opts,
+      }
+    )
   );
 }
 /**
@@ -6372,18 +6656,20 @@ export function operationsGetRevealByHash(
   } = {},
   opts?: Oazapfts.RequestOpts
 ) {
-  return oazapfts.fetchJson<{
-    status: 200;
-    data: RevealOperation[];
-  }>(
-    `/v1/operations/reveals/${hash}${QS.query(
-      QS.form({
-        quote,
-      })
-    )}`,
-    {
-      ...opts,
-    }
+  return oazapfts.ok(
+    oazapfts.fetchJson<{
+      status: 200;
+      data: RevealOperation[];
+    }>(
+      `/v1/operations/reveals/${hash}${QS.query(
+        QS.form({
+          quote,
+        })
+      )}`,
+      {
+        ...opts,
+      }
+    )
   );
 }
 /**
@@ -6393,12 +6679,14 @@ export function operationsGetRevealStatus(
   hash: string | null,
   opts?: Oazapfts.RequestOpts
 ) {
-  return oazapfts.fetchJson<{
-    status: 200;
-    data: boolean | null;
-  }>(`/v1/operations/reveals/${hash}/status`, {
-    ...opts,
-  });
+  return oazapfts.ok(
+    oazapfts.fetchJson<{
+      status: 200;
+      data: boolean | null;
+    }>(`/v1/operations/reveals/${hash}/status`, {
+      ...opts,
+    })
+  );
 }
 /**
  * Get reveals count
@@ -6413,19 +6701,21 @@ export function operationsGetRevealsCount(
   } = {},
   opts?: Oazapfts.RequestOpts
 ) {
-  return oazapfts.fetchJson<{
-    status: 200;
-    data: number;
-  }>(
-    `/v1/operations/reveals/count${QS.query(
-      QS.form({
-        ...QueryParamsParsers.queryParameter('level', level),
-        ...QueryParamsParsers.queryParameter('timestamp', timestamp),
-      })
-    )}`,
-    {
-      ...opts,
-    }
+  return oazapfts.ok(
+    oazapfts.fetchJson<{
+      status: 200;
+      data: number;
+    }>(
+      `/v1/operations/reveals/count${QS.query(
+        QS.form({
+          ...QueryParamsParsers.queryParameter('level', level),
+          ...QueryParamsParsers.queryParameter('timestamp', timestamp),
+        })
+      )}`,
+      {
+        ...opts,
+      }
+    )
   );
 }
 /**
@@ -6459,28 +6749,30 @@ export function operationsGetRegisterConstants(
   } = {},
   opts?: Oazapfts.RequestOpts
 ) {
-  return oazapfts.fetchJson<{
-    status: 200;
-    data: RegisterConstantOperation[];
-  }>(
-    `/v1/operations/register_constants${QS.query(
-      QS.form({
-        limit,
-        micheline,
-        quote,
-        ...QueryParamsParsers.queryParameter('sender', sender),
-        ...QueryParamsParsers.queryParameter('address', address),
-        ...QueryParamsParsers.queryParameter('level', level),
-        ...QueryParamsParsers.queryParameter('timestamp', timestamp),
-        ...QueryParamsParsers.queryParameter('status', status),
-        ...QueryParamsParsers.queryParameter('select', select),
-        ...QueryParamsParsers.queryParameter('sort', sort),
-        ...QueryParamsParsers.queryParameter('offset', offset),
-      })
-    )}`,
-    {
-      ...opts,
-    }
+  return oazapfts.ok(
+    oazapfts.fetchJson<{
+      status: 200;
+      data: RegisterConstantOperation[];
+    }>(
+      `/v1/operations/register_constants${QS.query(
+        QS.form({
+          limit,
+          micheline,
+          quote,
+          ...QueryParamsParsers.queryParameter('sender', sender),
+          ...QueryParamsParsers.queryParameter('address', address),
+          ...QueryParamsParsers.queryParameter('level', level),
+          ...QueryParamsParsers.queryParameter('timestamp', timestamp),
+          ...QueryParamsParsers.queryParameter('status', status),
+          ...QueryParamsParsers.queryParameter('select', select),
+          ...QueryParamsParsers.queryParameter('sort', sort),
+          ...QueryParamsParsers.queryParameter('offset', offset),
+        })
+      )}`,
+      {
+        ...opts,
+      }
+    )
   );
 }
 /**
@@ -6497,19 +6789,21 @@ export function operationsGetRegisterConstantByHash(
   } = {},
   opts?: Oazapfts.RequestOpts
 ) {
-  return oazapfts.fetchJson<{
-    status: 200;
-    data: RegisterConstantOperation[];
-  }>(
-    `/v1/operations/register_constants/${hash}${QS.query(
-      QS.form({
-        micheline,
-        quote,
-      })
-    )}`,
-    {
-      ...opts,
-    }
+  return oazapfts.ok(
+    oazapfts.fetchJson<{
+      status: 200;
+      data: RegisterConstantOperation[];
+    }>(
+      `/v1/operations/register_constants/${hash}${QS.query(
+        QS.form({
+          micheline,
+          quote,
+        })
+      )}`,
+      {
+        ...opts,
+      }
+    )
   );
 }
 /**
@@ -6519,12 +6813,14 @@ export function operationsGetRegisterConstantStatus(
   hash: string | null,
   opts?: Oazapfts.RequestOpts
 ) {
-  return oazapfts.fetchJson<{
-    status: 200;
-    data: boolean | null;
-  }>(`/v1/operations/register_constants/${hash}/status`, {
-    ...opts,
-  });
+  return oazapfts.ok(
+    oazapfts.fetchJson<{
+      status: 200;
+      data: boolean | null;
+    }>(`/v1/operations/register_constants/${hash}/status`, {
+      ...opts,
+    })
+  );
 }
 /**
  * Get register constants count
@@ -6539,19 +6835,21 @@ export function operationsGetRegisterConstantsCount(
   } = {},
   opts?: Oazapfts.RequestOpts
 ) {
-  return oazapfts.fetchJson<{
-    status: 200;
-    data: number;
-  }>(
-    `/v1/operations/register_constants/count${QS.query(
-      QS.form({
-        ...QueryParamsParsers.queryParameter('level', level),
-        ...QueryParamsParsers.queryParameter('timestamp', timestamp),
-      })
-    )}`,
-    {
-      ...opts,
-    }
+  return oazapfts.ok(
+    oazapfts.fetchJson<{
+      status: 200;
+      data: number;
+    }>(
+      `/v1/operations/register_constants/count${QS.query(
+        QS.form({
+          ...QueryParamsParsers.queryParameter('level', level),
+          ...QueryParamsParsers.queryParameter('timestamp', timestamp),
+        })
+      )}`,
+      {
+        ...opts,
+      }
+    )
   );
 }
 /**
@@ -6581,26 +6879,28 @@ export function operationsGetSetDepositsLimits(
   } = {},
   opts?: Oazapfts.RequestOpts
 ) {
-  return oazapfts.fetchJson<{
-    status: 200;
-    data: SetDepositsLimitOperation[];
-  }>(
-    `/v1/operations/set_deposits_limits${QS.query(
-      QS.form({
-        limit,
-        quote,
-        ...QueryParamsParsers.queryParameter('sender', sender),
-        ...QueryParamsParsers.queryParameter('level', level),
-        ...QueryParamsParsers.queryParameter('timestamp', timestamp),
-        ...QueryParamsParsers.queryParameter('status', status),
-        ...QueryParamsParsers.queryParameter('select', select),
-        ...QueryParamsParsers.queryParameter('sort', sort),
-        ...QueryParamsParsers.queryParameter('offset', offset),
-      })
-    )}`,
-    {
-      ...opts,
-    }
+  return oazapfts.ok(
+    oazapfts.fetchJson<{
+      status: 200;
+      data: SetDepositsLimitOperation[];
+    }>(
+      `/v1/operations/set_deposits_limits${QS.query(
+        QS.form({
+          limit,
+          quote,
+          ...QueryParamsParsers.queryParameter('sender', sender),
+          ...QueryParamsParsers.queryParameter('level', level),
+          ...QueryParamsParsers.queryParameter('timestamp', timestamp),
+          ...QueryParamsParsers.queryParameter('status', status),
+          ...QueryParamsParsers.queryParameter('select', select),
+          ...QueryParamsParsers.queryParameter('sort', sort),
+          ...QueryParamsParsers.queryParameter('offset', offset),
+        })
+      )}`,
+      {
+        ...opts,
+      }
+    )
   );
 }
 /**
@@ -6615,18 +6915,20 @@ export function operationsGetSetDepositsLimitByHash(
   } = {},
   opts?: Oazapfts.RequestOpts
 ) {
-  return oazapfts.fetchJson<{
-    status: 200;
-    data: SetDepositsLimitOperation[];
-  }>(
-    `/v1/operations/set_deposits_limits/${hash}${QS.query(
-      QS.form({
-        quote,
-      })
-    )}`,
-    {
-      ...opts,
-    }
+  return oazapfts.ok(
+    oazapfts.fetchJson<{
+      status: 200;
+      data: SetDepositsLimitOperation[];
+    }>(
+      `/v1/operations/set_deposits_limits/${hash}${QS.query(
+        QS.form({
+          quote,
+        })
+      )}`,
+      {
+        ...opts,
+      }
+    )
   );
 }
 /**
@@ -6636,12 +6938,14 @@ export function operationsGetSetDepositsLimitStatus(
   hash: string | null,
   opts?: Oazapfts.RequestOpts
 ) {
-  return oazapfts.fetchJson<{
-    status: 200;
-    data: boolean | null;
-  }>(`/v1/operations/set_deposits_limits/${hash}/status`, {
-    ...opts,
-  });
+  return oazapfts.ok(
+    oazapfts.fetchJson<{
+      status: 200;
+      data: boolean | null;
+    }>(`/v1/operations/set_deposits_limits/${hash}/status`, {
+      ...opts,
+    })
+  );
 }
 /**
  * Get set deposits limits count
@@ -6656,19 +6960,21 @@ export function operationsGetSetDepositsLimitsCount(
   } = {},
   opts?: Oazapfts.RequestOpts
 ) {
-  return oazapfts.fetchJson<{
-    status: 200;
-    data: number;
-  }>(
-    `/v1/operations/set_deposits_limits/count${QS.query(
-      QS.form({
-        ...QueryParamsParsers.queryParameter('level', level),
-        ...QueryParamsParsers.queryParameter('timestamp', timestamp),
-      })
-    )}`,
-    {
-      ...opts,
-    }
+  return oazapfts.ok(
+    oazapfts.fetchJson<{
+      status: 200;
+      data: number;
+    }>(
+      `/v1/operations/set_deposits_limits/count${QS.query(
+        QS.form({
+          ...QueryParamsParsers.queryParameter('level', level),
+          ...QueryParamsParsers.queryParameter('timestamp', timestamp),
+        })
+      )}`,
+      {
+        ...opts,
+      }
+    )
   );
 }
 /**
@@ -6712,30 +7018,32 @@ export function operationsGetTransferTicketOps(
   } = {},
   opts?: Oazapfts.RequestOpts
 ) {
-  return oazapfts.fetchJson<{
-    status: 200;
-    data: TransferTicketOperation[];
-  }>(
-    `/v1/operations/transfer_ticket${QS.query(
-      QS.form({
-        limit,
-        micheline,
-        quote,
-        ...QueryParamsParsers.anyofParameter('anyof', anyof),
-        ...QueryParamsParsers.queryParameter('sender', sender),
-        ...QueryParamsParsers.queryParameter('target', target),
-        ...QueryParamsParsers.queryParameter('ticketer', ticketer),
-        ...QueryParamsParsers.queryParameter('level', level),
-        ...QueryParamsParsers.queryParameter('timestamp', timestamp),
-        ...QueryParamsParsers.queryParameter('status', status),
-        ...QueryParamsParsers.queryParameter('select', select),
-        ...QueryParamsParsers.queryParameter('sort', sort),
-        ...QueryParamsParsers.queryParameter('offset', offset),
-      })
-    )}`,
-    {
-      ...opts,
-    }
+  return oazapfts.ok(
+    oazapfts.fetchJson<{
+      status: 200;
+      data: TransferTicketOperation[];
+    }>(
+      `/v1/operations/transfer_ticket${QS.query(
+        QS.form({
+          limit,
+          micheline,
+          quote,
+          ...QueryParamsParsers.anyofParameter('anyof', anyof),
+          ...QueryParamsParsers.queryParameter('sender', sender),
+          ...QueryParamsParsers.queryParameter('target', target),
+          ...QueryParamsParsers.queryParameter('ticketer', ticketer),
+          ...QueryParamsParsers.queryParameter('level', level),
+          ...QueryParamsParsers.queryParameter('timestamp', timestamp),
+          ...QueryParamsParsers.queryParameter('status', status),
+          ...QueryParamsParsers.queryParameter('select', select),
+          ...QueryParamsParsers.queryParameter('sort', sort),
+          ...QueryParamsParsers.queryParameter('offset', offset),
+        })
+      )}`,
+      {
+        ...opts,
+      }
+    )
   );
 }
 /**
@@ -6752,19 +7060,21 @@ export function operationsGetTransferTicketOpsByHash(
   } = {},
   opts?: Oazapfts.RequestOpts
 ) {
-  return oazapfts.fetchJson<{
-    status: 200;
-    data: TransferTicketOperation[];
-  }>(
-    `/v1/operations/transfer_ticket/${hash}${QS.query(
-      QS.form({
-        micheline,
-        quote,
-      })
-    )}`,
-    {
-      ...opts,
-    }
+  return oazapfts.ok(
+    oazapfts.fetchJson<{
+      status: 200;
+      data: TransferTicketOperation[];
+    }>(
+      `/v1/operations/transfer_ticket/${hash}${QS.query(
+        QS.form({
+          micheline,
+          quote,
+        })
+      )}`,
+      {
+        ...opts,
+      }
+    )
   );
 }
 /**
@@ -6774,12 +7084,14 @@ export function operationsGetTransferTicketStatus(
   hash: string | null,
   opts?: Oazapfts.RequestOpts
 ) {
-  return oazapfts.fetchJson<{
-    status: 200;
-    data: boolean | null;
-  }>(`/v1/operations/transfer_ticket/${hash}/status`, {
-    ...opts,
-  });
+  return oazapfts.ok(
+    oazapfts.fetchJson<{
+      status: 200;
+      data: boolean | null;
+    }>(`/v1/operations/transfer_ticket/${hash}/status`, {
+      ...opts,
+    })
+  );
 }
 /**
  * Get transfer ticket count
@@ -6794,19 +7106,21 @@ export function operationsGetTransferTicketOpsCount(
   } = {},
   opts?: Oazapfts.RequestOpts
 ) {
-  return oazapfts.fetchJson<{
-    status: 200;
-    data: number;
-  }>(
-    `/v1/operations/transfer_ticket/count${QS.query(
-      QS.form({
-        ...QueryParamsParsers.queryParameter('level', level),
-        ...QueryParamsParsers.queryParameter('timestamp', timestamp),
-      })
-    )}`,
-    {
-      ...opts,
-    }
+  return oazapfts.ok(
+    oazapfts.fetchJson<{
+      status: 200;
+      data: number;
+    }>(
+      `/v1/operations/transfer_ticket/count${QS.query(
+        QS.form({
+          ...QueryParamsParsers.queryParameter('level', level),
+          ...QueryParamsParsers.queryParameter('timestamp', timestamp),
+        })
+      )}`,
+      {
+        ...opts,
+      }
+    )
   );
 }
 /**
@@ -6838,27 +7152,29 @@ export function operationsGetTxRollupCommitOps(
   } = {},
   opts?: Oazapfts.RequestOpts
 ) {
-  return oazapfts.fetchJson<{
-    status: 200;
-    data: TxRollupCommitOperation[];
-  }>(
-    `/v1/operations/tx_rollup_commit${QS.query(
-      QS.form({
-        limit,
-        quote,
-        ...QueryParamsParsers.queryParameter('sender', sender),
-        ...QueryParamsParsers.queryParameter('rollup', rollup),
-        ...QueryParamsParsers.queryParameter('level', level),
-        ...QueryParamsParsers.queryParameter('timestamp', timestamp),
-        ...QueryParamsParsers.queryParameter('status', status),
-        ...QueryParamsParsers.queryParameter('select', select),
-        ...QueryParamsParsers.queryParameter('sort', sort),
-        ...QueryParamsParsers.queryParameter('offset', offset),
-      })
-    )}`,
-    {
-      ...opts,
-    }
+  return oazapfts.ok(
+    oazapfts.fetchJson<{
+      status: 200;
+      data: TxRollupCommitOperation[];
+    }>(
+      `/v1/operations/tx_rollup_commit${QS.query(
+        QS.form({
+          limit,
+          quote,
+          ...QueryParamsParsers.queryParameter('sender', sender),
+          ...QueryParamsParsers.queryParameter('rollup', rollup),
+          ...QueryParamsParsers.queryParameter('level', level),
+          ...QueryParamsParsers.queryParameter('timestamp', timestamp),
+          ...QueryParamsParsers.queryParameter('status', status),
+          ...QueryParamsParsers.queryParameter('select', select),
+          ...QueryParamsParsers.queryParameter('sort', sort),
+          ...QueryParamsParsers.queryParameter('offset', offset),
+        })
+      )}`,
+      {
+        ...opts,
+      }
+    )
   );
 }
 /**
@@ -6873,18 +7189,20 @@ export function operationsGetTxRollupCommitOpsByHash(
   } = {},
   opts?: Oazapfts.RequestOpts
 ) {
-  return oazapfts.fetchJson<{
-    status: 200;
-    data: TxRollupCommitOperation[];
-  }>(
-    `/v1/operations/tx_rollup_commit/${hash}${QS.query(
-      QS.form({
-        quote,
-      })
-    )}`,
-    {
-      ...opts,
-    }
+  return oazapfts.ok(
+    oazapfts.fetchJson<{
+      status: 200;
+      data: TxRollupCommitOperation[];
+    }>(
+      `/v1/operations/tx_rollup_commit/${hash}${QS.query(
+        QS.form({
+          quote,
+        })
+      )}`,
+      {
+        ...opts,
+      }
+    )
   );
 }
 /**
@@ -6894,12 +7212,14 @@ export function operationsGetTxRollupCommitStatus(
   hash: string | null,
   opts?: Oazapfts.RequestOpts
 ) {
-  return oazapfts.fetchJson<{
-    status: 200;
-    data: boolean | null;
-  }>(`/v1/operations/tx_rollup_commit/${hash}/status`, {
-    ...opts,
-  });
+  return oazapfts.ok(
+    oazapfts.fetchJson<{
+      status: 200;
+      data: boolean | null;
+    }>(`/v1/operations/tx_rollup_commit/${hash}/status`, {
+      ...opts,
+    })
+  );
 }
 /**
  * Get tx rollup commit count
@@ -6914,19 +7234,21 @@ export function operationsGetTxRollupCommitOpsCount(
   } = {},
   opts?: Oazapfts.RequestOpts
 ) {
-  return oazapfts.fetchJson<{
-    status: 200;
-    data: number;
-  }>(
-    `/v1/operations/tx_rollup_commit/count${QS.query(
-      QS.form({
-        ...QueryParamsParsers.queryParameter('level', level),
-        ...QueryParamsParsers.queryParameter('timestamp', timestamp),
-      })
-    )}`,
-    {
-      ...opts,
-    }
+  return oazapfts.ok(
+    oazapfts.fetchJson<{
+      status: 200;
+      data: number;
+    }>(
+      `/v1/operations/tx_rollup_commit/count${QS.query(
+        QS.form({
+          ...QueryParamsParsers.queryParameter('level', level),
+          ...QueryParamsParsers.queryParameter('timestamp', timestamp),
+        })
+      )}`,
+      {
+        ...opts,
+      }
+    )
   );
 }
 /**
@@ -6958,27 +7280,29 @@ export function operationsGetTxRollupDispatchTicketsOps(
   } = {},
   opts?: Oazapfts.RequestOpts
 ) {
-  return oazapfts.fetchJson<{
-    status: 200;
-    data: TxRollupDispatchTicketsOperation[];
-  }>(
-    `/v1/operations/tx_rollup_dispatch_tickets${QS.query(
-      QS.form({
-        limit,
-        quote,
-        ...QueryParamsParsers.queryParameter('sender', sender),
-        ...QueryParamsParsers.queryParameter('rollup', rollup),
-        ...QueryParamsParsers.queryParameter('level', level),
-        ...QueryParamsParsers.queryParameter('timestamp', timestamp),
-        ...QueryParamsParsers.queryParameter('status', status),
-        ...QueryParamsParsers.queryParameter('select', select),
-        ...QueryParamsParsers.queryParameter('sort', sort),
-        ...QueryParamsParsers.queryParameter('offset', offset),
-      })
-    )}`,
-    {
-      ...opts,
-    }
+  return oazapfts.ok(
+    oazapfts.fetchJson<{
+      status: 200;
+      data: TxRollupDispatchTicketsOperation[];
+    }>(
+      `/v1/operations/tx_rollup_dispatch_tickets${QS.query(
+        QS.form({
+          limit,
+          quote,
+          ...QueryParamsParsers.queryParameter('sender', sender),
+          ...QueryParamsParsers.queryParameter('rollup', rollup),
+          ...QueryParamsParsers.queryParameter('level', level),
+          ...QueryParamsParsers.queryParameter('timestamp', timestamp),
+          ...QueryParamsParsers.queryParameter('status', status),
+          ...QueryParamsParsers.queryParameter('select', select),
+          ...QueryParamsParsers.queryParameter('sort', sort),
+          ...QueryParamsParsers.queryParameter('offset', offset),
+        })
+      )}`,
+      {
+        ...opts,
+      }
+    )
   );
 }
 /**
@@ -6993,18 +7317,20 @@ export function operationsGetTxRollupDispatchTicketsOpsByHash(
   } = {},
   opts?: Oazapfts.RequestOpts
 ) {
-  return oazapfts.fetchJson<{
-    status: 200;
-    data: TxRollupDispatchTicketsOperation[];
-  }>(
-    `/v1/operations/tx_rollup_dispatch_tickets/${hash}${QS.query(
-      QS.form({
-        quote,
-      })
-    )}`,
-    {
-      ...opts,
-    }
+  return oazapfts.ok(
+    oazapfts.fetchJson<{
+      status: 200;
+      data: TxRollupDispatchTicketsOperation[];
+    }>(
+      `/v1/operations/tx_rollup_dispatch_tickets/${hash}${QS.query(
+        QS.form({
+          quote,
+        })
+      )}`,
+      {
+        ...opts,
+      }
+    )
   );
 }
 /**
@@ -7014,12 +7340,14 @@ export function operationsGetTxRollupDispatchTicketsStatus(
   hash: string | null,
   opts?: Oazapfts.RequestOpts
 ) {
-  return oazapfts.fetchJson<{
-    status: 200;
-    data: boolean | null;
-  }>(`/v1/operations/tx_rollup_dispatch_tickets/${hash}/status`, {
-    ...opts,
-  });
+  return oazapfts.ok(
+    oazapfts.fetchJson<{
+      status: 200;
+      data: boolean | null;
+    }>(`/v1/operations/tx_rollup_dispatch_tickets/${hash}/status`, {
+      ...opts,
+    })
+  );
 }
 /**
  * Get tx rollup dispatch tickets count
@@ -7034,19 +7362,21 @@ export function operationsGetTxRollupDispatchTicketsOpsCount(
   } = {},
   opts?: Oazapfts.RequestOpts
 ) {
-  return oazapfts.fetchJson<{
-    status: 200;
-    data: number;
-  }>(
-    `/v1/operations/tx_rollup_dispatch_tickets/count${QS.query(
-      QS.form({
-        ...QueryParamsParsers.queryParameter('level', level),
-        ...QueryParamsParsers.queryParameter('timestamp', timestamp),
-      })
-    )}`,
-    {
-      ...opts,
-    }
+  return oazapfts.ok(
+    oazapfts.fetchJson<{
+      status: 200;
+      data: number;
+    }>(
+      `/v1/operations/tx_rollup_dispatch_tickets/count${QS.query(
+        QS.form({
+          ...QueryParamsParsers.queryParameter('level', level),
+          ...QueryParamsParsers.queryParameter('timestamp', timestamp),
+        })
+      )}`,
+      {
+        ...opts,
+      }
+    )
   );
 }
 /**
@@ -7078,27 +7408,29 @@ export function operationsGetTxRollupFinalizeCommitmentOps(
   } = {},
   opts?: Oazapfts.RequestOpts
 ) {
-  return oazapfts.fetchJson<{
-    status: 200;
-    data: TxRollupFinalizeCommitmentOperation[];
-  }>(
-    `/v1/operations/tx_rollup_finalize_commitment${QS.query(
-      QS.form({
-        limit,
-        quote,
-        ...QueryParamsParsers.queryParameter('sender', sender),
-        ...QueryParamsParsers.queryParameter('rollup', rollup),
-        ...QueryParamsParsers.queryParameter('level', level),
-        ...QueryParamsParsers.queryParameter('timestamp', timestamp),
-        ...QueryParamsParsers.queryParameter('status', status),
-        ...QueryParamsParsers.queryParameter('select', select),
-        ...QueryParamsParsers.queryParameter('sort', sort),
-        ...QueryParamsParsers.queryParameter('offset', offset),
-      })
-    )}`,
-    {
-      ...opts,
-    }
+  return oazapfts.ok(
+    oazapfts.fetchJson<{
+      status: 200;
+      data: TxRollupFinalizeCommitmentOperation[];
+    }>(
+      `/v1/operations/tx_rollup_finalize_commitment${QS.query(
+        QS.form({
+          limit,
+          quote,
+          ...QueryParamsParsers.queryParameter('sender', sender),
+          ...QueryParamsParsers.queryParameter('rollup', rollup),
+          ...QueryParamsParsers.queryParameter('level', level),
+          ...QueryParamsParsers.queryParameter('timestamp', timestamp),
+          ...QueryParamsParsers.queryParameter('status', status),
+          ...QueryParamsParsers.queryParameter('select', select),
+          ...QueryParamsParsers.queryParameter('sort', sort),
+          ...QueryParamsParsers.queryParameter('offset', offset),
+        })
+      )}`,
+      {
+        ...opts,
+      }
+    )
   );
 }
 /**
@@ -7113,18 +7445,20 @@ export function operationsGetTxRollupFinalizeCommitmentOpsByHash(
   } = {},
   opts?: Oazapfts.RequestOpts
 ) {
-  return oazapfts.fetchJson<{
-    status: 200;
-    data: TxRollupFinalizeCommitmentOperation[];
-  }>(
-    `/v1/operations/tx_rollup_finalize_commitment/${hash}${QS.query(
-      QS.form({
-        quote,
-      })
-    )}`,
-    {
-      ...opts,
-    }
+  return oazapfts.ok(
+    oazapfts.fetchJson<{
+      status: 200;
+      data: TxRollupFinalizeCommitmentOperation[];
+    }>(
+      `/v1/operations/tx_rollup_finalize_commitment/${hash}${QS.query(
+        QS.form({
+          quote,
+        })
+      )}`,
+      {
+        ...opts,
+      }
+    )
   );
 }
 /**
@@ -7134,12 +7468,14 @@ export function operationsGetTxRollupFinalizeCommitmentStatus(
   hash: string | null,
   opts?: Oazapfts.RequestOpts
 ) {
-  return oazapfts.fetchJson<{
-    status: 200;
-    data: boolean | null;
-  }>(`/v1/operations/tx_rollup_finalize_commitment/${hash}/status`, {
-    ...opts,
-  });
+  return oazapfts.ok(
+    oazapfts.fetchJson<{
+      status: 200;
+      data: boolean | null;
+    }>(`/v1/operations/tx_rollup_finalize_commitment/${hash}/status`, {
+      ...opts,
+    })
+  );
 }
 /**
  * Get tx rollup finalize commitment count
@@ -7154,19 +7490,21 @@ export function operationsGetTxRollupFinalizeCommitmentOpsCount(
   } = {},
   opts?: Oazapfts.RequestOpts
 ) {
-  return oazapfts.fetchJson<{
-    status: 200;
-    data: number;
-  }>(
-    `/v1/operations/tx_rollup_finalize_commitment/count${QS.query(
-      QS.form({
-        ...QueryParamsParsers.queryParameter('level', level),
-        ...QueryParamsParsers.queryParameter('timestamp', timestamp),
-      })
-    )}`,
-    {
-      ...opts,
-    }
+  return oazapfts.ok(
+    oazapfts.fetchJson<{
+      status: 200;
+      data: number;
+    }>(
+      `/v1/operations/tx_rollup_finalize_commitment/count${QS.query(
+        QS.form({
+          ...QueryParamsParsers.queryParameter('level', level),
+          ...QueryParamsParsers.queryParameter('timestamp', timestamp),
+        })
+      )}`,
+      {
+        ...opts,
+      }
+    )
   );
 }
 /**
@@ -7198,27 +7536,29 @@ export function operationsGetTxRollupOriginationOps(
   } = {},
   opts?: Oazapfts.RequestOpts
 ) {
-  return oazapfts.fetchJson<{
-    status: 200;
-    data: TxRollupOriginationOperation[];
-  }>(
-    `/v1/operations/tx_rollup_origination${QS.query(
-      QS.form({
-        limit,
-        quote,
-        ...QueryParamsParsers.queryParameter('sender', sender),
-        ...QueryParamsParsers.queryParameter('rollup', rollup),
-        ...QueryParamsParsers.queryParameter('level', level),
-        ...QueryParamsParsers.queryParameter('timestamp', timestamp),
-        ...QueryParamsParsers.queryParameter('status', status),
-        ...QueryParamsParsers.queryParameter('select', select),
-        ...QueryParamsParsers.queryParameter('sort', sort),
-        ...QueryParamsParsers.queryParameter('offset', offset),
-      })
-    )}`,
-    {
-      ...opts,
-    }
+  return oazapfts.ok(
+    oazapfts.fetchJson<{
+      status: 200;
+      data: TxRollupOriginationOperation[];
+    }>(
+      `/v1/operations/tx_rollup_origination${QS.query(
+        QS.form({
+          limit,
+          quote,
+          ...QueryParamsParsers.queryParameter('sender', sender),
+          ...QueryParamsParsers.queryParameter('rollup', rollup),
+          ...QueryParamsParsers.queryParameter('level', level),
+          ...QueryParamsParsers.queryParameter('timestamp', timestamp),
+          ...QueryParamsParsers.queryParameter('status', status),
+          ...QueryParamsParsers.queryParameter('select', select),
+          ...QueryParamsParsers.queryParameter('sort', sort),
+          ...QueryParamsParsers.queryParameter('offset', offset),
+        })
+      )}`,
+      {
+        ...opts,
+      }
+    )
   );
 }
 /**
@@ -7233,18 +7573,20 @@ export function operationsGetTxRollupOriginationOpsByHash(
   } = {},
   opts?: Oazapfts.RequestOpts
 ) {
-  return oazapfts.fetchJson<{
-    status: 200;
-    data: TxRollupOriginationOperation[];
-  }>(
-    `/v1/operations/tx_rollup_origination/${hash}${QS.query(
-      QS.form({
-        quote,
-      })
-    )}`,
-    {
-      ...opts,
-    }
+  return oazapfts.ok(
+    oazapfts.fetchJson<{
+      status: 200;
+      data: TxRollupOriginationOperation[];
+    }>(
+      `/v1/operations/tx_rollup_origination/${hash}${QS.query(
+        QS.form({
+          quote,
+        })
+      )}`,
+      {
+        ...opts,
+      }
+    )
   );
 }
 /**
@@ -7254,12 +7596,14 @@ export function operationsGetTxRollupOriginationStatus(
   hash: string | null,
   opts?: Oazapfts.RequestOpts
 ) {
-  return oazapfts.fetchJson<{
-    status: 200;
-    data: boolean | null;
-  }>(`/v1/operations/tx_rollup_origination/${hash}/status`, {
-    ...opts,
-  });
+  return oazapfts.ok(
+    oazapfts.fetchJson<{
+      status: 200;
+      data: boolean | null;
+    }>(`/v1/operations/tx_rollup_origination/${hash}/status`, {
+      ...opts,
+    })
+  );
 }
 /**
  * Get tx rollup origination count
@@ -7274,19 +7618,21 @@ export function operationsGetTxRollupOriginationOpsCount(
   } = {},
   opts?: Oazapfts.RequestOpts
 ) {
-  return oazapfts.fetchJson<{
-    status: 200;
-    data: number;
-  }>(
-    `/v1/operations/tx_rollup_origination/count${QS.query(
-      QS.form({
-        ...QueryParamsParsers.queryParameter('level', level),
-        ...QueryParamsParsers.queryParameter('timestamp', timestamp),
-      })
-    )}`,
-    {
-      ...opts,
-    }
+  return oazapfts.ok(
+    oazapfts.fetchJson<{
+      status: 200;
+      data: number;
+    }>(
+      `/v1/operations/tx_rollup_origination/count${QS.query(
+        QS.form({
+          ...QueryParamsParsers.queryParameter('level', level),
+          ...QueryParamsParsers.queryParameter('timestamp', timestamp),
+        })
+      )}`,
+      {
+        ...opts,
+      }
+    )
   );
 }
 /**
@@ -7328,29 +7674,31 @@ export function operationsGetTxRollupRejectionOps(
   } = {},
   opts?: Oazapfts.RequestOpts
 ) {
-  return oazapfts.fetchJson<{
-    status: 200;
-    data: TxRollupRejectionOperation[];
-  }>(
-    `/v1/operations/tx_rollup_rejection${QS.query(
-      QS.form({
-        limit,
-        quote,
-        ...QueryParamsParsers.anyofParameter('anyof', anyof),
-        ...QueryParamsParsers.queryParameter('sender', sender),
-        ...QueryParamsParsers.queryParameter('committer', committer),
-        ...QueryParamsParsers.queryParameter('rollup', rollup),
-        ...QueryParamsParsers.queryParameter('level', level),
-        ...QueryParamsParsers.queryParameter('timestamp', timestamp),
-        ...QueryParamsParsers.queryParameter('status', status),
-        ...QueryParamsParsers.queryParameter('select', select),
-        ...QueryParamsParsers.queryParameter('sort', sort),
-        ...QueryParamsParsers.queryParameter('offset', offset),
-      })
-    )}`,
-    {
-      ...opts,
-    }
+  return oazapfts.ok(
+    oazapfts.fetchJson<{
+      status: 200;
+      data: TxRollupRejectionOperation[];
+    }>(
+      `/v1/operations/tx_rollup_rejection${QS.query(
+        QS.form({
+          limit,
+          quote,
+          ...QueryParamsParsers.anyofParameter('anyof', anyof),
+          ...QueryParamsParsers.queryParameter('sender', sender),
+          ...QueryParamsParsers.queryParameter('committer', committer),
+          ...QueryParamsParsers.queryParameter('rollup', rollup),
+          ...QueryParamsParsers.queryParameter('level', level),
+          ...QueryParamsParsers.queryParameter('timestamp', timestamp),
+          ...QueryParamsParsers.queryParameter('status', status),
+          ...QueryParamsParsers.queryParameter('select', select),
+          ...QueryParamsParsers.queryParameter('sort', sort),
+          ...QueryParamsParsers.queryParameter('offset', offset),
+        })
+      )}`,
+      {
+        ...opts,
+      }
+    )
   );
 }
 /**
@@ -7365,18 +7713,20 @@ export function operationsGetTxRollupRejectionOpsByHash(
   } = {},
   opts?: Oazapfts.RequestOpts
 ) {
-  return oazapfts.fetchJson<{
-    status: 200;
-    data: TxRollupRejectionOperation[];
-  }>(
-    `/v1/operations/tx_rollup_rejection/${hash}${QS.query(
-      QS.form({
-        quote,
-      })
-    )}`,
-    {
-      ...opts,
-    }
+  return oazapfts.ok(
+    oazapfts.fetchJson<{
+      status: 200;
+      data: TxRollupRejectionOperation[];
+    }>(
+      `/v1/operations/tx_rollup_rejection/${hash}${QS.query(
+        QS.form({
+          quote,
+        })
+      )}`,
+      {
+        ...opts,
+      }
+    )
   );
 }
 /**
@@ -7386,12 +7736,14 @@ export function operationsGetTxRollupRejectionStatus(
   hash: string | null,
   opts?: Oazapfts.RequestOpts
 ) {
-  return oazapfts.fetchJson<{
-    status: 200;
-    data: boolean | null;
-  }>(`/v1/operations/tx_rollup_rejection/${hash}/status`, {
-    ...opts,
-  });
+  return oazapfts.ok(
+    oazapfts.fetchJson<{
+      status: 200;
+      data: boolean | null;
+    }>(`/v1/operations/tx_rollup_rejection/${hash}/status`, {
+      ...opts,
+    })
+  );
 }
 /**
  * Get tx rollup rejection count
@@ -7406,19 +7758,21 @@ export function operationsGetTxRollupRejectionOpsCount(
   } = {},
   opts?: Oazapfts.RequestOpts
 ) {
-  return oazapfts.fetchJson<{
-    status: 200;
-    data: number;
-  }>(
-    `/v1/operations/tx_rollup_rejection/count${QS.query(
-      QS.form({
-        ...QueryParamsParsers.queryParameter('level', level),
-        ...QueryParamsParsers.queryParameter('timestamp', timestamp),
-      })
-    )}`,
-    {
-      ...opts,
-    }
+  return oazapfts.ok(
+    oazapfts.fetchJson<{
+      status: 200;
+      data: number;
+    }>(
+      `/v1/operations/tx_rollup_rejection/count${QS.query(
+        QS.form({
+          ...QueryParamsParsers.queryParameter('level', level),
+          ...QueryParamsParsers.queryParameter('timestamp', timestamp),
+        })
+      )}`,
+      {
+        ...opts,
+      }
+    )
   );
 }
 /**
@@ -7450,27 +7804,29 @@ export function operationsGetTxRollupRemoveCommitmentOps(
   } = {},
   opts?: Oazapfts.RequestOpts
 ) {
-  return oazapfts.fetchJson<{
-    status: 200;
-    data: TxRollupRemoveCommitmentOperation[];
-  }>(
-    `/v1/operations/tx_rollup_remove_commitment${QS.query(
-      QS.form({
-        limit,
-        quote,
-        ...QueryParamsParsers.queryParameter('sender', sender),
-        ...QueryParamsParsers.queryParameter('rollup', rollup),
-        ...QueryParamsParsers.queryParameter('level', level),
-        ...QueryParamsParsers.queryParameter('timestamp', timestamp),
-        ...QueryParamsParsers.queryParameter('status', status),
-        ...QueryParamsParsers.queryParameter('select', select),
-        ...QueryParamsParsers.queryParameter('sort', sort),
-        ...QueryParamsParsers.queryParameter('offset', offset),
-      })
-    )}`,
-    {
-      ...opts,
-    }
+  return oazapfts.ok(
+    oazapfts.fetchJson<{
+      status: 200;
+      data: TxRollupRemoveCommitmentOperation[];
+    }>(
+      `/v1/operations/tx_rollup_remove_commitment${QS.query(
+        QS.form({
+          limit,
+          quote,
+          ...QueryParamsParsers.queryParameter('sender', sender),
+          ...QueryParamsParsers.queryParameter('rollup', rollup),
+          ...QueryParamsParsers.queryParameter('level', level),
+          ...QueryParamsParsers.queryParameter('timestamp', timestamp),
+          ...QueryParamsParsers.queryParameter('status', status),
+          ...QueryParamsParsers.queryParameter('select', select),
+          ...QueryParamsParsers.queryParameter('sort', sort),
+          ...QueryParamsParsers.queryParameter('offset', offset),
+        })
+      )}`,
+      {
+        ...opts,
+      }
+    )
   );
 }
 /**
@@ -7485,18 +7841,20 @@ export function operationsGetTxRollupRemoveCommitmentOpsByHash(
   } = {},
   opts?: Oazapfts.RequestOpts
 ) {
-  return oazapfts.fetchJson<{
-    status: 200;
-    data: TxRollupRemoveCommitmentOperation[];
-  }>(
-    `/v1/operations/tx_rollup_remove_commitment/${hash}${QS.query(
-      QS.form({
-        quote,
-      })
-    )}`,
-    {
-      ...opts,
-    }
+  return oazapfts.ok(
+    oazapfts.fetchJson<{
+      status: 200;
+      data: TxRollupRemoveCommitmentOperation[];
+    }>(
+      `/v1/operations/tx_rollup_remove_commitment/${hash}${QS.query(
+        QS.form({
+          quote,
+        })
+      )}`,
+      {
+        ...opts,
+      }
+    )
   );
 }
 /**
@@ -7506,23 +7864,27 @@ export function operationsGetTxRollupRemoveCommitmentStatus(
   hash: string | null,
   opts?: Oazapfts.RequestOpts
 ) {
-  return oazapfts.fetchJson<{
-    status: 200;
-    data: boolean | null;
-  }>(`/v1/operations/tx_rollup_remove_commitment/${hash}/status`, {
-    ...opts,
-  });
+  return oazapfts.ok(
+    oazapfts.fetchJson<{
+      status: 200;
+      data: boolean | null;
+    }>(`/v1/operations/tx_rollup_remove_commitment/${hash}/status`, {
+      ...opts,
+    })
+  );
 }
 /**
  * Get protocols count
  */
 export function protocolsGetCount(opts?: Oazapfts.RequestOpts) {
-  return oazapfts.fetchJson<{
-    status: 200;
-    data: number;
-  }>('/v1/protocols/count', {
-    ...opts,
-  });
+  return oazapfts.ok(
+    oazapfts.fetchJson<{
+      status: 200;
+      data: number;
+    }>('/v1/protocols/count', {
+      ...opts,
+    })
+  );
 }
 /**
  * Get protocols
@@ -7539,43 +7901,49 @@ export function protocolsGet(
   } = {},
   opts?: Oazapfts.RequestOpts
 ) {
-  return oazapfts.fetchJson<{
-    status: 200;
-    data: Protocol[];
-  }>(
-    `/v1/protocols${QS.query(
-      QS.form({
-        limit,
-        ...QueryParamsParsers.queryParameter('sort', sort),
-        ...QueryParamsParsers.queryParameter('offset', offset),
-      })
-    )}`,
-    {
-      ...opts,
-    }
+  return oazapfts.ok(
+    oazapfts.fetchJson<{
+      status: 200;
+      data: Protocol[];
+    }>(
+      `/v1/protocols${QS.query(
+        QS.form({
+          limit,
+          ...QueryParamsParsers.queryParameter('sort', sort),
+          ...QueryParamsParsers.queryParameter('offset', offset),
+        })
+      )}`,
+      {
+        ...opts,
+      }
+    )
   );
 }
 /**
  * Get current protocol
  */
 export function protocolsGetCurrent(opts?: Oazapfts.RequestOpts) {
-  return oazapfts.fetchJson<{
-    status: 200;
-    data: Protocol;
-  }>('/v1/protocols/current', {
-    ...opts,
-  });
+  return oazapfts.ok(
+    oazapfts.fetchJson<{
+      status: 200;
+      data: Protocol;
+    }>('/v1/protocols/current', {
+      ...opts,
+    })
+  );
 }
 /**
  * Get protocol by code
  */
 export function protocolsGetByCode(code: number, opts?: Oazapfts.RequestOpts) {
-  return oazapfts.fetchJson<{
-    status: 200;
-    data: Protocol;
-  }>(`/v1/protocols/${code}`, {
-    ...opts,
-  });
+  return oazapfts.ok(
+    oazapfts.fetchJson<{
+      status: 200;
+      data: Protocol;
+    }>(`/v1/protocols/${code}`, {
+      ...opts,
+    })
+  );
 }
 /**
  * Get protocol by hash
@@ -7584,12 +7952,14 @@ export function protocolsGetByHash(
   hash: string | null,
   opts?: Oazapfts.RequestOpts
 ) {
-  return oazapfts.fetchJson<{
-    status: 200;
-    data: Protocol;
-  }>(`/v1/protocols/${hash}`, {
-    ...opts,
-  });
+  return oazapfts.ok(
+    oazapfts.fetchJson<{
+      status: 200;
+      data: Protocol;
+    }>(`/v1/protocols/${hash}`, {
+      ...opts,
+    })
+  );
 }
 /**
  * Get protocol by cycle
@@ -7598,34 +7968,40 @@ export function protocolsGetByCycle(
   cycle: number,
   opts?: Oazapfts.RequestOpts
 ) {
-  return oazapfts.fetchJson<{
-    status: 200;
-    data: Protocol;
-  }>(`/v1/protocols/cycles/${cycle}`, {
-    ...opts,
-  });
+  return oazapfts.ok(
+    oazapfts.fetchJson<{
+      status: 200;
+      data: Protocol;
+    }>(`/v1/protocols/cycles/${cycle}`, {
+      ...opts,
+    })
+  );
 }
 /**
  * Get quotes count
  */
 export function quotesGetCount(opts?: Oazapfts.RequestOpts) {
-  return oazapfts.fetchJson<{
-    status: 200;
-    data: number;
-  }>('/v1/quotes/count', {
-    ...opts,
-  });
+  return oazapfts.ok(
+    oazapfts.fetchJson<{
+      status: 200;
+      data: number;
+    }>('/v1/quotes/count', {
+      ...opts,
+    })
+  );
 }
 /**
  * Get last quote
  */
 export function quotesGetLast(opts?: Oazapfts.RequestOpts) {
-  return oazapfts.fetchJson<{
-    status: 200;
-    data: Quote;
-  }>('/v1/quotes/last', {
-    ...opts,
-  });
+  return oazapfts.ok(
+    oazapfts.fetchJson<{
+      status: 200;
+      data: Quote;
+    }>('/v1/quotes/last', {
+      ...opts,
+    })
+  );
 }
 /**
  * Get quotes
@@ -7648,23 +8024,25 @@ export function quotesGet(
   } = {},
   opts?: Oazapfts.RequestOpts
 ) {
-  return oazapfts.fetchJson<{
-    status: 200;
-    data: Quote[];
-  }>(
-    `/v1/quotes${QS.query(
-      QS.form({
-        limit,
-        ...QueryParamsParsers.queryParameter('level', level),
-        ...QueryParamsParsers.queryParameter('timestamp', timestamp),
-        ...QueryParamsParsers.queryParameter('select', select),
-        ...QueryParamsParsers.queryParameter('sort', sort),
-        ...QueryParamsParsers.queryParameter('offset', offset),
-      })
-    )}`,
-    {
-      ...opts,
-    }
+  return oazapfts.ok(
+    oazapfts.fetchJson<{
+      status: 200;
+      data: Quote[];
+    }>(
+      `/v1/quotes${QS.query(
+        QS.form({
+          limit,
+          ...QueryParamsParsers.queryParameter('level', level),
+          ...QueryParamsParsers.queryParameter('timestamp', timestamp),
+          ...QueryParamsParsers.queryParameter('select', select),
+          ...QueryParamsParsers.queryParameter('sort', sort),
+          ...QueryParamsParsers.queryParameter('offset', offset),
+        })
+      )}`,
+      {
+        ...opts,
+      }
+    )
   );
 }
 /**
@@ -7674,12 +8052,14 @@ export function rewardsGetBakerRewardsCount(
   address: string | null,
   opts?: Oazapfts.RequestOpts
 ) {
-  return oazapfts.fetchJson<{
-    status: 200;
-    data: number;
-  }>(`/v1/rewards/bakers/${address}/count`, {
-    ...opts,
-  });
+  return oazapfts.ok(
+    oazapfts.fetchJson<{
+      status: 200;
+      data: number;
+    }>(`/v1/rewards/bakers/${address}/count`, {
+      ...opts,
+    })
+  );
 }
 /**
  * Get baker cycle rewards
@@ -7703,23 +8083,25 @@ export function rewardsGetBakerRewards(
   } = {},
   opts?: Oazapfts.RequestOpts
 ) {
-  return oazapfts.fetchJson<{
-    status: 200;
-    data: BakerRewards[];
-  }>(
-    `/v1/rewards/bakers/${address}${QS.query(
-      QS.form({
-        limit,
-        quote,
-        ...QueryParamsParsers.queryParameter('cycle', cycle),
-        ...QueryParamsParsers.queryParameter('select', select),
-        ...QueryParamsParsers.queryParameter('sort', sort),
-        ...QueryParamsParsers.queryParameter('offset', offset),
-      })
-    )}`,
-    {
-      ...opts,
-    }
+  return oazapfts.ok(
+    oazapfts.fetchJson<{
+      status: 200;
+      data: BakerRewards[];
+    }>(
+      `/v1/rewards/bakers/${address}${QS.query(
+        QS.form({
+          limit,
+          quote,
+          ...QueryParamsParsers.queryParameter('cycle', cycle),
+          ...QueryParamsParsers.queryParameter('select', select),
+          ...QueryParamsParsers.queryParameter('sort', sort),
+          ...QueryParamsParsers.queryParameter('offset', offset),
+        })
+      )}`,
+      {
+        ...opts,
+      }
+    )
   );
 }
 /**
@@ -7735,18 +8117,20 @@ export function rewardsGetBakerRewardsByCycle(
   } = {},
   opts?: Oazapfts.RequestOpts
 ) {
-  return oazapfts.fetchJson<{
-    status: 200;
-    data: BakerRewards;
-  }>(
-    `/v1/rewards/bakers/${address}/${cycle}${QS.query(
-      QS.form({
-        quote,
-      })
-    )}`,
-    {
-      ...opts,
-    }
+  return oazapfts.ok(
+    oazapfts.fetchJson<{
+      status: 200;
+      data: BakerRewards;
+    }>(
+      `/v1/rewards/bakers/${address}/${cycle}${QS.query(
+        QS.form({
+          quote,
+        })
+      )}`,
+      {
+        ...opts,
+      }
+    )
   );
 }
 /**
@@ -7756,12 +8140,14 @@ export function rewardsGetDelegatorRewardsCount(
   address: string | null,
   opts?: Oazapfts.RequestOpts
 ) {
-  return oazapfts.fetchJson<{
-    status: 200;
-    data: number;
-  }>(`/v1/rewards/delegators/${address}/count`, {
-    ...opts,
-  });
+  return oazapfts.ok(
+    oazapfts.fetchJson<{
+      status: 200;
+      data: number;
+    }>(`/v1/rewards/delegators/${address}/count`, {
+      ...opts,
+    })
+  );
 }
 /**
  * Get delegator cycle rewards
@@ -7785,23 +8171,25 @@ export function rewardsGetDelegatorRewards(
   } = {},
   opts?: Oazapfts.RequestOpts
 ) {
-  return oazapfts.fetchJson<{
-    status: 200;
-    data: DelegatorRewards[];
-  }>(
-    `/v1/rewards/delegators/${address}${QS.query(
-      QS.form({
-        limit,
-        quote,
-        ...QueryParamsParsers.queryParameter('cycle', cycle),
-        ...QueryParamsParsers.queryParameter('select', select),
-        ...QueryParamsParsers.queryParameter('sort', sort),
-        ...QueryParamsParsers.queryParameter('offset', offset),
-      })
-    )}`,
-    {
-      ...opts,
-    }
+  return oazapfts.ok(
+    oazapfts.fetchJson<{
+      status: 200;
+      data: DelegatorRewards[];
+    }>(
+      `/v1/rewards/delegators/${address}${QS.query(
+        QS.form({
+          limit,
+          quote,
+          ...QueryParamsParsers.queryParameter('cycle', cycle),
+          ...QueryParamsParsers.queryParameter('select', select),
+          ...QueryParamsParsers.queryParameter('sort', sort),
+          ...QueryParamsParsers.queryParameter('offset', offset),
+        })
+      )}`,
+      {
+        ...opts,
+      }
+    )
   );
 }
 /**
@@ -7817,18 +8205,20 @@ export function rewardsGetDelegatorRewardsByCycle(
   } = {},
   opts?: Oazapfts.RequestOpts
 ) {
-  return oazapfts.fetchJson<{
-    status: 200;
-    data: DelegatorRewards;
-  }>(
-    `/v1/rewards/delegators/${address}/${cycle}${QS.query(
-      QS.form({
-        quote,
-      })
-    )}`,
-    {
-      ...opts,
-    }
+  return oazapfts.ok(
+    oazapfts.fetchJson<{
+      status: 200;
+      data: DelegatorRewards;
+    }>(
+      `/v1/rewards/delegators/${address}/${cycle}${QS.query(
+        QS.form({
+          quote,
+        })
+      )}`,
+      {
+        ...opts,
+      }
+    )
   );
 }
 /**
@@ -7846,19 +8236,21 @@ export function rewardsGetRewardSplit(
   } = {},
   opts?: Oazapfts.RequestOpts
 ) {
-  return oazapfts.fetchJson<{
-    status: 200;
-    data: RewardSplit;
-  }>(
-    `/v1/rewards/split/${baker}/${cycle}${QS.query(
-      QS.form({
-        offset,
-        limit,
-      })
-    )}`,
-    {
-      ...opts,
-    }
+  return oazapfts.ok(
+    oazapfts.fetchJson<{
+      status: 200;
+      data: RewardSplit;
+    }>(
+      `/v1/rewards/split/${baker}/${cycle}${QS.query(
+        QS.form({
+          offset,
+          limit,
+        })
+      )}`,
+      {
+        ...opts,
+      }
+    )
   );
 }
 /**
@@ -7870,12 +8262,14 @@ export function rewardsGetRewardSplitDelegator(
   delegator: string | null,
   opts?: Oazapfts.RequestOpts
 ) {
-  return oazapfts.fetchJson<{
-    status: 200;
-    data: SplitDelegator;
-  }>(`/v1/rewards/split/${baker}/${cycle}/${delegator}`, {
-    ...opts,
-  });
+  return oazapfts.ok(
+    oazapfts.fetchJson<{
+      status: 200;
+      data: SplitDelegator;
+    }>(`/v1/rewards/split/${baker}/${cycle}/${delegator}`, {
+      ...opts,
+    })
+  );
 }
 /**
  * Get rights count
@@ -7902,25 +8296,27 @@ export function rightsGetCount(
   } = {},
   opts?: Oazapfts.RequestOpts
 ) {
-  return oazapfts.fetchJson<{
-    status: 200;
-    data: number;
-  }>(
-    `/v1/rights/count${QS.query(
-      QS.form({
-        ...QueryParamsParsers.queryParameter('type', type),
-        ...QueryParamsParsers.queryParameter('baker', baker),
-        ...QueryParamsParsers.queryParameter('cycle', cycle),
-        ...QueryParamsParsers.queryParameter('level', level),
-        ...QueryParamsParsers.queryParameter('slots', slots),
-        ...QueryParamsParsers.queryParameter('round', round),
-        ...QueryParamsParsers.queryParameter('priority', priority),
-        ...QueryParamsParsers.queryParameter('status', status),
-      })
-    )}`,
-    {
-      ...opts,
-    }
+  return oazapfts.ok(
+    oazapfts.fetchJson<{
+      status: 200;
+      data: number;
+    }>(
+      `/v1/rights/count${QS.query(
+        QS.form({
+          ...QueryParamsParsers.queryParameter('type', type),
+          ...QueryParamsParsers.queryParameter('baker', baker),
+          ...QueryParamsParsers.queryParameter('cycle', cycle),
+          ...QueryParamsParsers.queryParameter('level', level),
+          ...QueryParamsParsers.queryParameter('slots', slots),
+          ...QueryParamsParsers.queryParameter('round', round),
+          ...QueryParamsParsers.queryParameter('priority', priority),
+          ...QueryParamsParsers.queryParameter('status', status),
+        })
+      )}`,
+      {
+        ...opts,
+      }
+    )
   );
 }
 /**
@@ -7956,29 +8352,31 @@ export function rightsGet(
   } = {},
   opts?: Oazapfts.RequestOpts
 ) {
-  return oazapfts.fetchJson<{
-    status: 200;
-    data: BakingRight[];
-  }>(
-    `/v1/rights${QS.query(
-      QS.form({
-        limit,
-        ...QueryParamsParsers.queryParameter('type', type),
-        ...QueryParamsParsers.queryParameter('baker', baker),
-        ...QueryParamsParsers.queryParameter('cycle', cycle),
-        ...QueryParamsParsers.queryParameter('level', level),
-        ...QueryParamsParsers.queryParameter('slots', slots),
-        ...QueryParamsParsers.queryParameter('round', round),
-        ...QueryParamsParsers.queryParameter('priority', priority),
-        ...QueryParamsParsers.queryParameter('status', status),
-        ...QueryParamsParsers.queryParameter('select', select),
-        ...QueryParamsParsers.queryParameter('sort', sort),
-        ...QueryParamsParsers.queryParameter('offset', offset),
-      })
-    )}`,
-    {
-      ...opts,
-    }
+  return oazapfts.ok(
+    oazapfts.fetchJson<{
+      status: 200;
+      data: BakingRight[];
+    }>(
+      `/v1/rights${QS.query(
+        QS.form({
+          limit,
+          ...QueryParamsParsers.queryParameter('type', type),
+          ...QueryParamsParsers.queryParameter('baker', baker),
+          ...QueryParamsParsers.queryParameter('cycle', cycle),
+          ...QueryParamsParsers.queryParameter('level', level),
+          ...QueryParamsParsers.queryParameter('slots', slots),
+          ...QueryParamsParsers.queryParameter('round', round),
+          ...QueryParamsParsers.queryParameter('priority', priority),
+          ...QueryParamsParsers.queryParameter('status', status),
+          ...QueryParamsParsers.queryParameter('select', select),
+          ...QueryParamsParsers.queryParameter('sort', sort),
+          ...QueryParamsParsers.queryParameter('offset', offset),
+        })
+      )}`,
+      {
+        ...opts,
+      }
+    )
   );
 }
 /**
@@ -7998,33 +8396,37 @@ export function softwareGet(
   } = {},
   opts?: Oazapfts.RequestOpts
 ) {
-  return oazapfts.fetchJson<{
-    status: 200;
-    data: Software[];
-  }>(
-    `/v1/software${QS.query(
-      QS.form({
-        limit,
-        ...QueryParamsParsers.queryParameter('select', select),
-        ...QueryParamsParsers.queryParameter('sort', sort),
-        ...QueryParamsParsers.queryParameter('offset', offset),
-      })
-    )}`,
-    {
-      ...opts,
-    }
+  return oazapfts.ok(
+    oazapfts.fetchJson<{
+      status: 200;
+      data: Software[];
+    }>(
+      `/v1/software${QS.query(
+        QS.form({
+          limit,
+          ...QueryParamsParsers.queryParameter('select', select),
+          ...QueryParamsParsers.queryParameter('sort', sort),
+          ...QueryParamsParsers.queryParameter('offset', offset),
+        })
+      )}`,
+      {
+        ...opts,
+      }
+    )
   );
 }
 /**
  * Get software count
  */
 export function softwareGetCount(opts?: Oazapfts.RequestOpts) {
-  return oazapfts.fetchJson<{
-    status: 200;
-    data: number;
-  }>('/v1/software/count', {
-    ...opts,
-  });
+  return oazapfts.ok(
+    oazapfts.fetchJson<{
+      status: 200;
+      data: number;
+    }>('/v1/software/count', {
+      ...opts,
+    })
+  );
 }
 /**
  * Get statistics
@@ -8049,24 +8451,26 @@ export function statisticsGet(
   } = {},
   opts?: Oazapfts.RequestOpts
 ) {
-  return oazapfts.fetchJson<{
-    status: 200;
-    data: Statistics[];
-  }>(
-    `/v1/statistics${QS.query(
-      QS.form({
-        limit,
-        quote,
-        ...QueryParamsParsers.queryParameter('level', level),
-        ...QueryParamsParsers.queryParameter('timestamp', timestamp),
-        ...QueryParamsParsers.queryParameter('select', select),
-        ...QueryParamsParsers.queryParameter('sort', sort),
-        ...QueryParamsParsers.queryParameter('offset', offset),
-      })
-    )}`,
-    {
-      ...opts,
-    }
+  return oazapfts.ok(
+    oazapfts.fetchJson<{
+      status: 200;
+      data: Statistics[];
+    }>(
+      `/v1/statistics${QS.query(
+        QS.form({
+          limit,
+          quote,
+          ...QueryParamsParsers.queryParameter('level', level),
+          ...QueryParamsParsers.queryParameter('timestamp', timestamp),
+          ...QueryParamsParsers.queryParameter('select', select),
+          ...QueryParamsParsers.queryParameter('sort', sort),
+          ...QueryParamsParsers.queryParameter('offset', offset),
+        })
+      )}`,
+      {
+        ...opts,
+      }
+    )
   );
 }
 /**
@@ -8090,23 +8494,25 @@ export function statisticsGetDaily(
   } = {},
   opts?: Oazapfts.RequestOpts
 ) {
-  return oazapfts.fetchJson<{
-    status: 200;
-    data: Statistics[];
-  }>(
-    `/v1/statistics/daily${QS.query(
-      QS.form({
-        limit,
-        quote,
-        ...QueryParamsParsers.queryParameter('date', date),
-        ...QueryParamsParsers.queryParameter('select', select),
-        ...QueryParamsParsers.queryParameter('sort', sort),
-        ...QueryParamsParsers.queryParameter('offset', offset),
-      })
-    )}`,
-    {
-      ...opts,
-    }
+  return oazapfts.ok(
+    oazapfts.fetchJson<{
+      status: 200;
+      data: Statistics[];
+    }>(
+      `/v1/statistics/daily${QS.query(
+        QS.form({
+          limit,
+          quote,
+          ...QueryParamsParsers.queryParameter('date', date),
+          ...QueryParamsParsers.queryParameter('select', select),
+          ...QueryParamsParsers.queryParameter('sort', sort),
+          ...QueryParamsParsers.queryParameter('offset', offset),
+        })
+      )}`,
+      {
+        ...opts,
+      }
+    )
   );
 }
 /**
@@ -8130,23 +8536,25 @@ export function statisticsGetCyclesAll(
   } = {},
   opts?: Oazapfts.RequestOpts
 ) {
-  return oazapfts.fetchJson<{
-    status: 200;
-    data: Statistics[];
-  }>(
-    `/v1/statistics/cyclic${QS.query(
-      QS.form({
-        limit,
-        quote,
-        ...QueryParamsParsers.queryParameter('cycle', cycle),
-        ...QueryParamsParsers.queryParameter('select', select),
-        ...QueryParamsParsers.queryParameter('sort', sort),
-        ...QueryParamsParsers.queryParameter('offset', offset),
-      })
-    )}`,
-    {
-      ...opts,
-    }
+  return oazapfts.ok(
+    oazapfts.fetchJson<{
+      status: 200;
+      data: Statistics[];
+    }>(
+      `/v1/statistics/cyclic${QS.query(
+        QS.form({
+          limit,
+          quote,
+          ...QueryParamsParsers.queryParameter('cycle', cycle),
+          ...QueryParamsParsers.queryParameter('select', select),
+          ...QueryParamsParsers.queryParameter('sort', sort),
+          ...QueryParamsParsers.queryParameter('offset', offset),
+        })
+      )}`,
+      {
+        ...opts,
+      }
+    )
   );
 }
 /**
@@ -8162,19 +8570,21 @@ export function statisticsGetCycles(
   } = {},
   opts?: Oazapfts.RequestOpts
 ) {
-  return oazapfts.fetchJson<{
-    status: 200;
-    data: Statistics;
-  }>(
-    `/v1/statistics/current${QS.query(
-      QS.form({
-        quote,
-        ...QueryParamsParsers.queryParameter('select', select),
-      })
-    )}`,
-    {
-      ...opts,
-    }
+  return oazapfts.ok(
+    oazapfts.fetchJson<{
+      status: 200;
+      data: Statistics;
+    }>(
+      `/v1/statistics/current${QS.query(
+        QS.form({
+          quote,
+          ...QueryParamsParsers.queryParameter('select', select),
+        })
+      )}`,
+      {
+        ...opts,
+      }
+    )
   );
 }
 /**
@@ -8204,26 +8614,28 @@ export function tokensGetTokensCount(
   } = {},
   opts?: Oazapfts.RequestOpts
 ) {
-  return oazapfts.fetchJson<{
-    status: 200;
-    data: number;
-  }>(
-    `/v1/tokens/count${QS.query(
-      QS.form({
-        ...QueryParamsParsers.queryParameter('id', id),
-        ...QueryParamsParsers.queryParameter('contract', contract),
-        ...QueryParamsParsers.queryParameter('tokenId', tokenId),
-        ...QueryParamsParsers.queryParameter('standard', standard),
-        ...QueryParamsParsers.queryParameter('firstLevel', firstLevel),
-        ...QueryParamsParsers.queryParameter('firstTime', firstTime),
-        ...QueryParamsParsers.queryParameter('lastLevel', lastLevel),
-        ...QueryParamsParsers.queryParameter('lastTime', lastTime),
-        ...QueryParamsParsers.jsonParameter('metadata', metadata),
-      })
-    )}`,
-    {
-      ...opts,
-    }
+  return oazapfts.ok(
+    oazapfts.fetchJson<{
+      status: 200;
+      data: number;
+    }>(
+      `/v1/tokens/count${QS.query(
+        QS.form({
+          ...QueryParamsParsers.queryParameter('id', id),
+          ...QueryParamsParsers.queryParameter('contract', contract),
+          ...QueryParamsParsers.queryParameter('tokenId', tokenId),
+          ...QueryParamsParsers.queryParameter('standard', standard),
+          ...QueryParamsParsers.queryParameter('firstLevel', firstLevel),
+          ...QueryParamsParsers.queryParameter('firstTime', firstTime),
+          ...QueryParamsParsers.queryParameter('lastLevel', lastLevel),
+          ...QueryParamsParsers.queryParameter('lastTime', lastTime),
+          ...QueryParamsParsers.jsonParameter('metadata', metadata),
+        })
+      )}`,
+      {
+        ...opts,
+      }
+    )
   );
 }
 /**
@@ -8261,30 +8673,32 @@ export function tokensGetTokens(
   } = {},
   opts?: Oazapfts.RequestOpts
 ) {
-  return oazapfts.fetchJson<{
-    status: 200;
-    data: Token[];
-  }>(
-    `/v1/tokens${QS.query(
-      QS.form({
-        limit,
-        ...QueryParamsParsers.queryParameter('id', id),
-        ...QueryParamsParsers.queryParameter('contract', contract),
-        ...QueryParamsParsers.queryParameter('tokenId', tokenId),
-        ...QueryParamsParsers.queryParameter('standard', standard),
-        ...QueryParamsParsers.queryParameter('firstLevel', firstLevel),
-        ...QueryParamsParsers.queryParameter('firstTime', firstTime),
-        ...QueryParamsParsers.queryParameter('lastLevel', lastLevel),
-        ...QueryParamsParsers.queryParameter('lastTime', lastTime),
-        ...QueryParamsParsers.jsonParameter('metadata', metadata),
-        ...QueryParamsParsers.queryParameter('sort', sort),
-        ...QueryParamsParsers.queryParameter('offset', offset),
-        ...QueryParamsParsers.queryParameter('select', select),
-      })
-    )}`,
-    {
-      ...opts,
-    }
+  return oazapfts.ok(
+    oazapfts.fetchJson<{
+      status: 200;
+      data: Token[];
+    }>(
+      `/v1/tokens${QS.query(
+        QS.form({
+          limit,
+          ...QueryParamsParsers.queryParameter('id', id),
+          ...QueryParamsParsers.queryParameter('contract', contract),
+          ...QueryParamsParsers.queryParameter('tokenId', tokenId),
+          ...QueryParamsParsers.queryParameter('standard', standard),
+          ...QueryParamsParsers.queryParameter('firstLevel', firstLevel),
+          ...QueryParamsParsers.queryParameter('firstTime', firstTime),
+          ...QueryParamsParsers.queryParameter('lastLevel', lastLevel),
+          ...QueryParamsParsers.queryParameter('lastTime', lastTime),
+          ...QueryParamsParsers.jsonParameter('metadata', metadata),
+          ...QueryParamsParsers.queryParameter('sort', sort),
+          ...QueryParamsParsers.queryParameter('offset', offset),
+          ...QueryParamsParsers.queryParameter('select', select),
+        })
+      )}`,
+      {
+        ...opts,
+      }
+    )
   );
 }
 /**
@@ -8322,30 +8736,32 @@ export function tokensGetTokenBalancesCount(
   } = {},
   opts?: Oazapfts.RequestOpts
 ) {
-  return oazapfts.fetchJson<{
-    status: 200;
-    data: number;
-  }>(
-    `/v1/tokens/balances/count${QS.query(
-      QS.form({
-        'token.HasFilters': tokenHasFilters,
-        ...QueryParamsParsers.queryParameter('id', id),
-        ...QueryParamsParsers.queryParameter('account', account),
-        ...QueryParamsParsers.queryParameter('token.id', tokenId),
-        ...QueryParamsParsers.queryParameter('token.contract', tokenContract),
-        ...QueryParamsParsers.queryParameter('token.tokenId', tokenTokenId),
-        ...QueryParamsParsers.queryParameter('token.standard', tokenStandard),
-        ...QueryParamsParsers.jsonParameter('token.metadata', tokenMetadata),
-        ...QueryParamsParsers.queryParameter('balance', balance),
-        ...QueryParamsParsers.queryParameter('firstLevel', firstLevel),
-        ...QueryParamsParsers.queryParameter('firstTime', firstTime),
-        ...QueryParamsParsers.queryParameter('lastLevel', lastLevel),
-        ...QueryParamsParsers.queryParameter('lastTime', lastTime),
-      })
-    )}`,
-    {
-      ...opts,
-    }
+  return oazapfts.ok(
+    oazapfts.fetchJson<{
+      status: 200;
+      data: number;
+    }>(
+      `/v1/tokens/balances/count${QS.query(
+        QS.form({
+          'token.HasFilters': tokenHasFilters,
+          ...QueryParamsParsers.queryParameter('id', id),
+          ...QueryParamsParsers.queryParameter('account', account),
+          ...QueryParamsParsers.queryParameter('token.id', tokenId),
+          ...QueryParamsParsers.queryParameter('token.contract', tokenContract),
+          ...QueryParamsParsers.queryParameter('token.tokenId', tokenTokenId),
+          ...QueryParamsParsers.queryParameter('token.standard', tokenStandard),
+          ...QueryParamsParsers.jsonParameter('token.metadata', tokenMetadata),
+          ...QueryParamsParsers.queryParameter('balance', balance),
+          ...QueryParamsParsers.queryParameter('firstLevel', firstLevel),
+          ...QueryParamsParsers.queryParameter('firstTime', firstTime),
+          ...QueryParamsParsers.queryParameter('lastLevel', lastLevel),
+          ...QueryParamsParsers.queryParameter('lastTime', lastTime),
+        })
+      )}`,
+      {
+        ...opts,
+      }
+    )
   );
 }
 /**
@@ -8391,34 +8807,36 @@ export function tokensGetTokenBalances(
   } = {},
   opts?: Oazapfts.RequestOpts
 ) {
-  return oazapfts.fetchJson<{
-    status: 200;
-    data: TokenBalance[];
-  }>(
-    `/v1/tokens/balances${QS.query(
-      QS.form({
-        'token.HasFilters': tokenHasFilters,
-        limit,
-        ...QueryParamsParsers.queryParameter('id', id),
-        ...QueryParamsParsers.queryParameter('account', account),
-        ...QueryParamsParsers.queryParameter('token.id', tokenId),
-        ...QueryParamsParsers.queryParameter('token.contract', tokenContract),
-        ...QueryParamsParsers.queryParameter('token.tokenId', tokenTokenId),
-        ...QueryParamsParsers.queryParameter('token.standard', tokenStandard),
-        ...QueryParamsParsers.jsonParameter('token.metadata', tokenMetadata),
-        ...QueryParamsParsers.queryParameter('balance', balance),
-        ...QueryParamsParsers.queryParameter('firstLevel', firstLevel),
-        ...QueryParamsParsers.queryParameter('firstTime', firstTime),
-        ...QueryParamsParsers.queryParameter('lastLevel', lastLevel),
-        ...QueryParamsParsers.queryParameter('lastTime', lastTime),
-        ...QueryParamsParsers.queryParameter('sort', sort),
-        ...QueryParamsParsers.queryParameter('offset', offset),
-        ...QueryParamsParsers.queryParameter('select', select),
-      })
-    )}`,
-    {
-      ...opts,
-    }
+  return oazapfts.ok(
+    oazapfts.fetchJson<{
+      status: 200;
+      data: TokenBalance[];
+    }>(
+      `/v1/tokens/balances${QS.query(
+        QS.form({
+          'token.HasFilters': tokenHasFilters,
+          limit,
+          ...QueryParamsParsers.queryParameter('id', id),
+          ...QueryParamsParsers.queryParameter('account', account),
+          ...QueryParamsParsers.queryParameter('token.id', tokenId),
+          ...QueryParamsParsers.queryParameter('token.contract', tokenContract),
+          ...QueryParamsParsers.queryParameter('token.tokenId', tokenTokenId),
+          ...QueryParamsParsers.queryParameter('token.standard', tokenStandard),
+          ...QueryParamsParsers.jsonParameter('token.metadata', tokenMetadata),
+          ...QueryParamsParsers.queryParameter('balance', balance),
+          ...QueryParamsParsers.queryParameter('firstLevel', firstLevel),
+          ...QueryParamsParsers.queryParameter('firstTime', firstTime),
+          ...QueryParamsParsers.queryParameter('lastLevel', lastLevel),
+          ...QueryParamsParsers.queryParameter('lastTime', lastTime),
+          ...QueryParamsParsers.queryParameter('sort', sort),
+          ...QueryParamsParsers.queryParameter('offset', offset),
+          ...QueryParamsParsers.queryParameter('select', select),
+        })
+      )}`,
+      {
+        ...opts,
+      }
+    )
   );
 }
 /**
@@ -8468,33 +8886,35 @@ export function tokensGetTokenTransfersCount(
   } = {},
   opts?: Oazapfts.RequestOpts
 ) {
-  return oazapfts.fetchJson<{
-    status: 200;
-    data: number;
-  }>(
-    `/v1/tokens/transfers/count${QS.query(
-      QS.form({
-        'token.HasFilters': tokenHasFilters,
-        ...QueryParamsParsers.queryParameter('id', id),
-        ...QueryParamsParsers.queryParameter('level', level),
-        ...QueryParamsParsers.queryParameter('timestamp', timestamp),
-        ...QueryParamsParsers.queryParameter('token.id', tokenId),
-        ...QueryParamsParsers.queryParameter('token.contract', tokenContract),
-        ...QueryParamsParsers.queryParameter('token.tokenId', tokenTokenId),
-        ...QueryParamsParsers.queryParameter('token.standard', tokenStandard),
-        ...QueryParamsParsers.jsonParameter('token.metadata', tokenMetadata),
-        ...QueryParamsParsers.anyofParameter('anyof', anyof),
-        ...QueryParamsParsers.queryParameter('from', from),
-        ...QueryParamsParsers.queryParameter('to', to),
-        ...QueryParamsParsers.queryParameter('amount', amount),
-        ...QueryParamsParsers.queryParameter('transactionId', transactionId),
-        ...QueryParamsParsers.queryParameter('originationId', originationId),
-        ...QueryParamsParsers.queryParameter('migrationId', migrationId),
-      })
-    )}`,
-    {
-      ...opts,
-    }
+  return oazapfts.ok(
+    oazapfts.fetchJson<{
+      status: 200;
+      data: number;
+    }>(
+      `/v1/tokens/transfers/count${QS.query(
+        QS.form({
+          'token.HasFilters': tokenHasFilters,
+          ...QueryParamsParsers.queryParameter('id', id),
+          ...QueryParamsParsers.queryParameter('level', level),
+          ...QueryParamsParsers.queryParameter('timestamp', timestamp),
+          ...QueryParamsParsers.queryParameter('token.id', tokenId),
+          ...QueryParamsParsers.queryParameter('token.contract', tokenContract),
+          ...QueryParamsParsers.queryParameter('token.tokenId', tokenTokenId),
+          ...QueryParamsParsers.queryParameter('token.standard', tokenStandard),
+          ...QueryParamsParsers.jsonParameter('token.metadata', tokenMetadata),
+          ...QueryParamsParsers.anyofParameter('anyof', anyof),
+          ...QueryParamsParsers.queryParameter('from', from),
+          ...QueryParamsParsers.queryParameter('to', to),
+          ...QueryParamsParsers.queryParameter('amount', amount),
+          ...QueryParamsParsers.queryParameter('transactionId', transactionId),
+          ...QueryParamsParsers.queryParameter('originationId', originationId),
+          ...QueryParamsParsers.queryParameter('migrationId', migrationId),
+        })
+      )}`,
+      {
+        ...opts,
+      }
+    )
   );
 }
 /**
@@ -8552,37 +8972,39 @@ export function tokensGetTokenTransfers(
   } = {},
   opts?: Oazapfts.RequestOpts
 ) {
-  return oazapfts.fetchJson<{
-    status: 200;
-    data: TokenTransfer[];
-  }>(
-    `/v1/tokens/transfers${QS.query(
-      QS.form({
-        'token.HasFilters': tokenHasFilters,
-        limit,
-        ...QueryParamsParsers.queryParameter('id', id),
-        ...QueryParamsParsers.queryParameter('level', level),
-        ...QueryParamsParsers.queryParameter('timestamp', timestamp),
-        ...QueryParamsParsers.queryParameter('token.id', tokenId),
-        ...QueryParamsParsers.queryParameter('token.contract', tokenContract),
-        ...QueryParamsParsers.queryParameter('token.tokenId', tokenTokenId),
-        ...QueryParamsParsers.queryParameter('token.standard', tokenStandard),
-        ...QueryParamsParsers.jsonParameter('token.metadata', tokenMetadata),
-        ...QueryParamsParsers.anyofParameter('anyof', anyof),
-        ...QueryParamsParsers.queryParameter('from', from),
-        ...QueryParamsParsers.queryParameter('to', to),
-        ...QueryParamsParsers.queryParameter('amount', amount),
-        ...QueryParamsParsers.queryParameter('transactionId', transactionId),
-        ...QueryParamsParsers.queryParameter('originationId', originationId),
-        ...QueryParamsParsers.queryParameter('migrationId', migrationId),
-        ...QueryParamsParsers.queryParameter('sort', sort),
-        ...QueryParamsParsers.queryParameter('offset', offset),
-        ...QueryParamsParsers.queryParameter('select', select),
-      })
-    )}`,
-    {
-      ...opts,
-    }
+  return oazapfts.ok(
+    oazapfts.fetchJson<{
+      status: 200;
+      data: TokenTransfer[];
+    }>(
+      `/v1/tokens/transfers${QS.query(
+        QS.form({
+          'token.HasFilters': tokenHasFilters,
+          limit,
+          ...QueryParamsParsers.queryParameter('id', id),
+          ...QueryParamsParsers.queryParameter('level', level),
+          ...QueryParamsParsers.queryParameter('timestamp', timestamp),
+          ...QueryParamsParsers.queryParameter('token.id', tokenId),
+          ...QueryParamsParsers.queryParameter('token.contract', tokenContract),
+          ...QueryParamsParsers.queryParameter('token.tokenId', tokenTokenId),
+          ...QueryParamsParsers.queryParameter('token.standard', tokenStandard),
+          ...QueryParamsParsers.jsonParameter('token.metadata', tokenMetadata),
+          ...QueryParamsParsers.anyofParameter('anyof', anyof),
+          ...QueryParamsParsers.queryParameter('from', from),
+          ...QueryParamsParsers.queryParameter('to', to),
+          ...QueryParamsParsers.queryParameter('amount', amount),
+          ...QueryParamsParsers.queryParameter('transactionId', transactionId),
+          ...QueryParamsParsers.queryParameter('originationId', originationId),
+          ...QueryParamsParsers.queryParameter('migrationId', migrationId),
+          ...QueryParamsParsers.queryParameter('sort', sort),
+          ...QueryParamsParsers.queryParameter('offset', offset),
+          ...QueryParamsParsers.queryParameter('select', select),
+        })
+      )}`,
+      {
+        ...opts,
+      }
+    )
   );
 }
 /**
@@ -8619,41 +9041,45 @@ export function tokensGetTokenBalances2(
   } = {},
   opts?: Oazapfts.RequestOpts
 ) {
-  return oazapfts.fetchJson<{
-    status: 200;
-    data: TokenBalanceShort[];
-  }>(
-    `/v1/tokens/historical_balances/${level}${QS.query(
-      QS.form({
-        'token.HasFilters': tokenHasFilters,
-        limit,
-        ...QueryParamsParsers.queryParameter('account', account),
-        ...QueryParamsParsers.queryParameter('token.id', tokenId),
-        ...QueryParamsParsers.queryParameter('token.contract', tokenContract),
-        ...QueryParamsParsers.queryParameter('token.tokenId', tokenTokenId),
-        ...QueryParamsParsers.queryParameter('token.standard', tokenStandard),
-        ...QueryParamsParsers.jsonParameter('token.metadata', tokenMetadata),
-        ...QueryParamsParsers.queryParameter('balance', balance),
-        ...QueryParamsParsers.queryParameter('sort', sort),
-        ...QueryParamsParsers.queryParameter('offset', offset),
-        ...QueryParamsParsers.queryParameter('select', select),
-      })
-    )}`,
-    {
-      ...opts,
-    }
+  return oazapfts.ok(
+    oazapfts.fetchJson<{
+      status: 200;
+      data: TokenBalanceShort[];
+    }>(
+      `/v1/tokens/historical_balances/${level}${QS.query(
+        QS.form({
+          'token.HasFilters': tokenHasFilters,
+          limit,
+          ...QueryParamsParsers.queryParameter('account', account),
+          ...QueryParamsParsers.queryParameter('token.id', tokenId),
+          ...QueryParamsParsers.queryParameter('token.contract', tokenContract),
+          ...QueryParamsParsers.queryParameter('token.tokenId', tokenTokenId),
+          ...QueryParamsParsers.queryParameter('token.standard', tokenStandard),
+          ...QueryParamsParsers.jsonParameter('token.metadata', tokenMetadata),
+          ...QueryParamsParsers.queryParameter('balance', balance),
+          ...QueryParamsParsers.queryParameter('sort', sort),
+          ...QueryParamsParsers.queryParameter('offset', offset),
+          ...QueryParamsParsers.queryParameter('select', select),
+        })
+      )}`,
+      {
+        ...opts,
+      }
+    )
   );
 }
 /**
  * Get proposals count
  */
 export function votingGetProposalsCount(opts?: Oazapfts.RequestOpts) {
-  return oazapfts.fetchJson<{
-    status: 200;
-    data: number;
-  }>('/v1/voting/proposals/count', {
-    ...opts,
-  });
+  return oazapfts.ok(
+    oazapfts.fetchJson<{
+      status: 200;
+      data: number;
+    }>('/v1/voting/proposals/count', {
+      ...opts,
+    })
+  );
 }
 /**
  * Get proposals
@@ -8676,23 +9102,25 @@ export function votingGetProposals(
   } = {},
   opts?: Oazapfts.RequestOpts
 ) {
-  return oazapfts.fetchJson<{
-    status: 200;
-    data: Proposal[];
-  }>(
-    `/v1/voting/proposals${QS.query(
-      QS.form({
-        limit,
-        ...QueryParamsParsers.queryParameter('hash', hash),
-        ...QueryParamsParsers.queryParameter('epoch', epoch),
-        ...QueryParamsParsers.queryParameter('select', select),
-        ...QueryParamsParsers.queryParameter('sort', sort),
-        ...QueryParamsParsers.queryParameter('offset', offset),
-      })
-    )}`,
-    {
-      ...opts,
-    }
+  return oazapfts.ok(
+    oazapfts.fetchJson<{
+      status: 200;
+      data: Proposal[];
+    }>(
+      `/v1/voting/proposals${QS.query(
+        QS.form({
+          limit,
+          ...QueryParamsParsers.queryParameter('hash', hash),
+          ...QueryParamsParsers.queryParameter('epoch', epoch),
+          ...QueryParamsParsers.queryParameter('select', select),
+          ...QueryParamsParsers.queryParameter('sort', sort),
+          ...QueryParamsParsers.queryParameter('offset', offset),
+        })
+      )}`,
+      {
+        ...opts,
+      }
+    )
   );
 }
 /**
@@ -8702,12 +9130,14 @@ export function votingGetProposalByHash(
   hash: string | null,
   opts?: Oazapfts.RequestOpts
 ) {
-  return oazapfts.fetchJson<{
-    status: 200;
-    data: Proposal;
-  }>(`/v1/voting/proposals/${hash}`, {
-    ...opts,
-  });
+  return oazapfts.ok(
+    oazapfts.fetchJson<{
+      status: 200;
+      data: Proposal;
+    }>(`/v1/voting/proposals/${hash}`, {
+      ...opts,
+    })
+  );
 }
 /**
  * Get voting periods
@@ -8726,44 +9156,50 @@ export function votingGetPeriods(
   } = {},
   opts?: Oazapfts.RequestOpts
 ) {
-  return oazapfts.fetchJson<{
-    status: 200;
-    data: VotingPeriod[];
-  }>(
-    `/v1/voting/periods${QS.query(
-      QS.form({
-        limit,
-        ...QueryParamsParsers.queryParameter('select', select),
-        ...QueryParamsParsers.queryParameter('sort', sort),
-        ...QueryParamsParsers.queryParameter('offset', offset),
-      })
-    )}`,
-    {
-      ...opts,
-    }
+  return oazapfts.ok(
+    oazapfts.fetchJson<{
+      status: 200;
+      data: VotingPeriod[];
+    }>(
+      `/v1/voting/periods${QS.query(
+        QS.form({
+          limit,
+          ...QueryParamsParsers.queryParameter('select', select),
+          ...QueryParamsParsers.queryParameter('sort', sort),
+          ...QueryParamsParsers.queryParameter('offset', offset),
+        })
+      )}`,
+      {
+        ...opts,
+      }
+    )
   );
 }
 /**
  * Get voting period by index
  */
 export function votingGetPeriod(index: number, opts?: Oazapfts.RequestOpts) {
-  return oazapfts.fetchJson<{
-    status: 200;
-    data: VotingPeriod;
-  }>(`/v1/voting/periods/${index}`, {
-    ...opts,
-  });
+  return oazapfts.ok(
+    oazapfts.fetchJson<{
+      status: 200;
+      data: VotingPeriod;
+    }>(`/v1/voting/periods/${index}`, {
+      ...opts,
+    })
+  );
 }
 /**
  * Get current voting period
  */
 export function votingGetCurrentPeriod(opts?: Oazapfts.RequestOpts) {
-  return oazapfts.fetchJson<{
-    status: 200;
-    data: VotingPeriod;
-  }>('/v1/voting/periods/current', {
-    ...opts,
-  });
+  return oazapfts.ok(
+    oazapfts.fetchJson<{
+      status: 200;
+      data: VotingPeriod;
+    }>('/v1/voting/periods/current', {
+      ...opts,
+    })
+  );
 }
 /**
  * Get period voters
@@ -8783,21 +9219,23 @@ export function votingGetPeriodVoters(
   } = {},
   opts?: Oazapfts.RequestOpts
 ) {
-  return oazapfts.fetchJson<{
-    status: 200;
-    data: VoterSnapshot[];
-  }>(
-    `/v1/voting/periods/${index}/voters${QS.query(
-      QS.form({
-        limit,
-        ...QueryParamsParsers.queryParameter('status', status),
-        ...QueryParamsParsers.queryParameter('sort', sort),
-        ...QueryParamsParsers.queryParameter('offset', offset),
-      })
-    )}`,
-    {
-      ...opts,
-    }
+  return oazapfts.ok(
+    oazapfts.fetchJson<{
+      status: 200;
+      data: VoterSnapshot[];
+    }>(
+      `/v1/voting/periods/${index}/voters${QS.query(
+        QS.form({
+          limit,
+          ...QueryParamsParsers.queryParameter('status', status),
+          ...QueryParamsParsers.queryParameter('sort', sort),
+          ...QueryParamsParsers.queryParameter('offset', offset),
+        })
+      )}`,
+      {
+        ...opts,
+      }
+    )
   );
 }
 /**
@@ -8808,12 +9246,14 @@ export function votingGetPeriodVoter(
   address: string | null,
   opts?: Oazapfts.RequestOpts
 ) {
-  return oazapfts.fetchJson<{
-    status: 200;
-    data: VoterSnapshot;
-  }>(`/v1/voting/periods/${index}/voters/${address}`, {
-    ...opts,
-  });
+  return oazapfts.ok(
+    oazapfts.fetchJson<{
+      status: 200;
+      data: VoterSnapshot;
+    }>(`/v1/voting/periods/${index}/voters/${address}`, {
+      ...opts,
+    })
+  );
 }
 /**
  * Get current period voters
@@ -8832,21 +9272,23 @@ export function votingGetPeriodVoters2(
   } = {},
   opts?: Oazapfts.RequestOpts
 ) {
-  return oazapfts.fetchJson<{
-    status: 200;
-    data: VoterSnapshot[];
-  }>(
-    `/v1/voting/periods/current/voters${QS.query(
-      QS.form({
-        limit,
-        ...QueryParamsParsers.queryParameter('status', status),
-        ...QueryParamsParsers.queryParameter('sort', sort),
-        ...QueryParamsParsers.queryParameter('offset', offset),
-      })
-    )}`,
-    {
-      ...opts,
-    }
+  return oazapfts.ok(
+    oazapfts.fetchJson<{
+      status: 200;
+      data: VoterSnapshot[];
+    }>(
+      `/v1/voting/periods/current/voters${QS.query(
+        QS.form({
+          limit,
+          ...QueryParamsParsers.queryParameter('status', status),
+          ...QueryParamsParsers.queryParameter('sort', sort),
+          ...QueryParamsParsers.queryParameter('offset', offset),
+        })
+      )}`,
+      {
+        ...opts,
+      }
+    )
   );
 }
 /**
@@ -8856,12 +9298,14 @@ export function votingGetPeriodVoter2(
   address: string | null,
   opts?: Oazapfts.RequestOpts
 ) {
-  return oazapfts.fetchJson<{
-    status: 200;
-    data: VoterSnapshot;
-  }>(`/v1/voting/periods/current/voters/${address}`, {
-    ...opts,
-  });
+  return oazapfts.ok(
+    oazapfts.fetchJson<{
+      status: 200;
+      data: VoterSnapshot;
+    }>(`/v1/voting/periods/current/voters/${address}`, {
+      ...opts,
+    })
+  );
 }
 /**
  * Get voting epochs
@@ -8878,52 +9322,60 @@ export function votingGetEpochs(
   } = {},
   opts?: Oazapfts.RequestOpts
 ) {
-  return oazapfts.fetchJson<{
-    status: 200;
-    data: VotingEpoch[];
-  }>(
-    `/v1/voting/epochs${QS.query(
-      QS.form({
-        limit,
-        ...QueryParamsParsers.queryParameter('sort', sort),
-        ...QueryParamsParsers.queryParameter('offset', offset),
-      })
-    )}`,
-    {
-      ...opts,
-    }
+  return oazapfts.ok(
+    oazapfts.fetchJson<{
+      status: 200;
+      data: VotingEpoch[];
+    }>(
+      `/v1/voting/epochs${QS.query(
+        QS.form({
+          limit,
+          ...QueryParamsParsers.queryParameter('sort', sort),
+          ...QueryParamsParsers.queryParameter('offset', offset),
+        })
+      )}`,
+      {
+        ...opts,
+      }
+    )
   );
 }
 /**
  * Get voting epoch by index
  */
 export function votingGetEpoch(index: number, opts?: Oazapfts.RequestOpts) {
-  return oazapfts.fetchJson<{
-    status: 200;
-    data: VotingEpoch;
-  }>(`/v1/voting/epochs/${index}`, {
-    ...opts,
-  });
+  return oazapfts.ok(
+    oazapfts.fetchJson<{
+      status: 200;
+      data: VotingEpoch;
+    }>(`/v1/voting/epochs/${index}`, {
+      ...opts,
+    })
+  );
 }
 /**
  * Get current voting epoch
  */
 export function votingGetCurrentEpoch(opts?: Oazapfts.RequestOpts) {
-  return oazapfts.fetchJson<{
-    status: 200;
-    data: VotingEpoch;
-  }>('/v1/voting/epochs/current', {
-    ...opts,
-  });
+  return oazapfts.ok(
+    oazapfts.fetchJson<{
+      status: 200;
+      data: VotingEpoch;
+    }>('/v1/voting/epochs/current', {
+      ...opts,
+    })
+  );
 }
 /**
  * Get latest voting
  */
 export function votingGetLatestVoting(opts?: Oazapfts.RequestOpts) {
-  return oazapfts.fetchJson<{
-    status: 200;
-    data: VotingEpoch;
-  }>('/v1/voting/epochs/latest_voting', {
-    ...opts,
-  });
+  return oazapfts.ok(
+    oazapfts.fetchJson<{
+      status: 200;
+      data: VotingEpoch;
+    }>('/v1/voting/epochs/latest_voting', {
+      ...opts,
+    })
+  );
 }
