@@ -26,7 +26,7 @@ import {
   contractsGetCode, contractsGetEntrypoints,
   contractsGetRawStorage, headGet, Protocol, protocolsGetByCycle,
   protocolsGetCurrent
-} from "../../sdk-api/build/main";
+} from "@tzkt/sdk-api";
 
 
 export class TzktReadProvider implements TzReadProvider {
