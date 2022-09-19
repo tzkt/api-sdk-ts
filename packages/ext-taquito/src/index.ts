@@ -1,5 +1,6 @@
 import {Context, Extension} from "@taquito/taquito";
-import * as api from "@tzkt/sdk-api";
+
+import * as api from "../../sdk-api/build/main";
 
 import {TzktReadProvider} from './tzktReadProvider';
 

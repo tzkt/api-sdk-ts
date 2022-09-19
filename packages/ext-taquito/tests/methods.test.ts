@@ -20,7 +20,7 @@ describe("request", () => {
   });
 
   test('Get Next protocol should equal PtJakart2xVj7pYXJBXrqHgd82rdkLey5ZeeGwDgPp9rhQUbSqY', async () => {
-    const result = await extension.getNextProtocol();
+    const result = await extension.getNextProtocol(2703631);
     expect(result).toEqual('PtJakart2xVj7pYXJBXrqHgd82rdkLey5ZeeGwDgPp9rhQUbSqY');
   });
 
@@ -50,6 +50,11 @@ describe("request", () => {
     expect(result).toHaveProperty('storage')
   });
 
+  test('Get entryPoints protocol should return valid data', async () => {
+    const result = await extension.getEntrypoints('KT1Qej1k8WxPvBLUjGVtFXStgzQtcx3itSk5');
+    expect(result.entrypoints).toHaveProperty('withdrawProfit');
+  });
+
 
   test('getBlockHash should equal BMHZJm9ome4S7jTAs4ibeDH88rUrvsEm3RLe43Rrr9Xx4QwADP3', async () => {
     const result = await extension.getBlockHash(2664043)
@@ -62,7 +67,7 @@ describe("request", () => {
   });
 
   test('getCounter should equal 45141992', async () => {
-    const result = await extension.getCounter('tz1iG3vqiT95KKSqNQuYnQEXNQk5gXQepM1r')
+    const result = await extension.getCounter('tz1iG3vqiT95KKSqNQuYnQEXNQk5gXQepM1r', 2664043)
     expect(Number(result)).toEqual(45141992)
   });
 
@@ -76,7 +81,7 @@ describe("request", () => {
     const result = await extension.getBigMapValue({
       id: '4',
       expr: 'exprvS1VCPqQXtksURt9uuKPhvmBCbQuXXvHa1LkjundxjaFQBcrQk'
-    })
+    }, 2664043)
     // @ts-ignore
     expect(result.prim).toEqual('Pair')
   });
@@ -87,7 +92,7 @@ describe("request", () => {
   });
 
   test('isAccountRevealed should equal true', async () => {
-    const result = await extension.isAccountRevealed('tz1iG3vqiT95KKSqNQuYnQEXNQk5gXQepM1r')
+    const result = await extension.isAccountRevealed('tz1iG3vqiT95KKSqNQuYnQEXNQk5gXQepM1r', 2664043)
     expect(result).toEqual(true)
   });
 
