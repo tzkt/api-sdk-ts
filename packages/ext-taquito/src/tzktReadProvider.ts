@@ -75,7 +75,7 @@ export class TzktReadProvider implements TzReadProvider {
   }
 
   async getScript(address: string, block: BlockIdentifier): Promise<ScriptedContracts> {
-    if (block && block !== 'head') {
+    if (this._blockIdIsHead(block)) {
       return {code: await contractsGetCode(address), storage: this.getStorage(address, block)};
     }
     const blockLevel = await this._getBlockLevel(block);
