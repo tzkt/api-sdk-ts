@@ -54,7 +54,7 @@
     "@types/node": "^16.0.0",
     "@typescript-eslint/eslint-plugin": "^4.18.0",
     "@typescript-eslint/parser": "^4.18.0",
-    "@tzkt/sdk-api": "^0.3.0",
+    "@tzkt/sdk-api": "^1.0.0",
     "ava": "^3.12.1",
     "codecov": "^3.5.0",
     "cspell": "^4.1.0",
