@@ -78,8 +78,9 @@ export class TzktReadProvider implements TzReadProvider {
     if (block && block !== 'head') {
       return {code: await contractsGetCode(address), storage: this.getStorage(address, block)};
     }
+    const blockLevel = await this._getBlockLevel(block);
 
-    return {code: await contractsGetCode(address), storage: this.getStorage(address, block)};
+    return {code: await contractsGetCode(address, {level: blockLevel}), storage: this.getStorage(address, block)};
   }
 
   async getBalance(address: string, block: BlockIdentifier): Promise<BigNumber> {
@@ -88,8 +89,8 @@ export class TzktReadProvider implements TzReadProvider {
       return new BigNumber(balance);
     }
 
-    const blockId = await this._getBlockLevel(block);
-    const balance = await accountsGetBalanceAtLevel(address, blockId);
+    const blockLevel = await this._getBlockLevel(block);
+    const balance = await accountsGetBalanceAtLevel(address, blockLevel);
     return new BigNumber(balance);
   }
 
@@ -115,8 +116,8 @@ export class TzktReadProvider implements TzReadProvider {
     let protocol: Protocol
 
     if (!this._blockIdIsHead(block)) {
-      const blockId = await this._getBlockLevel(block)
-      const {cycle} = await blocksGetByLevel(blockId);
+      const blockLevel = await this._getBlockLevel(block)
+      const {cycle} = await blocksGetByLevel(blockLevel);
 
       protocol = await protocolsGetByCycle(cycle || 0)
     } else {
@@ -138,8 +139,8 @@ export class TzktReadProvider implements TzReadProvider {
       return contractsGetRawStorage(contract)
     }
 
-    const blockId = await this._getBlockLevel(block)
-    return contractsGetRawStorage(contract, {level: blockId})
+    const blockLevel = await this._getBlockLevel(block)
+    return contractsGetRawStorage(contract, {level: blockLevel})
   }
 
   async getBlockHash(block: BlockIdentifier): Promise<string> {
@@ -157,8 +158,8 @@ export class TzktReadProvider implements TzReadProvider {
       return String(blocks[0]);
     }
 
-    const blockId = await this._getBlockLevel(block);
-    const blockByLevel = await blocksGetByLevel(blockId);
+    const blockLevel = await this._getBlockLevel(block);
+    const blockByLevel = await blocksGetByLevel(blockLevel);
 
     return blockByLevel?.hash || ''
   }
@@ -173,8 +174,8 @@ export class TzktReadProvider implements TzReadProvider {
   }
 
   async getBlockTimestamp(block: BlockIdentifier): Promise<string> {
-    const blockId = await this._getBlockLevel(block)
-    const {timestamp} = await blocksGetByLevel(blockId);
+    const blockLevel = await this._getBlockLevel(block)
+    const {timestamp} = await blocksGetByLevel(blockLevel);
     return timestamp || ''
   }
 
