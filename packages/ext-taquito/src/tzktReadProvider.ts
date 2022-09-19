@@ -13,8 +13,6 @@ import {
   SaplingStateQuery,
   TzReadProvider
 } from '@taquito/taquito';
-import {BigNumber} from 'bignumber.js';
-
 import {
   accountsGetBalance,
   accountsGetBalanceAtLevel,
@@ -27,6 +25,8 @@ import {
   contractsGetRawStorage, headGet, Protocol, protocolsGetByCycle,
   protocolsGetCurrent
 } from "@tzkt/sdk-api";
+import {BigNumber} from 'bignumber.js';
+
 
 
 export class TzktReadProvider implements TzReadProvider {
