@@ -20,7 +20,7 @@ describe("request", () => {
   });
 
   test('Get Next protocol should equal PtJakart2xVj7pYXJBXrqHgd82rdkLey5ZeeGwDgPp9rhQUbSqY', async () => {
-    const result = await extension.getNextProtocol(2703631);
+    const result = await extension.getNextProtocol('head');
     expect(result).toEqual('PtJakart2xVj7pYXJBXrqHgd82rdkLey5ZeeGwDgPp9rhQUbSqY');
   });
 
@@ -92,7 +92,7 @@ describe("request", () => {
   });
 
   test('isAccountRevealed should equal true', async () => {
-    const result = await extension.isAccountRevealed('tz1iG3vqiT95KKSqNQuYnQEXNQk5gXQepM1r', 2664043)
+    const result = await extension.isAccountRevealed('tz1iG3vqiT95KKSqNQuYnQEXNQk5gXQepM1r', 'head')
     expect(result).toEqual(true)
   });
 
