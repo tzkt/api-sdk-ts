@@ -17,12 +17,12 @@ import {
   accountsGetBalance,
   accountsGetBalanceAtLevel,
   accountsGetByAddress,
-  accountsGetCounter, bigMapsGetKey, Block, blocksGet,
+  accountsGetCounter, bigMapsGetKey, bigMapsGetKey2, Block, blocksGet,
   blocksGetByHash,
   blocksGetByLevel,
   blocksGetCount,
   contractsGetCode, contractsGetEntrypoints,
-  contractsGetRawStorage, headGet, Protocol, protocolsGetByCycle,
+  contractsGetRawStorage, Entrypoint, headGet, Protocol, protocolsGetByCycle,
   protocolsGetCurrent
 } from "@tzkt/sdk-api";
 import {BigNumber} from 'bignumber.js';
@@ -59,32 +59,37 @@ export class TzktReadProvider implements TzReadProvider {
   }
 
   private _blockIdIsHead(block: BlockIdentifier) {
-    return !block || block === 'head'
+    return typeof block !== 'number' && (!block || block === 'head')
   }
 
   async getEntrypoints(contract: string): Promise<EntrypointsResponse> {
     const response = await contractsGetEntrypoints(contract, {json: false, micheline: true});
 
-    const entypoints = response.map((entypoint) => {
-      return [entypoint.name, entypoint.michelineParameters]
+    const entrypoints = response.map((entrypoint: Entrypoint) => {
+      return [entrypoint.name, entrypoint.michelineParameters]
     });
 
     return  {
-      entrypoints: Object.fromEntries(entypoints)
+      entrypoints: Object.fromEntries(entrypoints)
     }
   }
 
   async getScript(address: string, block: BlockIdentifier): Promise<ScriptedContracts> {
-    if (this._blockIdIsHead(block)) {
-      return {code: await contractsGetCode(address), storage: this.getStorage(address, block)};
-    }
-    const blockLevel = await this._getBlockLevel(block);
+    let filter = undefined
 
-    return {code: await contractsGetCode(address, {level: blockLevel}), storage: this.getStorage(address, block)};
+    if (!this._blockIdIsHead(block)) {
+      const blockLevel = await this._getBlockLevel(block);
+      filter = {level: blockLevel}
+    }
+
+    return {
+      code: await contractsGetCode(address, filter),
+      storage: contractsGetRawStorage(contract, filter)
+    };
   }
 
   async getBalance(address: string, block: BlockIdentifier): Promise<BigNumber> {
-    if (block === 'head' || !block) {
+    if (this._blockIdIsHead(block)) {
       const balance = await accountsGetBalance(address);
       return new BigNumber(balance);
     }
@@ -95,11 +100,19 @@ export class TzktReadProvider implements TzReadProvider {
   }
 
   async getDelegate(address: string, block: BlockIdentifier): Promise<string | null> {
+    if(!this._blockIdIsHead(block)) {
+      return this.readProvider.getDelegate(address, block)
+    }
+
     const account = await accountsGetByAddress(address);
     return account?.delegate?.address
   }
 
   async getNextProtocol(block: BlockIdentifier): Promise<string> {
+    if(!this._blockIdIsHead(block)) {
+      return this.readProvider.getNextProtocol(block)
+    }
+
     const protocol = await protocolsGetCurrent()
     return protocol?.hash || ''
   }
@@ -135,7 +148,7 @@ export class TzktReadProvider implements TzReadProvider {
   }
 
   async getStorage(contract: string, block: BlockIdentifier): Promise<MichelsonV1Expression> {
-    if (block && block !== 'head') {
+    if (this._blockIdIsHead(block)) {
       return contractsGetRawStorage(contract)
     }
 
@@ -159,9 +172,9 @@ export class TzktReadProvider implements TzReadProvider {
     }
 
     const blockLevel = await this._getBlockLevel(block);
-    const blockByLevel = await blocksGetByLevel(blockLevel);
+    const {hash} = await blocksGetByLevel(blockLevel);
 
-    return blockByLevel?.hash || ''
+    return hash
   }
 
   async getBlockLevel(block: BlockIdentifier): Promise<number> {
@@ -174,13 +187,34 @@ export class TzktReadProvider implements TzReadProvider {
   }
 
   async getBlockTimestamp(block: BlockIdentifier): Promise<string> {
+    if(this._blockIdIsHash(block)) {
+      const {timestamp} = await blocksGetByHash(block);
+      return timestamp
+    }
+
+    if(this._blockIdIsHead(block)) {
+      const blocks = await blocksGet({
+        sort: {desc: 'level'},
+        select: {fields: ['timestamp']},
+        limit: 1
+      });
+      return String(blocks[0])
+    }
+
     const blockLevel = await this._getBlockLevel(block)
     const {timestamp} = await blocksGetByLevel(blockLevel);
     return timestamp || ''
   }
 
   async getBigMapValue(bigMapQuery: BigMapQuery, block: BlockIdentifier): Promise<MichelsonV1Expression> {
-    const {value} = await bigMapsGetKey(Number(bigMapQuery.id), bigMapQuery.expr, {micheline: 'Raw'});
+    if (!this._blockIdIsHead(block)) {
+      const {value} = await bigMapsGetKey(Number(bigMapQuery.id), bigMapQuery.expr, {micheline: 'Raw'});
+      return value;
+    }
+
+    const blockLevel = await this._getBlockLevel(block)
+
+    const {value} = await bigMapsGetKey2(Number(bigMapQuery.id), blockLevel, bigMapQuery.expr, {micheline: 'Raw'});
     return value;
   }
 
@@ -198,8 +232,12 @@ export class TzktReadProvider implements TzReadProvider {
   }
 
   async isAccountRevealed(publicKeyHash: string, block: BlockIdentifier): Promise<boolean> {
-    const {revealed} = await accountsGetByAddress(publicKeyHash)
-    return revealed || null;
+    if (this._blockIdIsHead(block)) {
+      const {revealed} = await accountsGetByAddress(publicKeyHash)
+      return revealed || null;
+    }
+
+    return this.readProvider.isAccountRevealed(publicKeyHash)
   }
 
   getBlock(block: BlockIdentifier): Promise<BlockResponse> {

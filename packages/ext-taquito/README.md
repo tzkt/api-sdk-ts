@@ -24,5 +24,5 @@ Simplest example of integrating and using an extension with basic settings.
 You may override base URL used by the package in the following manner. This may come useful should you want to make requests to a test network or to your custom server.
 
 ```js 
-  Tezos.addExtension(new TzktExtension('https://api.tzkt.io'));
+  Tezos.addExtension(new TzktExtension({url: 'https://api.tzkt.io'}));
 ```
