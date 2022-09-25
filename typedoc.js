@@ -2,7 +2,8 @@ module.exports = {
     out: 'build/typedoc',
     entryPoints: [
       'packages/sdk-api',
-      'packages/sdk-events'
+      'packages/sdk-events',
+      'packages/ext-taquito'
     ],
     entryPointStrategy: 'packages',
     pluginPages: {
