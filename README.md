@@ -14,11 +14,11 @@ Installing any package from this repository for use in you project is as simple 
 npm i @tzkt/<package_name>
 ```
 
-| Name                | Description                      | NPM                                                            |
-| ------------------- | -------------------------------- | -------------------------------------------------------------- |
-| [@tzkt/sdk-api](packages/sdk-api/README.md)     | Wrappers for TzKT API endpoints written in TS | [![npm version](https://badge.fury.io/js/%40tzkt%2Fsdk-api.svg)](https://badge.fury.io/js/%40tzkt%2Fsdk-api) |
-| [@tzkt/sdk-events](packages/sdk-events/README.md)     | Subscription manager for TzKT events | [![npm version](https://badge.fury.io/js/%40tzkt%2Fsdk-events.svg)](https://badge.fury.io/js/%40tzkt%2Fsdk-events) |
-
+| Name                                               | Description                      | NPM                                                            |
+|----------------------------------------------------| -------------------------------- | -------------------------------------------------------------- |
+| [@tzkt/sdk-api](packages/sdk-api/README.md)        | Wrappers for TzKT API endpoints written in TS | [![npm version](https://badge.fury.io/js/%40tzkt%2Fsdk-api.svg)](https://badge.fury.io/js/%40tzkt%2Fsdk-api) |
+| [@tzkt/sdk-events](packages/sdk-events/README.md)  | Subscription manager for TzKT events | [![npm version](https://badge.fury.io/js/%40tzkt%2Fsdk-events.svg)](https://badge.fury.io/js/%40tzkt%2Fsdk-events) |
+| [@tzkt/ext-taquito](packages/ext-taquito/README.md) | TzKT taquito extension | [![npm version](https://badge.fury.io/js/%40tzkt%2Fext-taquito.svg)](https://badge.fury.io/js/%40tzkt%2Fext-taquito) |
 ## Contributing and publishing
 
 This repository and packages inside of it are managed by Lerna. The preferred package manager is npm. That said - you will need at least `node > 14` and `npm > 6` to proceed.
