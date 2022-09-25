@@ -19,9 +19,10 @@ describe("request", () => {
     expect(result).toEqual('tz1irJKkXS2DBWkU1NnmFQx1c1L7pbGg4yhk');
   });
 
-  test('Get Next protocol should equal PtJakart2xVj7pYXJBXrqHgd82rdkLey5ZeeGwDgPp9rhQUbSqY', async () => {
+  // TODO: update next time there's protocol upgrade
+  test('Get Next protocol should equal PtKathmankSpLLDALzWw7CGD2j2MtyveTwboEYokqUCP4a1LxMg', async () => {
     const result = await extension.getNextProtocol('head');
-    expect(result).toEqual('PtJakart2xVj7pYXJBXrqHgd82rdkLey5ZeeGwDgPp9rhQUbSqY');
+    expect(result).toEqual('PtKathmankSpLLDALzWw7CGD2j2MtyveTwboEYokqUCP4a1LxMg');
   });
 
 
