@@ -1,6 +1,6 @@
 {
   "name": "@tzkt/ext-taquito",
-  "version": "0.3.0",
+  "version": "1.0.0",
   "description": "TzKt taquito extension",
   "main": "build/main/index.js",
   "types": "build/main/index.d.ts",
