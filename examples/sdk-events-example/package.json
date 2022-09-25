@@ -12,7 +12,7 @@
     "buefy": "^0.9.8",
     "bulma": "^0.9.3",
     "core-js": "^3.6.5",
-    "vue": "^2.6.11",
+    "vue": "~2.6.14",
     "webpack": "^4.45.0"
   },
   "devDependencies": {
@@ -30,7 +30,7 @@
     "eslint": "^7.10.0",
     "eslint-plugin-vue": "^8.0.1zz",
     "typescript": "^4.6.3",
-    "vue-template-compiler": "^2.6.11"
+    "vue-template-compiler": "~2.6.14"
   },
   "peerDependencies": {
     "css-loader": "3.6.0"

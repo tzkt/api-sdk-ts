@@ -13,10 +13,14 @@ npm i @tzkt/ext-taquito
 
 Simplest example of integrating and using an extension with basic settings.
 
-```js 
-  const Tezos = new TezosToolkit('https://rpc.tzkt.io/mainnet');
-  Tezos.addExtension(new TzktExtension());
-  const balance = Tezos.tz.getBalance('tz1WMrppYADANWkNus4vs8xqKztacLETnKmT')
+```js
+import { TezosToolkit } from '@taquito/taquito';
+import { TzktExtension } from '@tzkt/ext-taquito';
+
+const Tezos = new TezosToolkit('https://rpc.tzkt.io/mainnet');
+Tezos.addExtension(new TzktExtension());
+
+const balance = await Tezos.tz.getBalance('tz1WMrppYADANWkNus4vs8xqKztacLETnKmT')
 ```
 
 ### Change api endpoint
@@ -24,5 +28,5 @@ Simplest example of integrating and using an extension with basic settings.
 You may override base URL used by the package in the following manner. This may come useful should you want to make requests to a test network or to your custom server.
 
 ```js 
-  Tezos.addExtension(new TzktExtension({url: 'https://api.tzkt.io'}));
+Tezos.addExtension(new TzktExtension({url: 'https://api.tzkt.io'}));
 ```
