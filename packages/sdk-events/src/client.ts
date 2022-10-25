@@ -31,6 +31,7 @@ import {
   AccountSubscriptionParameters,
   BigMapSubscriptionParameters,
   CHANNEL,
+  METHOD,
   channelToMethod,
   Event,
   EventsConfig,
@@ -185,7 +186,15 @@ export class EventsService {
 
   private async invoke(sub: Subscription<ResponseTypes>) {
     if (sub.params) {
-      return await this.connection.invoke(sub.method, sub.params);
+      let args = sub.params as any;
+      // Fix inconsistencies in the subscription interface
+      if (sub.method == METHOD.OPERATIONS) {
+        const params = (sub.params as OperationSubscriptionParameters);
+        if (params.types && params.types.length > 0) {
+          args.types = params.types.join(',');
+        }
+      }
+      return await this.connection.invoke(sub.method, args);
     }
     return await this.connection.invoke(sub.method);
   }
