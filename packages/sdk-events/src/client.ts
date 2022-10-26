@@ -189,7 +189,7 @@ export class EventsService {
       const args = sub.params as any;
       // Fix inconsistencies in the subscription interface
       if (sub.method == METHOD.OPERATIONS) {
-        const params = (sub.params as OperationSubscriptionParameters);
+        const params = sub.params as OperationSubscriptionParameters;
         if (params.types && params.types.length > 0) {
           args.types = params.types.join(',');
         }
