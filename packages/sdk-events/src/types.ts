@@ -71,6 +71,7 @@ export interface AccountSubscriptionParameters {
 export interface OperationSubscriptionParameters {
   address?: string;
   types?: Array<OperationKind>;
+  codeHash?: number;
 }
 
 export interface BigMapSubscriptionParameters {
