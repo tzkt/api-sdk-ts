@@ -67,9 +67,9 @@ describe("request", () => {
     expect(result).toEqual(2664043)
   });
 
-  test('getCounter should equal 45141992', async () => {
-    const result = await extension.getCounter('tz1iG3vqiT95KKSqNQuYnQEXNQk5gXQepM1r', 2664043)
-    expect(Number(result)).toEqual(45141992)
+  test('getCounter should equal 3829', async () => {
+    const result = await extension.getCounter('tz1Nx7hmKnagtzPyWDEba4naJb37Jn6RaP6E', 2664043)
+    expect(Number(result)).toEqual(3829)
   });
 
   test('getBlockTimestamp should equal 2022-08-29T12:06:59Z', async () => {
