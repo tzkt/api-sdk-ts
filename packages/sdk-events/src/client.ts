@@ -31,12 +31,12 @@ import {
   AccountSubscriptionParameters,
   BigMapSubscriptionParameters,
   CHANNEL,
-  METHOD,
   channelToMethod,
   Event,
   EventsConfig,
   EventType,
   Message,
+  METHOD,
   OperationKind,
   OperationSubscriptionParameters,
   ResponseTypes,
@@ -186,7 +186,7 @@ export class EventsService {
 
   private async invoke(sub: Subscription<ResponseTypes>) {
     if (sub.params) {
-      let args = sub.params as any;
+      const args = sub.params as any;
       // Fix inconsistencies in the subscription interface
       if (sub.method == METHOD.OPERATIONS) {
         const params = (sub.params as OperationSubscriptionParameters);
