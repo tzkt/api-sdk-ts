@@ -1,12 +1,12 @@
 {
   "name": "@tzkt/sdk-events-example",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve --open"
   },
   "dependencies": {
-    "@tzkt/sdk-events": "^1.0.0",
+    "@tzkt/sdk-events": "^1.0.1",
     "@vue/composition-api": "^1.0.0-rc.12",
     "acorn": "^8.7.1",
     "buefy": "^0.9.8",
