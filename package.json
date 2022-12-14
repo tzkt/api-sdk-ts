@@ -2,7 +2,6 @@
 	"name": "root",
 	"private": true,
 	"devDependencies": {
-		"@knodes/typedoc-plugin-monorepo-readmes": "^0.23.1",
 		"@knodes/typedoc-plugin-pages": "^0.23.1",
 		"conventional-changelog-conventionalcommits": "^4.6.3",
 		"lerna": "^4.0.0",
