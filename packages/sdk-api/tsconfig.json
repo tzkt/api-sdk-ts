@@ -4,7 +4,7 @@
     "target": "es2017",
     "outDir": "build/main",
     "rootDir": "src",
-    "moduleResolution": "node",
+    "moduleResolution": "node16",
     "module": "commonjs",
     "declaration": true,
     "inlineSourceMap": true,
@@ -39,9 +39,13 @@
 
     "lib": ["es2017", "dom"],
     "types": ["node", "jest"],
-    "typeRoots": ["../../node_modules/@types", "src/types", "node_modules/@types"]
+    "typeRoots": [
+      "../../node_modules/@types",
+      "src/types",
+      "node_modules/@types"
+    ]
   },
-  "include": ["src/**/*.ts"],
+  "include": ["src/**/*.ts", ".eslintrc.js"],
   "exclude": ["node_modules/**", "jest.config.ts"],
   "compileOnSave": false
 }

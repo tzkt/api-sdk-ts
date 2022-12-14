@@ -4,7 +4,7 @@
     "target": "es2017",
     "outDir": "build/main",
     "rootDir": "src",
-    "moduleResolution": "node",
+    "moduleResolution": "node16",
     "module": "commonjs",
     "declaration": true,
     "inlineSourceMap": true,

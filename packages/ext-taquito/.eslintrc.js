@@ -1,7 +1,12 @@
-{
+// eslint-disable-next-line no-undef
+module.exports = {
   "root": true,
   "parser": "@typescript-eslint/parser",
-  "parserOptions": { "project": "./tsconfig.json" },
+  "parserOptions": {
+    "project": "./tsconfig.json",
+    // eslint-disable-next-line no-undef
+    "tsconfigRootDir": __dirname,
+  },
   "env": { "es6": true },
   "ignorePatterns": ["node_modules", "build", "coverage"],
   "plugins": ["import", "eslint-comments", "functional"],
