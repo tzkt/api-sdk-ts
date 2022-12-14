@@ -287,7 +287,7 @@ export class EventsService {
     });
   }
 
-  private createSubscription<Type>(
+  private createSubscription<Type extends ResponseTypes>(
     channel: CHANNEL,
     observer: ZenObservable.Observer<SubscriptionMessage<Type>>,
     params?: SubscriptionParameters
