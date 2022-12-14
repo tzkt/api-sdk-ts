@@ -10,7 +10,7 @@ module.exports = {
     pages: [
       { 
         title: 'VIRTUAL', 
-        childrenDir: '../', 
+        childrenDir: __dirname, 
         children: [
           { 
             title: 'Changelog', 
