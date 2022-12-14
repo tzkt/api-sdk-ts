@@ -1,5 +1,4 @@
 import {TzktExtension} from '../src';
-// @ts-ignore
 import {TezosToolkit} from '@taquito/taquito';
 import {TzktReadProvider} from "../src/tzktReadProvider";
 // const request = require("supertest");
@@ -26,7 +25,7 @@ describe("request", () => {
   });
 
 
-  test('Ge Protocol Constants .hardBlockGasLimit should equal 5200000', async () => {
+  test('Get Protocol Constants .hardBlockGasLimit should equal 5200000', async () => {
     const result = await extension.getProtocolConstants(2703631);
 
     expect({

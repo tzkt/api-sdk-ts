@@ -1,5 +1,3 @@
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-//@ts-nocheck
 import 'cross-fetch/polyfill';
 import {
   BlockResponse,
@@ -17,12 +15,21 @@ import {
   accountsGetBalance,
   accountsGetBalanceAtLevel,
   accountsGetByAddress,
-  accountsGetCounter, bigMapsGetKey, bigMapsGetKey2, Block, blocksGet,
+  accountsGetCounter,
+  bigMapsGetKey,
+  bigMapsGetKey2,
+  Block,
+  blocksGet,
   blocksGetByHash,
   blocksGetByLevel,
   blocksGetCount,
-  contractsGetCode, contractsGetEntrypoints,
-  contractsGetRawStorage, Entrypoint, headGet, Protocol, protocolsGetByCycle,
+  contractsGetCode,
+  contractsGetEntrypoints,
+  contractsGetRawStorage,
+  Entrypoint,
+  headGet,
+  Protocol,
+  protocolsGetByCycle,
   protocolsGetCurrent
 } from "@tzkt/sdk-api";
 import {BigNumber} from 'bignumber.js';
@@ -63,28 +70,36 @@ export class TzktReadProvider implements TzReadProvider {
   }
 
   async getEntrypoints(contract: string): Promise<EntrypointsResponse> {
-    const response = await contractsGetEntrypoints(contract, {json: false, micheline: true});
+    const response = await contractsGetEntrypoints(contract, {json: false, micheline: true, all: true});
 
     const entrypoints = response.map((entrypoint: Entrypoint) => {
       return [entrypoint.name, entrypoint.michelineParameters]
     });
 
-    return  {
+    return {
       entrypoints: Object.fromEntries(entrypoints)
     }
   }
 
   async getScript(address: string, block: BlockIdentifier): Promise<ScriptedContracts> {
-    let filter = undefined
+    let filter;
 
     if (!this._blockIdIsHead(block)) {
       const blockLevel = await this._getBlockLevel(block);
-      filter = {level: blockLevel}
+      filter = {level: blockLevel};
     }
 
+    const [codeBlob, storage] = await Promise.all([
+      contractsGetCode(address, filter),
+      contractsGetRawStorage(address, filter) as MichelsonV1Expression
+    ]);
+
+    const codeText = await codeBlob.text();
+    const code = JSON.parse(codeText) as MichelsonV1Expression[];
+
     return {
-      code: await contractsGetCode(address, filter),
-      storage: contractsGetRawStorage(contract, filter)
+      code,
+      storage,
     };
   }
 
@@ -105,6 +120,8 @@ export class TzktReadProvider implements TzReadProvider {
     }
 
     const account = await accountsGetByAddress(address);
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
     return account?.delegate?.address
   }
 
@@ -149,11 +166,11 @@ export class TzktReadProvider implements TzReadProvider {
 
   async getStorage(contract: string, block: BlockIdentifier): Promise<MichelsonV1Expression> {
     if (this._blockIdIsHead(block)) {
-      return contractsGetRawStorage(contract)
+      return contractsGetRawStorage(contract) as MichelsonV1Expression
     }
 
     const blockLevel = await this._getBlockLevel(block)
-    return contractsGetRawStorage(contract, {level: blockLevel})
+    return contractsGetRawStorage(contract, {level: blockLevel}) as MichelsonV1Expression
   }
 
   async getBlockHash(block: BlockIdentifier): Promise<string> {
@@ -174,22 +191,22 @@ export class TzktReadProvider implements TzReadProvider {
     const blockLevel = await this._getBlockLevel(block);
     const {hash} = await blocksGetByLevel(blockLevel);
 
-    return hash
+    return hash as string
   }
 
   async getBlockLevel(block: BlockIdentifier): Promise<number> {
     return this._getBlockLevel(block)
   }
 
-  async getCounter(pkh: string, block: BlockIdentifier): Promise<string> {
+  async getCounter(pkh: string): Promise<string> {
     const counter = await accountsGetCounter(pkh)
     return String(counter)
   }
 
   async getBlockTimestamp(block: BlockIdentifier): Promise<string> {
     if(this._blockIdIsHash(block)) {
-      const {timestamp} = await blocksGetByHash(block);
-      return timestamp
+      const {timestamp} = await blocksGetByHash(block as string);
+      return timestamp as string
     }
 
     if(this._blockIdIsHead(block)) {
@@ -233,11 +250,13 @@ export class TzktReadProvider implements TzReadProvider {
 
   async isAccountRevealed(publicKeyHash: string, block: BlockIdentifier): Promise<boolean> {
     if (this._blockIdIsHead(block)) {
-      const {revealed} = await accountsGetByAddress(publicKeyHash)
-      return revealed || null;
+      const account = await accountsGetByAddress(publicKeyHash);
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
+      return account.revealed as boolean;
     }
 
-    return this.readProvider.isAccountRevealed(publicKeyHash)
+    return this.readProvider.isAccountRevealed(publicKeyHash, block)
   }
 
   getBlock(block: BlockIdentifier): Promise<BlockResponse> {
