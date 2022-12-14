@@ -3,8 +3,8 @@
  * DO NOT MODIFY - This file has been generated using @tzkt/oazapfts.
  * See https://www.npmjs.com/package/@tzkt/oazapfts
  */
-import * as Oazapfts from '@tzkt/oazapfts/lib/runtime';
-import * as QS from '@tzkt/oazapfts/lib/runtime/query';
+import * as Oazapfts from '@tzkt/oazapfts/runtime';
+import * as QS from '@tzkt/oazapfts/runtime/query';
 
 import QueryParamsParsers from './queryParamParsers';
 export const defaults: Oazapfts.RequestOpts = {
@@ -420,7 +420,8 @@ export type PrimType =
   | 147
   | 148
   | 149
-  | 150;
+  | 150
+  | 151;
 export type MichelineType = 0 | 32 | 64 | 96 | 128;
 export type IMicheline = {
   type?: MichelineType;
@@ -605,6 +606,20 @@ export type NonceRevelationOperation = Operation & {
   quote?: QuoteShort | null;
   bakerRewards?: number;
 };
+export type VdfRevelationOperation = Operation & {
+  type?: string | null;
+  id?: number;
+  level?: number;
+  timestamp?: string;
+  block?: string | null;
+  hash?: string | null;
+  baker?: Alias | null;
+  cycle?: number;
+  solution?: string | null;
+  proof?: string | null;
+  reward?: number;
+  quote?: QuoteShort | null;
+};
 export type OperationError = {
   type: string;
 };
@@ -622,6 +637,7 @@ export type DelegationOperation = Operation & {
   nonce?: number | null;
   gasLimit?: number;
   gasUsed?: number;
+  storageLimit?: number;
   bakerFee?: number;
   amount?: number;
   prevDelegate?: Alias | null;
@@ -708,6 +724,7 @@ export type TransactionOperation = Operation & {
   errors?: OperationError[] | null;
   hasInternals?: boolean;
   tokenTransfersCount?: number | null;
+  eventsCount?: number | null;
   quote?: QuoteShort | null;
 };
 export type RevealOperation = Operation & {
@@ -721,6 +738,7 @@ export type RevealOperation = Operation & {
   counter?: number;
   gasLimit?: number;
   gasUsed?: number;
+  storageLimit?: number;
   bakerFee?: number;
   status?: string | null;
   errors?: OperationError[] | null;
@@ -803,7 +821,6 @@ export type TxRollupCommitOperation = Operation & {
   gasLimit?: number;
   gasUsed?: number;
   storageLimit?: number;
-  storageUsed?: number;
   bakerFee?: number;
   rollup?: Alias | null;
   bond?: number;
@@ -843,7 +860,6 @@ export type TxRollupFinalizeCommitmentOperation = Operation & {
   gasLimit?: number;
   gasUsed?: number;
   storageLimit?: number;
-  storageUsed?: number;
   bakerFee?: number;
   rollup?: Alias | null;
   status?: string | null;
@@ -862,7 +878,6 @@ export type TxRollupOriginationOperation = Operation & {
   gasLimit?: number;
   gasUsed?: number;
   storageLimit?: number;
-  storageUsed?: number;
   bakerFee?: number;
   allocationFee?: number;
   rollup?: Alias | null;
@@ -882,7 +897,6 @@ export type TxRollupRejectionOperation = Operation & {
   gasLimit?: number;
   gasUsed?: number;
   storageLimit?: number;
-  storageUsed?: number;
   bakerFee?: number;
   rollup?: Alias | null;
   committer?: Alias | null;
@@ -904,7 +918,6 @@ export type TxRollupRemoveCommitmentOperation = Operation & {
   gasLimit?: number;
   gasUsed?: number;
   storageLimit?: number;
-  storageUsed?: number;
   bakerFee?: number;
   rollup?: Alias | null;
   status?: string | null;
@@ -923,7 +936,6 @@ export type TxRollupReturnBondOperation = Operation & {
   gasLimit?: number;
   gasUsed?: number;
   storageLimit?: number;
-  storageUsed?: number;
   bakerFee?: number;
   rollup?: Alias | null;
   bond?: number;
@@ -948,6 +960,27 @@ export type TxRollupSubmitBatchOperation = Operation & {
   storageFee?: number;
   rollup?: Alias | null;
   status?: string | null;
+  errors?: OperationError[] | null;
+  quote?: QuoteShort | null;
+};
+export type IncreasePaidStorageOperation = Operation & {
+  type?: string | null;
+  id?: number;
+  level?: number;
+  timestamp?: string;
+  block?: string | null;
+  hash?: string | null;
+  sender?: Alias | null;
+  counter?: number;
+  gasLimit?: number;
+  gasUsed?: number;
+  storageLimit?: number;
+  storageUsed?: number;
+  bakerFee?: number;
+  storageFee?: number;
+  status?: string | null;
+  contract?: Alias | null;
+  amount?: string | null;
   errors?: OperationError[] | null;
   quote?: QuoteShort | null;
 };
@@ -1017,6 +1050,7 @@ export type Block = {
   doubleEndorsing?: DoubleEndorsingOperation[] | null;
   doublePreendorsing?: DoublePreendorsingOperation[] | null;
   nonceRevelations?: NonceRevelationOperation[] | null;
+  vdfRevelations?: VdfRevelationOperation[] | null;
   delegations?: DelegationOperation[] | null;
   originations?: OriginationOperation[] | null;
   transactions?: TransactionOperation[] | null;
@@ -1032,6 +1066,7 @@ export type Block = {
   txRollupRemoveCommitmentOps?: TxRollupRemoveCommitmentOperation[] | null;
   txRollupReturnBondOps?: TxRollupReturnBondOperation[] | null;
   txRollupSubmitBatchOps?: TxRollupSubmitBatchOperation[] | null;
+  increasePaidStorageOps?: IncreasePaidStorageOperation[] | null;
   migrations?: MigrationOperation[] | null;
   revelationPenalties?: RevelationPenaltyOperation[] | null;
   endorsingRewards?: EndorsingRewardOperation[] | null;
@@ -1105,6 +1140,7 @@ export type Contract = Account & {
   delegationTime?: string | null;
   numContracts?: number;
   activeTokensCount?: number;
+  tokensCount?: number;
   tokenBalancesCount?: number;
   tokenTransfersCount?: number;
   numDelegations?: number;
@@ -1113,6 +1149,8 @@ export type Contract = Account & {
   numReveals?: number;
   numMigrations?: number;
   transferTicketCount?: number;
+  increasePaidStorageCount?: number;
+  eventsCount?: number;
   firstActivity?: number;
   firstActivityTime?: string;
   lastActivity?: number;
@@ -1132,10 +1170,15 @@ export type BigMapInterface = {
   keySchema?: RawJson | null;
   valueSchema?: RawJson | null;
 };
+export type EventInterface = {
+  tag?: string | null;
+  eventSchema?: RawJson | null;
+};
 export type ContractInterface = {
   storageSchema?: RawJson | null;
   entrypoints?: EntrypointInterface[] | null;
   bigMaps?: BigMapInterface[] | null;
+  events?: EventInterface[] | null;
 };
 export type Entrypoint = {
   name?: string | null;
@@ -1220,6 +1263,7 @@ export type Delegate = Account & {
   numDoubleEndorsing?: number;
   numDoublePreendorsing?: number;
   numNonceRevelations?: number;
+  vdfRevelationsCount?: number;
   numRevelationPenalties?: number;
   numEndorsingRewards?: number;
   numDelegations?: number;
@@ -1238,6 +1282,7 @@ export type Delegate = Account & {
   txRollupRejectionCount?: number;
   txRollupDispatchTicketsCount?: number;
   transferTicketCount?: number;
+  increasePaidStorageCount?: number;
   firstActivity?: number;
   firstActivityTime?: string;
   lastActivity?: number;
@@ -1247,6 +1292,22 @@ export type Delegate = Account & {
   frozenDeposits?: number;
   frozenRewards?: number;
   frozenFees?: number;
+};
+export type SelectionParameter = {
+  fields?: string[];
+  values?: string[];
+};
+export type ContractEvent = {
+  id?: number;
+  level?: number;
+  timestamp?: string;
+  contract?: Alias | null;
+  codeHash?: number;
+  tag?: string | null;
+  payload?: any | null;
+  transactionId?: number;
+  type?: any | null;
+  rawPayload?: any | null;
 };
 export type State = {
   chain?: string | null;
@@ -1375,6 +1436,7 @@ export type ProtocolConstants = {
   doubleEndorsingPunishmentDenominator?: number;
   txRollupOriginationSize?: number;
   txRollupCommitmentBond?: number;
+  dictator?: string | null;
   lbEscapeThreshold?: number;
 };
 export type ProtocolMetadata = {
@@ -1661,15 +1723,12 @@ export type TokenStandardParameter = {
   eq?: 'fa1.2' | 'fa2';
   ne?: 'fa1.2' | 'fa2';
 };
-export type SelectionParameter = {
-  fields?: string[];
-  values?: string[];
-};
 export type Token = {
   id?: number;
   contract?: Alias | null;
   tokenId?: string | null;
   standard?: string | null;
+  firstMinter?: Alias | null;
   firstLevel?: number;
   firstTime?: string;
   lastLevel?: number;
@@ -1687,6 +1746,7 @@ export type TokenInfo = {
   contract?: Alias | null;
   tokenId?: string | null;
   standard?: string | null;
+  totalSupply?: string | null;
   metadata?: any | null;
 };
 export type TokenBalance = {
@@ -1699,6 +1759,17 @@ export type TokenBalance = {
   firstTime?: string;
   lastLevel?: number;
   lastTime?: string;
+};
+export type Int64NullParameter = {
+  eq?: number;
+  ne?: number;
+  gt?: number;
+  ge?: number;
+  lt?: number;
+  le?: number;
+  in?: number[];
+  ni?: number[];
+  null?: boolean;
 };
 export type TokenTransfer = {
   id?: number;
@@ -1744,6 +1815,7 @@ export type VotingPeriod = {
   endTime?: string;
   kind?: string | null;
   status?: string | null;
+  dictator?: string | null;
   totalBakers?: number | null;
   totalVotingPower?: number | null;
   upvotesQuorum?: number | null;
@@ -1792,7 +1864,7 @@ export type VotingEpoch = {
 export function accountsGet(
   {
     id,
-    type,
+    $type,
     kind,
     delegate,
     balance,
@@ -1804,7 +1876,7 @@ export function accountsGet(
     limit,
   }: {
     id?: Int32Parameter | null;
-    type?: AccountTypeParameter | null;
+    $type?: AccountTypeParameter | null;
     kind?: ContractKindParameter | null;
     delegate?: AccountParameter | null;
     balance?: Int64Parameter | null;
@@ -1823,10 +1895,10 @@ export function accountsGet(
       data: Account[];
     }>(
       `/v1/accounts${QS.query(
-        QS.form({
+        QS.explode({
           limit,
           ...QueryParamsParsers.queryParameter('id', id),
-          ...QueryParamsParsers.queryParameter('type', type),
+          ...QueryParamsParsers.queryParameter('type', $type),
           ...QueryParamsParsers.queryParameter('kind', kind),
           ...QueryParamsParsers.queryParameter('delegate', delegate),
           ...QueryParamsParsers.queryParameter('balance', balance),
@@ -1848,13 +1920,13 @@ export function accountsGet(
  */
 export function accountsGetCount(
   {
-    type,
+    $type,
     kind,
     balance,
     staked,
     firstActivity,
   }: {
-    type?: AccountTypeParameter | null;
+    $type?: AccountTypeParameter | null;
     kind?: ContractKindParameter | null;
     balance?: Int64Parameter | null;
     staked?: BoolParameter | null;
@@ -1868,8 +1940,8 @@ export function accountsGetCount(
       data: number;
     }>(
       `/v1/accounts/count${QS.query(
-        QS.form({
-          ...QueryParamsParsers.queryParameter('type', type),
+        QS.explode({
+          ...QueryParamsParsers.queryParameter('type', $type),
           ...QueryParamsParsers.queryParameter('kind', kind),
           ...QueryParamsParsers.queryParameter('balance', balance),
           ...QueryParamsParsers.queryParameter('staked', staked),
@@ -1886,7 +1958,7 @@ export function accountsGetCount(
  * Get account by address
  */
 export function accountsGetByAddress(
-  address: string | null,
+  address: string,
   {
     metadata,
   }: {
@@ -1899,8 +1971,8 @@ export function accountsGetByAddress(
       status: 200;
       data: Account;
     }>(
-      `/v1/accounts/${address}${QS.query(
-        QS.form({
+      `/v1/accounts/${encodeURIComponent(address)}${QS.query(
+        QS.explode({
           metadata,
         })
       )}`,
@@ -1914,7 +1986,7 @@ export function accountsGetByAddress(
  * Get account contracts
  */
 export function accountsGetContracts(
-  address: string | null,
+  address: string,
   {
     sort,
     offset,
@@ -1931,8 +2003,8 @@ export function accountsGetContracts(
       status: 200;
       data: RelatedContract[];
     }>(
-      `/v1/accounts/${address}/contracts${QS.query(
-        QS.form({
+      `/v1/accounts/${encodeURIComponent(address)}/contracts${QS.query(
+        QS.explode({
           limit,
           ...QueryParamsParsers.queryParameter('sort', sort),
           ...QueryParamsParsers.queryParameter('offset', offset),
@@ -1948,16 +2020,16 @@ export function accountsGetContracts(
  * Get account delegators
  */
 export function accountsGetDelegators(
-  address: string | null,
+  address: string,
   {
-    type,
+    $type,
     balance,
     delegationLevel,
     sort,
     offset,
     limit,
   }: {
-    type?: AccountTypeParameter | null;
+    $type?: AccountTypeParameter | null;
     balance?: Int64Parameter | null;
     delegationLevel?: Int32Parameter | null;
     sort?: SortParameter | null;
@@ -1971,10 +2043,10 @@ export function accountsGetDelegators(
       status: 200;
       data: Delegator[];
     }>(
-      `/v1/accounts/${address}/delegators${QS.query(
-        QS.form({
+      `/v1/accounts/${encodeURIComponent(address)}/delegators${QS.query(
+        QS.explode({
           limit,
-          ...QueryParamsParsers.queryParameter('type', type),
+          ...QueryParamsParsers.queryParameter('type', $type),
           ...QueryParamsParsers.queryParameter('balance', balance),
           ...QueryParamsParsers.queryParameter(
             'delegationLevel',
@@ -1994,9 +2066,9 @@ export function accountsGetDelegators(
  * Get account operations
  */
 export function accountsGetOperations(
-  address: string | null,
+  address: string,
   {
-    type,
+    $type,
     initiator,
     sender,
     target,
@@ -2020,7 +2092,7 @@ export function accountsGetOperations(
     micheline,
     quote,
   }: {
-    type?: string | null;
+    $type?: string | null;
     initiator?: AccountParameter | null;
     sender?: AccountParameter | null;
     target?: AccountParameter | null;
@@ -2051,9 +2123,9 @@ export function accountsGetOperations(
       status: 200;
       data: Operation[];
     }>(
-      `/v1/accounts/${address}/operations${QS.query(
-        QS.form({
-          type,
+      `/v1/accounts/${encodeURIComponent(address)}/operations${QS.query(
+        QS.explode({
+          type: $type,
           sort,
           lastId,
           limit,
@@ -2097,14 +2169,14 @@ export function accountsGetOperations(
  * Get account metadata
  */
 export function accountsGetMetadata(
-  address: string | null,
+  address: string,
   opts?: Oazapfts.RequestOpts
 ) {
   return oazapfts.ok(
     oazapfts.fetchJson<{
       status: 200;
       data: ProfileMetadata;
-    }>(`/v1/accounts/${address}/metadata`, {
+    }>(`/v1/accounts/${encodeURIComponent(address)}/metadata`, {
       ...opts,
     })
   );
@@ -2113,14 +2185,14 @@ export function accountsGetMetadata(
  * Get counter
  */
 export function accountsGetCounter(
-  address: string | null,
+  address: string,
   opts?: Oazapfts.RequestOpts
 ) {
   return oazapfts.ok(
     oazapfts.fetchJson<{
       status: 200;
       data: number;
-    }>(`/v1/accounts/${address}/counter`, {
+    }>(`/v1/accounts/${encodeURIComponent(address)}/counter`, {
       ...opts,
     })
   );
@@ -2129,14 +2201,14 @@ export function accountsGetCounter(
  * Get balance
  */
 export function accountsGetBalance(
-  address: string | null,
+  address: string,
   opts?: Oazapfts.RequestOpts
 ) {
   return oazapfts.ok(
     oazapfts.fetchJson<{
       status: 200;
       data: number;
-    }>(`/v1/accounts/${address}/balance`, {
+    }>(`/v1/accounts/${encodeURIComponent(address)}/balance`, {
       ...opts,
     })
   );
@@ -2145,7 +2217,7 @@ export function accountsGetBalance(
  * Get balance at level
  */
 export function accountsGetBalanceAtLevel(
-  address: string | null,
+  address: string,
   level: number,
   opts?: Oazapfts.RequestOpts
 ) {
@@ -2153,16 +2225,21 @@ export function accountsGetBalanceAtLevel(
     oazapfts.fetchJson<{
       status: 200;
       data: number;
-    }>(`/v1/accounts/${address}/balance_history/${level}`, {
-      ...opts,
-    })
+    }>(
+      `/v1/accounts/${encodeURIComponent(
+        address
+      )}/balance_history/${encodeURIComponent(level)}`,
+      {
+        ...opts,
+      }
+    )
   );
 }
 /**
  * Get balance at date
  */
 export function accountsGetBalanceAtDate(
-  address: string | null,
+  address: string,
   datetime: string,
   opts?: Oazapfts.RequestOpts
 ) {
@@ -2170,16 +2247,21 @@ export function accountsGetBalanceAtDate(
     oazapfts.fetchJson<{
       status: 200;
       data: number;
-    }>(`/v1/accounts/${address}/balance_history/${datetime}`, {
-      ...opts,
-    })
+    }>(
+      `/v1/accounts/${encodeURIComponent(
+        address
+      )}/balance_history/${encodeURIComponent(datetime)}`,
+      {
+        ...opts,
+      }
+    )
   );
 }
 /**
  * Get balance history
  */
 export function accountsGetBalanceHistory(
-  address: string | null,
+  address: string,
   {
     step,
     select,
@@ -2202,8 +2284,8 @@ export function accountsGetBalanceHistory(
       status: 200;
       data: HistoricalBalance[];
     }>(
-      `/v1/accounts/${address}/balance_history${QS.query(
-        QS.form({
+      `/v1/accounts/${encodeURIComponent(address)}/balance_history${QS.query(
+        QS.explode({
           step,
           offset,
           limit,
@@ -2222,16 +2304,16 @@ export function accountsGetBalanceHistory(
  * Get account report
  */
 export function accountsGetBalanceReport(
-  address: string | null,
+  address: string,
   {
-    from,
+    $from,
     to,
     currency,
     historical,
     delimiter,
     separator,
   }: {
-    from?: string | null;
+    $from?: string | null;
     to?: string | null;
     currency?: string | null;
     historical?: boolean;
@@ -2245,9 +2327,9 @@ export function accountsGetBalanceReport(
       status: 200;
       data: Blob;
     }>(
-      `/v1/accounts/${address}/report${QS.query(
-        QS.form({
-          from,
+      `/v1/accounts/${encodeURIComponent(address)}/report${QS.query(
+        QS.explode({
+          from: $from,
           to,
           currency,
           historical,
@@ -2309,7 +2391,7 @@ export function bigMapsGetBigMaps(
       data: BigMap[];
     }>(
       `/v1/bigmaps${QS.query(
-        QS.form({
+        QS.explode({
           active,
           limit,
           micheline,
@@ -2367,7 +2449,7 @@ export function bigMapsGetBigMapUpdates(
       data: BigMapUpdate[];
     }>(
       `/v1/bigmaps/updates${QS.query(
-        QS.form({
+        QS.explode({
           limit,
           micheline,
           ...QueryParamsParsers.queryParameter('bigmap', bigmap),
@@ -2405,8 +2487,8 @@ export function bigMapsGetBigMapById(
       status: 200;
       data: BigMap;
     }>(
-      `/v1/bigmaps/${id}${QS.query(
-        QS.form({
+      `/v1/bigmaps/${encodeURIComponent(id)}${QS.query(
+        QS.explode({
           micheline,
         })
       )}`,
@@ -2424,7 +2506,7 @@ export function bigMapsGetBigMapType(id: number, opts?: Oazapfts.RequestOpts) {
     oazapfts.fetchJson<{
       status: 200;
       data: MichelinePrim;
-    }>(`/v1/bigmaps/${id}/type`, {
+    }>(`/v1/bigmaps/${encodeURIComponent(id)}/type`, {
       ...opts,
     })
   );
@@ -2462,8 +2544,8 @@ export function bigMapsGetKeys(
       status: 200;
       data: BigMapKey[];
     }>(
-      `/v1/bigmaps/${id}/keys${QS.query(
-        QS.form({
+      `/v1/bigmaps/${encodeURIComponent(id)}/keys${QS.query(
+        QS.explode({
           active,
           limit,
           micheline,
@@ -2486,7 +2568,7 @@ export function bigMapsGetKeys(
  */
 export function bigMapsGetKey(
   id: number,
-  key: string | null,
+  key: string,
   {
     micheline,
   }: {
@@ -2499,8 +2581,10 @@ export function bigMapsGetKey(
       status: 200;
       data: BigMapKey;
     }>(
-      `/v1/bigmaps/${id}/keys/${key}${QS.query(
-        QS.form({
+      `/v1/bigmaps/${encodeURIComponent(id)}/keys/${encodeURIComponent(
+        key
+      )}${QS.query(
+        QS.explode({
           micheline,
         })
       )}`,
@@ -2515,7 +2599,7 @@ export function bigMapsGetKey(
  */
 export function bigMapsGetKeyUpdates(
   id: number,
-  key: string | null,
+  key: string,
   {
     sort,
     offset,
@@ -2534,8 +2618,10 @@ export function bigMapsGetKeyUpdates(
       status: 200;
       data: BigMapKeyUpdate[];
     }>(
-      `/v1/bigmaps/${id}/keys/${key}/updates${QS.query(
-        QS.form({
+      `/v1/bigmaps/${encodeURIComponent(id)}/keys/${encodeURIComponent(
+        key
+      )}/updates${QS.query(
+        QS.explode({
           limit,
           micheline,
           ...QueryParamsParsers.queryParameter('sort', sort),
@@ -2580,8 +2666,10 @@ export function bigMapsGetHistoricalKeys(
       status: 200;
       data: BigMapKeyHistorical[];
     }>(
-      `/v1/bigmaps/${id}/historical_keys/${level}${QS.query(
-        QS.form({
+      `/v1/bigmaps/${encodeURIComponent(
+        id
+      )}/historical_keys/${encodeURIComponent(level)}${QS.query(
+        QS.explode({
           active,
           limit,
           micheline,
@@ -2604,7 +2692,7 @@ export function bigMapsGetHistoricalKeys(
 export function bigMapsGetKey2(
   id: number,
   level: number,
-  key: string | null,
+  key: string,
   {
     micheline,
   }: {
@@ -2617,8 +2705,12 @@ export function bigMapsGetKey2(
       status: 200;
       data: BigMapKeyHistorical;
     }>(
-      `/v1/bigmaps/${id}/historical_keys/${level}/${key}${QS.query(
-        QS.form({
+      `/v1/bigmaps/${encodeURIComponent(
+        id
+      )}/historical_keys/${encodeURIComponent(level)}/${encodeURIComponent(
+        key
+      )}${QS.query(
+        QS.explode({
           micheline,
         })
       )}`,
@@ -2688,7 +2780,7 @@ export function blocksGet(
       data: Block[];
     }>(
       `/v1/blocks${QS.query(
-        QS.form({
+        QS.explode({
           limit,
           quote,
           ...QueryParamsParsers.queryParameter('baker', baker),
@@ -2714,7 +2806,7 @@ export function blocksGet(
  * Get block by hash
  */
 export function blocksGetByHash(
-  hash: string | null,
+  hash: string,
   {
     operations,
     micheline,
@@ -2731,8 +2823,8 @@ export function blocksGetByHash(
       status: 200;
       data: Block;
     }>(
-      `/v1/blocks/${hash}${QS.query(
-        QS.form({
+      `/v1/blocks/${encodeURIComponent(hash)}${QS.query(
+        QS.explode({
           operations,
           micheline,
           quote,
@@ -2765,8 +2857,8 @@ export function blocksGetByLevel(
       status: 200;
       data: Block;
     }>(
-      `/v1/blocks/${level}${QS.query(
-        QS.form({
+      `/v1/blocks/${encodeURIComponent(level)}${QS.query(
+        QS.explode({
           operations,
           micheline,
           quote,
@@ -2786,7 +2878,7 @@ export function blocksGetByLevel2(level: number, opts?: Oazapfts.RequestOpts) {
     oazapfts.fetchJson<{
       status: 200;
       data: string;
-    }>(`/v1/blocks/${level}/timestamp`, {
+    }>(`/v1/blocks/${encodeURIComponent(level)}/timestamp`, {
       ...opts,
     })
   );
@@ -2812,8 +2904,8 @@ export function blocksGetByDate(
       status: 200;
       data: Block;
     }>(
-      `/v1/blocks/${timestamp}${QS.query(
-        QS.form({
+      `/v1/blocks/${encodeURIComponent(timestamp)}${QS.query(
+        QS.explode({
           operations,
           micheline,
           quote,
@@ -2836,7 +2928,7 @@ export function blocksGetByDate2(
     oazapfts.fetchJson<{
       status: 200;
       data: number;
-    }>(`/v1/blocks/${timestamp}/level`, {
+    }>(`/v1/blocks/${encodeURIComponent(timestamp)}/level`, {
       ...opts,
     })
   );
@@ -2844,15 +2936,12 @@ export function blocksGetByDate2(
 /**
  * Get commitment by blinded address
  */
-export function commitmentsGet(
-  address: string | null,
-  opts?: Oazapfts.RequestOpts
-) {
+export function commitmentsGet(address: string, opts?: Oazapfts.RequestOpts) {
   return oazapfts.ok(
     oazapfts.fetchJson<{
       status: 200;
       data: Commitment;
-    }>(`/v1/commitments/${address}`, {
+    }>(`/v1/commitments/${encodeURIComponent(address)}`, {
       ...opts,
     })
   );
@@ -2886,7 +2975,7 @@ export function commitmentsGetAll(
       data: Commitment[];
     }>(
       `/v1/commitments${QS.query(
-        QS.form({
+        QS.explode({
           activated,
           limit,
           ...QueryParamsParsers.queryParameter(
@@ -2924,7 +3013,7 @@ export function commitmentsGetCount(
       data: number;
     }>(
       `/v1/commitments/count${QS.query(
-        QS.form({
+        QS.explode({
           activated,
           ...QueryParamsParsers.queryParameter('balance', balance),
         })
@@ -2972,7 +3061,7 @@ export function constantsGet(
       data: Constant[];
     }>(
       `/v1/constants${QS.query(
-        QS.form({
+        QS.explode({
           limit,
           format,
           ...QueryParamsParsers.queryParameter('address', address),
@@ -2996,7 +3085,7 @@ export function constantsGet(
  * Get global constant by address
  */
 export function constantsGetByAddress(
-  address: string | null,
+  address: string,
   {
     format,
   }: {
@@ -3009,8 +3098,8 @@ export function constantsGetByAddress(
       status: 200;
       data: Constant;
     }>(
-      `/v1/constants/${address}${QS.query(
-        QS.form({
+      `/v1/constants/${encodeURIComponent(address)}${QS.query(
+        QS.explode({
           format,
         })
       )}`,
@@ -3037,7 +3126,7 @@ export function constantsGetCount(
       data: number;
     }>(
       `/v1/constants/count${QS.query(
-        QS.form({
+        QS.explode({
           ...QueryParamsParsers.queryParameter('refs', refs),
         })
       )}`,
@@ -3090,7 +3179,7 @@ export function contractsGet(
       data: Contract[];
     }>(
       `/v1/contracts${QS.query(
-        QS.form({
+        QS.explode({
           limit,
           includeStorage,
           ...QueryParamsParsers.queryParameter('kind', kind),
@@ -3130,7 +3219,7 @@ export function contractsGetCount(
       data: number;
     }>(
       `/v1/contracts/count${QS.query(
-        QS.form({
+        QS.explode({
           ...QueryParamsParsers.queryParameter('kind', kind),
         })
       )}`,
@@ -3144,14 +3233,14 @@ export function contractsGetCount(
  * Get contract by address
  */
 export function contractsGetByAddress(
-  address: string | null,
+  address: string,
   opts?: Oazapfts.RequestOpts
 ) {
   return oazapfts.ok(
     oazapfts.fetchJson<{
       status: 200;
       data: Contract;
-    }>(`/v1/contracts/${address}`, {
+    }>(`/v1/contracts/${encodeURIComponent(address)}`, {
       ...opts,
     })
   );
@@ -3160,7 +3249,7 @@ export function contractsGetByAddress(
  * Get same contracts
  */
 export function contractsGetSame(
-  address: string | null,
+  address: string,
   {
     select,
     sort,
@@ -3181,8 +3270,8 @@ export function contractsGetSame(
       status: 200;
       data: Contract[];
     }>(
-      `/v1/contracts/${address}/same${QS.query(
-        QS.form({
+      `/v1/contracts/${encodeURIComponent(address)}/same${QS.query(
+        QS.explode({
           limit,
           includeStorage,
           ...QueryParamsParsers.queryParameter('select', select),
@@ -3200,7 +3289,7 @@ export function contractsGetSame(
  * Get similar contracts
  */
 export function contractsGetSimilar(
-  address: string | null,
+  address: string,
   {
     select,
     sort,
@@ -3221,8 +3310,8 @@ export function contractsGetSimilar(
       status: 200;
       data: Contract[];
     }>(
-      `/v1/contracts/${address}/similar${QS.query(
-        QS.form({
+      `/v1/contracts/${encodeURIComponent(address)}/similar${QS.query(
+        QS.explode({
           limit,
           includeStorage,
           ...QueryParamsParsers.queryParameter('select', select),
@@ -3240,7 +3329,7 @@ export function contractsGetSimilar(
  * Get contract code
  */
 export function contractsGetCode(
-  address: string | null,
+  address: string,
   {
     level,
     format,
@@ -3255,8 +3344,8 @@ export function contractsGetCode(
       status: 200;
       data: Blob;
     }>(
-      `/v1/contracts/${address}/code${QS.query(
-        QS.form({
+      `/v1/contracts/${encodeURIComponent(address)}/code${QS.query(
+        QS.explode({
           level,
           format,
         })
@@ -3271,14 +3360,14 @@ export function contractsGetCode(
  * Get JSON Schema [2020-12] interface for the contract
  */
 export function contractsGetInterface(
-  address: string | null,
+  address: string,
   opts?: Oazapfts.RequestOpts
 ) {
   return oazapfts.ok(
     oazapfts.fetchJson<{
       status: 200;
       data: ContractInterface;
-    }>(`/v1/contracts/${address}/interface`, {
+    }>(`/v1/contracts/${encodeURIComponent(address)}/interface`, {
       ...opts,
     })
   );
@@ -3287,7 +3376,7 @@ export function contractsGetInterface(
  * Get contract entrypoints
  */
 export function contractsGetEntrypoints(
-  address: string | null,
+  address: string,
   {
     all,
     json,
@@ -3306,8 +3395,8 @@ export function contractsGetEntrypoints(
       status: 200;
       data: Entrypoint[];
     }>(
-      `/v1/contracts/${address}/entrypoints${QS.query(
-        QS.form({
+      `/v1/contracts/${encodeURIComponent(address)}/entrypoints${QS.query(
+        QS.explode({
           all,
           json,
           micheline,
@@ -3324,8 +3413,8 @@ export function contractsGetEntrypoints(
  * Get entrypoint by name
  */
 export function contractsGetEntrypointByName(
-  address: string | null,
-  name: string | null,
+  address: string,
+  name: string,
   {
     json,
     micheline,
@@ -3342,8 +3431,10 @@ export function contractsGetEntrypointByName(
       status: 200;
       data: Entrypoint;
     }>(
-      `/v1/contracts/${address}/entrypoints/${name}${QS.query(
-        QS.form({
+      `/v1/contracts/${encodeURIComponent(
+        address
+      )}/entrypoints/${encodeURIComponent(name)}${QS.query(
+        QS.explode({
           json,
           micheline,
           michelson,
@@ -3359,7 +3450,7 @@ export function contractsGetEntrypointByName(
  * Get contract views
  */
 export function contractsGetContractViews(
-  address: string | null,
+  address: string,
   {
     json,
     micheline,
@@ -3376,8 +3467,8 @@ export function contractsGetContractViews(
       status: 200;
       data: ContractView[];
     }>(
-      `/v1/contracts/${address}/views${QS.query(
-        QS.form({
+      `/v1/contracts/${encodeURIComponent(address)}/views${QS.query(
+        QS.explode({
           json,
           micheline,
           michelson,
@@ -3393,8 +3484,8 @@ export function contractsGetContractViews(
  * Get view by name
  */
 export function contractsGetContractViewByName(
-  address: string | null,
-  name: string | null,
+  address: string,
+  name: string,
   {
     json,
     micheline,
@@ -3411,8 +3502,10 @@ export function contractsGetContractViewByName(
       status: 200;
       data: ContractView;
     }>(
-      `/v1/contracts/${address}/views/${name}${QS.query(
-        QS.form({
+      `/v1/contracts/${encodeURIComponent(address)}/views/${encodeURIComponent(
+        name
+      )}${QS.query(
+        QS.explode({
           json,
           micheline,
           michelson,
@@ -3428,8 +3521,8 @@ export function contractsGetContractViewByName(
  * Build entrypoint parameters
  */
 export function contractsBuildEntrypointParametersGet(
-  address: string | null,
-  name: string | null,
+  address: string,
+  name: string,
   {
     value,
   }: {
@@ -3442,8 +3535,10 @@ export function contractsBuildEntrypointParametersGet(
       status: 200;
       data: Blob;
     }>(
-      `/v1/contracts/${address}/entrypoints/${name}/build${QS.query(
-        QS.form({
+      `/v1/contracts/${encodeURIComponent(
+        address
+      )}/entrypoints/${encodeURIComponent(name)}/build${QS.query(
+        QS.explode({
           value,
         })
       )}`,
@@ -3457,8 +3552,8 @@ export function contractsBuildEntrypointParametersGet(
  * Build entrypoint parameters
  */
 export function contractsBuildEntrypointParametersPost(
-  address: string | null,
-  name: string | null,
+  address: string,
+  name: string,
   body: any,
   opts?: Oazapfts.RequestOpts
 ) {
@@ -3467,7 +3562,9 @@ export function contractsBuildEntrypointParametersPost(
       status: 200;
       data: Blob;
     }>(
-      `/v1/contracts/${address}/entrypoints/${name}/build`,
+      `/v1/contracts/${encodeURIComponent(
+        address
+      )}/entrypoints/${encodeURIComponent(name)}/build`,
       oazapfts.json({
         ...opts,
         method: 'POST',
@@ -3480,7 +3577,7 @@ export function contractsBuildEntrypointParametersPost(
  * Get contract storage
  */
 export function contractsGetStorage(
-  address: string | null,
+  address: string,
   {
     level,
     path,
@@ -3495,8 +3592,8 @@ export function contractsGetStorage(
       status: 200;
       data: Blob;
     }>(
-      `/v1/contracts/${address}/storage${QS.query(
-        QS.form({
+      `/v1/contracts/${encodeURIComponent(address)}/storage${QS.query(
+        QS.explode({
           level,
           path,
         })
@@ -3511,7 +3608,7 @@ export function contractsGetStorage(
  * Get contract storage schema
  */
 export function contractsGetStorageSchema(
-  address: string | null,
+  address: string,
   {
     level,
   }: {
@@ -3524,8 +3621,8 @@ export function contractsGetStorageSchema(
       status: 200;
       data: Blob;
     }>(
-      `/v1/contracts/${address}/storage/schema${QS.query(
-        QS.form({
+      `/v1/contracts/${encodeURIComponent(address)}/storage/schema${QS.query(
+        QS.explode({
           level,
         })
       )}`,
@@ -3539,7 +3636,7 @@ export function contractsGetStorageSchema(
  * Get contract storage history
  */
 export function contractsGetStorageHistory(
-  address: string | null,
+  address: string,
   {
     lastId,
     limit,
@@ -3554,8 +3651,8 @@ export function contractsGetStorageHistory(
       status: 200;
       data: StorageRecord[];
     }>(
-      `/v1/contracts/${address}/storage/history${QS.query(
-        QS.form({
+      `/v1/contracts/${encodeURIComponent(address)}/storage/history${QS.query(
+        QS.explode({
           lastId,
           limit,
         })
@@ -3570,7 +3667,7 @@ export function contractsGetStorageHistory(
  * Get raw contract storage
  */
 export function contractsGetRawStorage(
-  address: string | null,
+  address: string,
   {
     level,
   }: {
@@ -3583,8 +3680,8 @@ export function contractsGetRawStorage(
       status: 200;
       data: IMicheline;
     }>(
-      `/v1/contracts/${address}/storage/raw${QS.query(
-        QS.form({
+      `/v1/contracts/${encodeURIComponent(address)}/storage/raw${QS.query(
+        QS.explode({
           level,
         })
       )}`,
@@ -3598,7 +3695,7 @@ export function contractsGetRawStorage(
  * Get raw contract storage schema
  */
 export function contractsGetRawStorageSchema(
-  address: string | null,
+  address: string,
   {
     level,
   }: {
@@ -3611,8 +3708,10 @@ export function contractsGetRawStorageSchema(
       status: 200;
       data: IMicheline;
     }>(
-      `/v1/contracts/${address}/storage/raw/schema${QS.query(
-        QS.form({
+      `/v1/contracts/${encodeURIComponent(
+        address
+      )}/storage/raw/schema${QS.query(
+        QS.explode({
           level,
         })
       )}`,
@@ -3626,7 +3725,7 @@ export function contractsGetRawStorageSchema(
  * Get raw contract storage history
  */
 export function contractsGetRawStorageHistory(
-  address: string | null,
+  address: string,
   {
     lastId,
     limit,
@@ -3641,8 +3740,10 @@ export function contractsGetRawStorageHistory(
       status: 200;
       data: StorageRecord[];
     }>(
-      `/v1/contracts/${address}/storage/raw/history${QS.query(
-        QS.form({
+      `/v1/contracts/${encodeURIComponent(
+        address
+      )}/storage/raw/history${QS.query(
+        QS.explode({
           lastId,
           limit,
         })
@@ -3657,7 +3758,7 @@ export function contractsGetRawStorageHistory(
  * Get contract bigmaps
  */
 export function contractsGetBigMaps(
-  address: string | null,
+  address: string,
   {
     tags,
     select,
@@ -3680,8 +3781,8 @@ export function contractsGetBigMaps(
       status: 200;
       data: BigMap[];
     }>(
-      `/v1/contracts/${address}/bigmaps${QS.query(
-        QS.form({
+      `/v1/contracts/${encodeURIComponent(address)}/bigmaps${QS.query(
+        QS.explode({
           limit,
           micheline,
           ...QueryParamsParsers.queryParameter('tags', tags),
@@ -3700,8 +3801,8 @@ export function contractsGetBigMaps(
  * Get bigmap by name
  */
 export function contractsGetBigMapByName(
-  address: string | null,
-  name: string | null,
+  address: string,
+  name: string,
   {
     micheline,
   }: {
@@ -3714,8 +3815,10 @@ export function contractsGetBigMapByName(
       status: 200;
       data: BigMap;
     }>(
-      `/v1/contracts/${address}/bigmaps/${name}${QS.query(
-        QS.form({
+      `/v1/contracts/${encodeURIComponent(
+        address
+      )}/bigmaps/${encodeURIComponent(name)}${QS.query(
+        QS.explode({
           micheline,
         })
       )}`,
@@ -3729,8 +3832,8 @@ export function contractsGetBigMapByName(
  * Get bigmap keys
  */
 export function contractsGetBigMapByNameKeys(
-  address: string | null,
-  name: string | null,
+  address: string,
+  name: string,
   {
     active,
     key,
@@ -3759,8 +3862,10 @@ export function contractsGetBigMapByNameKeys(
       status: 200;
       data: BigMapKey[];
     }>(
-      `/v1/contracts/${address}/bigmaps/${name}/keys${QS.query(
-        QS.form({
+      `/v1/contracts/${encodeURIComponent(
+        address
+      )}/bigmaps/${encodeURIComponent(name)}/keys${QS.query(
+        QS.explode({
           active,
           limit,
           micheline,
@@ -3782,9 +3887,9 @@ export function contractsGetBigMapByNameKeys(
  * Get bigmap key
  */
 export function contractsGetKey(
-  address: string | null,
-  name: string | null,
-  key: string | null,
+  address: string,
+  name: string,
+  key: string,
   {
     micheline,
   }: {
@@ -3797,8 +3902,12 @@ export function contractsGetKey(
       status: 200;
       data: BigMapKey;
     }>(
-      `/v1/contracts/${address}/bigmaps/${name}/keys/${key}${QS.query(
-        QS.form({
+      `/v1/contracts/${encodeURIComponent(
+        address
+      )}/bigmaps/${encodeURIComponent(name)}/keys/${encodeURIComponent(
+        key
+      )}${QS.query(
+        QS.explode({
           micheline,
         })
       )}`,
@@ -3812,9 +3921,9 @@ export function contractsGetKey(
  * Get bigmap key updates
  */
 export function contractsGetKeyUpdates(
-  address: string | null,
-  name: string | null,
-  key: string | null,
+  address: string,
+  name: string,
+  key: string,
   {
     sort,
     offset,
@@ -3833,8 +3942,12 @@ export function contractsGetKeyUpdates(
       status: 200;
       data: BigMapKeyUpdate[];
     }>(
-      `/v1/contracts/${address}/bigmaps/${name}/keys/${key}/updates${QS.query(
-        QS.form({
+      `/v1/contracts/${encodeURIComponent(
+        address
+      )}/bigmaps/${encodeURIComponent(name)}/keys/${encodeURIComponent(
+        key
+      )}/updates${QS.query(
+        QS.explode({
           limit,
           micheline,
           ...QueryParamsParsers.queryParameter('sort', sort),
@@ -3851,8 +3964,8 @@ export function contractsGetKeyUpdates(
  * Get historical keys
  */
 export function contractsGetHistoricalKeys(
-  address: string | null,
-  name: string | null,
+  address: string,
+  name: string,
   level: number,
   {
     active,
@@ -3880,8 +3993,12 @@ export function contractsGetHistoricalKeys(
       status: 200;
       data: BigMapKeyHistorical[];
     }>(
-      `/v1/contracts/${address}/bigmaps/${name}/historical_keys/${level}${QS.query(
-        QS.form({
+      `/v1/contracts/${encodeURIComponent(
+        address
+      )}/bigmaps/${encodeURIComponent(
+        name
+      )}/historical_keys/${encodeURIComponent(level)}${QS.query(
+        QS.explode({
           active,
           limit,
           micheline,
@@ -3902,10 +4019,10 @@ export function contractsGetHistoricalKeys(
  * Get historical key
  */
 export function contractsGetKey2(
-  address: string | null,
-  name: string | null,
+  address: string,
+  name: string,
   level: number,
-  key: string | null,
+  key: string,
   {
     micheline,
   }: {
@@ -3918,8 +4035,14 @@ export function contractsGetKey2(
       status: 200;
       data: BigMapKeyHistorical;
     }>(
-      `/v1/contracts/${address}/bigmaps/${name}/historical_keys/${level}/${key}${QS.query(
-        QS.form({
+      `/v1/contracts/${encodeURIComponent(
+        address
+      )}/bigmaps/${encodeURIComponent(
+        name
+      )}/historical_keys/${encodeURIComponent(level)}/${encodeURIComponent(
+        key
+      )}${QS.query(
+        QS.explode({
           micheline,
         })
       )}`,
@@ -3969,7 +4092,7 @@ export function cyclesGet(
       data: Cycle[];
     }>(
       `/v1/cycles${QS.query(
-        QS.form({
+        QS.explode({
           limit,
           quote,
           ...QueryParamsParsers.queryParameter('snapshotIndex', snapshotIndex),
@@ -4001,8 +4124,8 @@ export function cyclesGetByIndex(
       status: 200;
       data: Cycle;
     }>(
-      `/v1/cycles/${index}${QS.query(
-        QS.form({
+      `/v1/cycles/${encodeURIComponent(index)}${QS.query(
+        QS.explode({
           quote,
         })
       )}`,
@@ -4039,7 +4162,7 @@ export function delegatesGet(
       data: Delegate[];
     }>(
       `/v1/delegates${QS.query(
-        QS.form({
+        QS.explode({
           limit,
           ...QueryParamsParsers.queryParameter('active', active),
           ...QueryParamsParsers.queryParameter('lastActivity', lastActivity),
@@ -4071,7 +4194,7 @@ export function delegatesGetCount(
       data: number;
     }>(
       `/v1/delegates/count${QS.query(
-        QS.form({
+        QS.explode({
           ...QueryParamsParsers.queryParameter('active', active),
         })
       )}`,
@@ -4085,16 +4208,124 @@ export function delegatesGetCount(
  * Get delegate by address
  */
 export function delegatesGetByAddress(
-  address: string | null,
+  address: string,
   opts?: Oazapfts.RequestOpts
 ) {
   return oazapfts.ok(
     oazapfts.fetchJson<{
       status: 200;
       data: Delegate;
-    }>(`/v1/delegates/${address}`, {
+    }>(`/v1/delegates/${encodeURIComponent(address)}`, {
       ...opts,
     })
+  );
+}
+/**
+ * Get contract events count
+ */
+export function eventsGetContractEventsCount(
+  {
+    id,
+    level,
+    timestamp,
+    contract,
+    codeHash,
+    tag,
+    payload,
+    transactionId,
+  }: {
+    id?: Int32Parameter | null;
+    level?: Int32Parameter | null;
+    timestamp?: TimestampParameter | null;
+    contract?: AccountParameter | null;
+    codeHash?: Int32Parameter | null;
+    tag?: StringParameter | null;
+    payload?: JsonParameter | null;
+    transactionId?: Int64Parameter | null;
+  } = {},
+  opts?: Oazapfts.RequestOpts
+) {
+  return oazapfts.ok(
+    oazapfts.fetchJson<{
+      status: 200;
+      data: number;
+    }>(
+      `/v1/contracts/events/count${QS.query(
+        QS.explode({
+          ...QueryParamsParsers.queryParameter('id', id),
+          ...QueryParamsParsers.queryParameter('level', level),
+          ...QueryParamsParsers.queryParameter('timestamp', timestamp),
+          ...QueryParamsParsers.queryParameter('contract', contract),
+          ...QueryParamsParsers.queryParameter('codeHash', codeHash),
+          ...QueryParamsParsers.queryParameter('tag', tag),
+          ...QueryParamsParsers.jsonParameter('payload', payload),
+          ...QueryParamsParsers.queryParameter('transactionId', transactionId),
+        })
+      )}`,
+      {
+        ...opts,
+      }
+    )
+  );
+}
+/**
+ * Get contract events
+ */
+export function eventsGetContractEvents(
+  {
+    id,
+    level,
+    timestamp,
+    contract,
+    codeHash,
+    tag,
+    payload,
+    transactionId,
+    sort,
+    offset,
+    limit,
+    select,
+  }: {
+    id?: Int32Parameter | null;
+    level?: Int32Parameter | null;
+    timestamp?: TimestampParameter | null;
+    contract?: AccountParameter | null;
+    codeHash?: Int32Parameter | null;
+    tag?: StringParameter | null;
+    payload?: JsonParameter | null;
+    transactionId?: Int64Parameter | null;
+    sort?: SortParameter | null;
+    offset?: OffsetParameter | null;
+    limit?: number;
+    select?: SelectionParameter | null;
+  } = {},
+  opts?: Oazapfts.RequestOpts
+) {
+  return oazapfts.ok(
+    oazapfts.fetchJson<{
+      status: 200;
+      data: ContractEvent[];
+    }>(
+      `/v1/contracts/events${QS.query(
+        QS.explode({
+          limit,
+          ...QueryParamsParsers.queryParameter('id', id),
+          ...QueryParamsParsers.queryParameter('level', level),
+          ...QueryParamsParsers.queryParameter('timestamp', timestamp),
+          ...QueryParamsParsers.queryParameter('contract', contract),
+          ...QueryParamsParsers.queryParameter('codeHash', codeHash),
+          ...QueryParamsParsers.queryParameter('tag', tag),
+          ...QueryParamsParsers.jsonParameter('payload', payload),
+          ...QueryParamsParsers.queryParameter('transactionId', transactionId),
+          ...QueryParamsParsers.queryParameter('sort', sort),
+          ...QueryParamsParsers.queryParameter('offset', offset),
+          ...QueryParamsParsers.queryParameter('select', select),
+        })
+      )}`,
+      {
+        ...opts,
+      }
+    )
   );
 }
 /**
@@ -4108,6 +4339,111 @@ export function headGet(opts?: Oazapfts.RequestOpts) {
     }>('/v1/head', {
       ...opts,
     })
+  );
+}
+/**
+ * Get tx rollup remove commitment
+ */
+export function operationsGetTxRollupRemoveCommitmentOps(
+  {
+    sender,
+    rollup,
+    level,
+    timestamp,
+    status,
+    select,
+    sort,
+    offset,
+    limit,
+    quote,
+  }: {
+    sender?: AccountParameter | null;
+    rollup?: AccountParameter | null;
+    level?: Int32Parameter | null;
+    timestamp?: DateTimeParameter | null;
+    status?: OperationStatusParameter | null;
+    select?: SelectParameter | null;
+    sort?: SortParameter | null;
+    offset?: OffsetParameter | null;
+    limit?: number;
+    quote?: Symbols;
+  } = {},
+  opts?: Oazapfts.RequestOpts
+) {
+  return oazapfts.ok(
+    oazapfts.fetchJson<{
+      status: 200;
+      data: TxRollupRemoveCommitmentOperation[];
+    }>(
+      `/v1/operations/tx_rollup_remove_commitment${QS.query(
+        QS.explode({
+          limit,
+          quote,
+          ...QueryParamsParsers.queryParameter('sender', sender),
+          ...QueryParamsParsers.queryParameter('rollup', rollup),
+          ...QueryParamsParsers.queryParameter('level', level),
+          ...QueryParamsParsers.queryParameter('timestamp', timestamp),
+          ...QueryParamsParsers.queryParameter('status', status),
+          ...QueryParamsParsers.queryParameter('select', select),
+          ...QueryParamsParsers.queryParameter('sort', sort),
+          ...QueryParamsParsers.queryParameter('offset', offset),
+        })
+      )}`,
+      {
+        ...opts,
+      }
+    )
+  );
+}
+/**
+ * Get tx rollup remove commitment by hash
+ */
+export function operationsGetTxRollupRemoveCommitmentOpsByHash(
+  hash: string,
+  {
+    quote,
+  }: {
+    quote?: Symbols;
+  } = {},
+  opts?: Oazapfts.RequestOpts
+) {
+  return oazapfts.ok(
+    oazapfts.fetchJson<{
+      status: 200;
+      data: TxRollupRemoveCommitmentOperation[];
+    }>(
+      `/v1/operations/tx_rollup_remove_commitment/${encodeURIComponent(
+        hash
+      )}${QS.query(
+        QS.explode({
+          quote,
+        })
+      )}`,
+      {
+        ...opts,
+      }
+    )
+  );
+}
+/**
+ * Get tx rollup remove commitment status
+ */
+export function operationsGetTxRollupRemoveCommitmentStatus(
+  hash: string,
+  opts?: Oazapfts.RequestOpts
+) {
+  return oazapfts.ok(
+    oazapfts.fetchJson<{
+      status: 200;
+      data: boolean | null;
+    }>(
+      `/v1/operations/tx_rollup_remove_commitment/${encodeURIComponent(
+        hash
+      )}/status`,
+      {
+        ...opts,
+      }
+    )
   );
 }
 /**
@@ -4129,7 +4465,7 @@ export function operationsGetTxRollupRemoveCommitmentOpsCount(
       data: number;
     }>(
       `/v1/operations/tx_rollup_remove_commitment/count${QS.query(
-        QS.form({
+        QS.explode({
           ...QueryParamsParsers.queryParameter('level', level),
           ...QueryParamsParsers.queryParameter('timestamp', timestamp),
         })
@@ -4175,7 +4511,7 @@ export function operationsGetTxRollupReturnBondOps(
       data: TxRollupReturnBondOperation[];
     }>(
       `/v1/operations/tx_rollup_return_bond${QS.query(
-        QS.form({
+        QS.explode({
           limit,
           quote,
           ...QueryParamsParsers.queryParameter('sender', sender),
@@ -4198,7 +4534,7 @@ export function operationsGetTxRollupReturnBondOps(
  * Get tx rollup return bond by hash
  */
 export function operationsGetTxRollupReturnBondOpsByHash(
-  hash: string | null,
+  hash: string,
   {
     quote,
   }: {
@@ -4211,8 +4547,10 @@ export function operationsGetTxRollupReturnBondOpsByHash(
       status: 200;
       data: TxRollupReturnBondOperation[];
     }>(
-      `/v1/operations/tx_rollup_return_bond/${hash}${QS.query(
-        QS.form({
+      `/v1/operations/tx_rollup_return_bond/${encodeURIComponent(
+        hash
+      )}${QS.query(
+        QS.explode({
           quote,
         })
       )}`,
@@ -4226,16 +4564,19 @@ export function operationsGetTxRollupReturnBondOpsByHash(
  * Get tx rollup return bond status
  */
 export function operationsGetTxRollupReturnBondStatus(
-  hash: string | null,
+  hash: string,
   opts?: Oazapfts.RequestOpts
 ) {
   return oazapfts.ok(
     oazapfts.fetchJson<{
       status: 200;
       data: boolean | null;
-    }>(`/v1/operations/tx_rollup_return_bond/${hash}/status`, {
-      ...opts,
-    })
+    }>(
+      `/v1/operations/tx_rollup_return_bond/${encodeURIComponent(hash)}/status`,
+      {
+        ...opts,
+      }
+    )
   );
 }
 /**
@@ -4257,7 +4598,7 @@ export function operationsGetTxRollupReturnBondOpsCount(
       data: number;
     }>(
       `/v1/operations/tx_rollup_return_bond/count${QS.query(
-        QS.form({
+        QS.explode({
           ...QueryParamsParsers.queryParameter('level', level),
           ...QueryParamsParsers.queryParameter('timestamp', timestamp),
         })
@@ -4303,7 +4644,7 @@ export function operationsGetTxRollupSubmitBatchOps(
       data: TxRollupSubmitBatchOperation[];
     }>(
       `/v1/operations/tx_rollup_submit_batch${QS.query(
-        QS.form({
+        QS.explode({
           limit,
           quote,
           ...QueryParamsParsers.queryParameter('sender', sender),
@@ -4326,7 +4667,7 @@ export function operationsGetTxRollupSubmitBatchOps(
  * Get tx rollup submit batch by hash
  */
 export function operationsGetTxRollupSubmitBatchOpsByHash(
-  hash: string | null,
+  hash: string,
   {
     quote,
   }: {
@@ -4339,8 +4680,10 @@ export function operationsGetTxRollupSubmitBatchOpsByHash(
       status: 200;
       data: TxRollupSubmitBatchOperation[];
     }>(
-      `/v1/operations/tx_rollup_submit_batch/${hash}${QS.query(
-        QS.form({
+      `/v1/operations/tx_rollup_submit_batch/${encodeURIComponent(
+        hash
+      )}${QS.query(
+        QS.explode({
           quote,
         })
       )}`,
@@ -4354,16 +4697,21 @@ export function operationsGetTxRollupSubmitBatchOpsByHash(
  * Get tx rollup submit batch status
  */
 export function operationsGetTxRollupSubmitBatchStatus(
-  hash: string | null,
+  hash: string,
   opts?: Oazapfts.RequestOpts
 ) {
   return oazapfts.ok(
     oazapfts.fetchJson<{
       status: 200;
       data: boolean | null;
-    }>(`/v1/operations/tx_rollup_submit_batch/${hash}/status`, {
-      ...opts,
-    })
+    }>(
+      `/v1/operations/tx_rollup_submit_batch/${encodeURIComponent(
+        hash
+      )}/status`,
+      {
+        ...opts,
+      }
+    )
   );
 }
 /**
@@ -4385,7 +4733,121 @@ export function operationsGetTxRollupSubmitBatchOpsCount(
       data: number;
     }>(
       `/v1/operations/tx_rollup_submit_batch/count${QS.query(
-        QS.form({
+        QS.explode({
+          ...QueryParamsParsers.queryParameter('level', level),
+          ...QueryParamsParsers.queryParameter('timestamp', timestamp),
+        })
+      )}`,
+      {
+        ...opts,
+      }
+    )
+  );
+}
+/**
+ * Get increase paid storage
+ */
+export function operationsGetIncreasePaidStorageOps(
+  {
+    sender,
+    contract,
+    level,
+    timestamp,
+    status,
+    select,
+    sort,
+    offset,
+    limit,
+    quote,
+  }: {
+    sender?: AccountParameter | null;
+    contract?: AccountParameter | null;
+    level?: Int32Parameter | null;
+    timestamp?: DateTimeParameter | null;
+    status?: OperationStatusParameter | null;
+    select?: SelectParameter | null;
+    sort?: SortParameter | null;
+    offset?: OffsetParameter | null;
+    limit?: number;
+    quote?: Symbols;
+  } = {},
+  opts?: Oazapfts.RequestOpts
+) {
+  return oazapfts.ok(
+    oazapfts.fetchJson<{
+      status: 200;
+      data: IncreasePaidStorageOperation[];
+    }>(
+      `/v1/operations/increase_paid_storage${QS.query(
+        QS.explode({
+          limit,
+          quote,
+          ...QueryParamsParsers.queryParameter('sender', sender),
+          ...QueryParamsParsers.queryParameter('contract', contract),
+          ...QueryParamsParsers.queryParameter('level', level),
+          ...QueryParamsParsers.queryParameter('timestamp', timestamp),
+          ...QueryParamsParsers.queryParameter('status', status),
+          ...QueryParamsParsers.queryParameter('select', select),
+          ...QueryParamsParsers.queryParameter('sort', sort),
+          ...QueryParamsParsers.queryParameter('offset', offset),
+        })
+      )}`,
+      {
+        ...opts,
+      }
+    )
+  );
+}
+/**
+ * Get increase paid storage by hash
+ */
+export function operationsGetIncreasePaidStorageByHash(
+  hash: string,
+  {
+    quote,
+  }: {
+    quote?: Symbols;
+  } = {},
+  opts?: Oazapfts.RequestOpts
+) {
+  return oazapfts.ok(
+    oazapfts.fetchJson<{
+      status: 200;
+      data: IncreasePaidStorageOperation[];
+    }>(
+      `/v1/operations/increase_paid_storage/${encodeURIComponent(
+        hash
+      )}${QS.query(
+        QS.explode({
+          quote,
+        })
+      )}`,
+      {
+        ...opts,
+      }
+    )
+  );
+}
+/**
+ * Get increase paid storage count
+ */
+export function operationsGetIncreasePaidStorageCount(
+  {
+    level,
+    timestamp,
+  }: {
+    level?: Int32Parameter | null;
+    timestamp?: DateTimeParameter | null;
+  } = {},
+  opts?: Oazapfts.RequestOpts
+) {
+  return oazapfts.ok(
+    oazapfts.fetchJson<{
+      status: 200;
+      data: number;
+    }>(
+      `/v1/operations/increase_paid_storage/count${QS.query(
+        QS.explode({
           ...QueryParamsParsers.queryParameter('level', level),
           ...QueryParamsParsers.queryParameter('timestamp', timestamp),
         })
@@ -4417,7 +4879,7 @@ export function operationsGetMigrations(
     account?: AccountParameter | null;
     kind?: MigrationKindParameter | null;
     balanceChange?: Int64Parameter | null;
-    id?: Int32Parameter | null;
+    id?: Int64Parameter | null;
     level?: Int32Parameter | null;
     timestamp?: DateTimeParameter | null;
     select?: SelectParameter | null;
@@ -4435,7 +4897,7 @@ export function operationsGetMigrations(
       data: MigrationOperation[];
     }>(
       `/v1/operations/migrations${QS.query(
-        QS.form({
+        QS.explode({
           limit,
           micheline,
           quote,
@@ -4475,8 +4937,8 @@ export function operationsGetMigrationById(
       status: 200;
       data: MigrationOperation;
     }>(
-      `/v1/operations/migrations/${id}${QS.query(
-        QS.form({
+      `/v1/operations/migrations/${encodeURIComponent(id)}${QS.query(
+        QS.explode({
           micheline,
           quote,
         })
@@ -4506,7 +4968,7 @@ export function operationsGetMigrationsCount(
       data: number;
     }>(
       `/v1/operations/migrations/count${QS.query(
-        QS.form({
+        QS.explode({
           ...QueryParamsParsers.queryParameter('level', level),
           ...QueryParamsParsers.queryParameter('timestamp', timestamp),
         })
@@ -4548,7 +5010,7 @@ export function operationsGetRevelationPenalties(
       data: RevelationPenaltyOperation[];
     }>(
       `/v1/operations/revelation_penalties${QS.query(
-        QS.form({
+        QS.explode({
           limit,
           quote,
           ...QueryParamsParsers.queryParameter('baker', baker),
@@ -4582,8 +5044,8 @@ export function operationsGetRevelationPenaltyById(
       status: 200;
       data: RevelationPenaltyOperation;
     }>(
-      `/v1/operations/revelation_penalties/${id}${QS.query(
-        QS.form({
+      `/v1/operations/revelation_penalties/${encodeURIComponent(id)}${QS.query(
+        QS.explode({
           quote,
         })
       )}`,
@@ -4612,7 +5074,7 @@ export function operationsGetRevelationPenaltiesCount(
       data: number;
     }>(
       `/v1/operations/revelation_penalties/count${QS.query(
-        QS.form({
+        QS.explode({
           ...QueryParamsParsers.queryParameter('level', level),
           ...QueryParamsParsers.queryParameter('timestamp', timestamp),
         })
@@ -4666,7 +5128,7 @@ export function operationsGetBaking(
       data: BakingOperation[];
     }>(
       `/v1/operations/baking${QS.query(
-        QS.form({
+        QS.explode({
           limit,
           quote,
           ...QueryParamsParsers.queryParameter('baker', baker),
@@ -4703,8 +5165,8 @@ export function operationsGetBakingById(
       status: 200;
       data: BakingOperation;
     }>(
-      `/v1/operations/baking/${id}${QS.query(
-        QS.form({
+      `/v1/operations/baking/${encodeURIComponent(id)}${QS.query(
+        QS.explode({
           quote,
         })
       )}`,
@@ -4733,7 +5195,7 @@ export function operationsGetBakingCount(
       data: number;
     }>(
       `/v1/operations/baking/count${QS.query(
-        QS.form({
+        QS.explode({
           ...QueryParamsParsers.queryParameter('level', level),
           ...QueryParamsParsers.queryParameter('timestamp', timestamp),
         })
@@ -4775,7 +5237,7 @@ export function operationsGetEndorsingRewards(
       data: EndorsingRewardOperation[];
     }>(
       `/v1/operations/endorsing_rewards${QS.query(
-        QS.form({
+        QS.explode({
           limit,
           quote,
           ...QueryParamsParsers.queryParameter('baker', baker),
@@ -4809,8 +5271,8 @@ export function operationsGetEndorsingRewardById(
       status: 200;
       data: EndorsingRewardOperation;
     }>(
-      `/v1/operations/endorsing_rewards/${id}${QS.query(
-        QS.form({
+      `/v1/operations/endorsing_rewards/${encodeURIComponent(id)}${QS.query(
+        QS.explode({
           quote,
         })
       )}`,
@@ -4839,7 +5301,7 @@ export function operationsGetEndorsingRewardsCount(
       data: number;
     }>(
       `/v1/operations/endorsing_rewards/count${QS.query(
-        QS.form({
+        QS.explode({
           ...QueryParamsParsers.queryParameter('level', level),
           ...QueryParamsParsers.queryParameter('timestamp', timestamp),
         })
@@ -4854,7 +5316,7 @@ export function operationsGetEndorsingRewardsCount(
  * Get operations by hash
  */
 export function operationsGetByHash(
-  hash: string | null,
+  hash: string,
   {
     micheline,
     quote,
@@ -4869,8 +5331,8 @@ export function operationsGetByHash(
       status: 200;
       data: Operation[];
     }>(
-      `/v1/operations/${hash}${QS.query(
-        QS.form({
+      `/v1/operations/${encodeURIComponent(hash)}${QS.query(
+        QS.explode({
           micheline,
           quote,
         })
@@ -4885,7 +5347,7 @@ export function operationsGetByHash(
  * Get operations by hash and counter
  */
 export function operationsGetByHashCounter(
-  hash: string | null,
+  hash: string,
   counter: number,
   {
     micheline,
@@ -4901,8 +5363,10 @@ export function operationsGetByHashCounter(
       status: 200;
       data: Operation[];
     }>(
-      `/v1/operations/${hash}/${counter}${QS.query(
-        QS.form({
+      `/v1/operations/${encodeURIComponent(hash)}/${encodeURIComponent(
+        counter
+      )}${QS.query(
+        QS.explode({
           micheline,
           quote,
         })
@@ -4917,7 +5381,7 @@ export function operationsGetByHashCounter(
  * Get operations by hash, counter and nonce
  */
 export function operationsGetByHashCounterNonce(
-  hash: string | null,
+  hash: string,
   counter: number,
   nonce: number,
   {
@@ -4934,8 +5398,10 @@ export function operationsGetByHashCounterNonce(
       status: 200;
       data: Operation[];
     }>(
-      `/v1/operations/${hash}/${counter}/${nonce}${QS.query(
-        QS.form({
+      `/v1/operations/${encodeURIComponent(hash)}/${encodeURIComponent(
+        counter
+      )}/${encodeURIComponent(nonce)}${QS.query(
+        QS.explode({
           micheline,
           quote,
         })
@@ -4949,15 +5415,12 @@ export function operationsGetByHashCounterNonce(
 /**
  * Get operation status
  */
-export function operationsGetStatus(
-  hash: string | null,
-  opts?: Oazapfts.RequestOpts
-) {
+export function operationsGetStatus(hash: string, opts?: Oazapfts.RequestOpts) {
   return oazapfts.ok(
     oazapfts.fetchJson<{
       status: 200;
       data: boolean | null;
-    }>(`/v1/operations/${hash}/status`, {
+    }>(`/v1/operations/${encodeURIComponent(hash)}/status`, {
       ...opts,
     })
   );
@@ -4993,7 +5456,7 @@ export function operationsGetEndorsements(
       data: EndorsementOperation[];
     }>(
       `/v1/operations/endorsements${QS.query(
-        QS.form({
+        QS.explode({
           limit,
           quote,
           ...QueryParamsParsers.queryParameter('delegate', delegate),
@@ -5014,7 +5477,7 @@ export function operationsGetEndorsements(
  * Get endorsement by hash
  */
 export function operationsGetEndorsementByHash(
-  hash: string | null,
+  hash: string,
   {
     quote,
   }: {
@@ -5027,8 +5490,8 @@ export function operationsGetEndorsementByHash(
       status: 200;
       data: EndorsementOperation[];
     }>(
-      `/v1/operations/endorsements/${hash}${QS.query(
-        QS.form({
+      `/v1/operations/endorsements/${encodeURIComponent(hash)}${QS.query(
+        QS.explode({
           quote,
         })
       )}`,
@@ -5057,7 +5520,7 @@ export function operationsGetEndorsementsCount(
       data: number;
     }>(
       `/v1/operations/endorsements/count${QS.query(
-        QS.form({
+        QS.explode({
           ...QueryParamsParsers.queryParameter('level', level),
           ...QueryParamsParsers.queryParameter('timestamp', timestamp),
         })
@@ -5099,7 +5562,7 @@ export function operationsGetPreendorsements(
       data: PreendorsementOperation[];
     }>(
       `/v1/operations/preendorsements${QS.query(
-        QS.form({
+        QS.explode({
           limit,
           quote,
           ...QueryParamsParsers.queryParameter('delegate', delegate),
@@ -5120,7 +5583,7 @@ export function operationsGetPreendorsements(
  * Get preendorsement by hash
  */
 export function operationsGetPreendorsementByHash(
-  hash: string | null,
+  hash: string,
   {
     quote,
   }: {
@@ -5133,8 +5596,8 @@ export function operationsGetPreendorsementByHash(
       status: 200;
       data: PreendorsementOperation[];
     }>(
-      `/v1/operations/preendorsements/${hash}${QS.query(
-        QS.form({
+      `/v1/operations/preendorsements/${encodeURIComponent(hash)}${QS.query(
+        QS.explode({
           quote,
         })
       )}`,
@@ -5163,7 +5626,7 @@ export function operationsGetPreendorsementsCount(
       data: number;
     }>(
       `/v1/operations/preendorsements/count${QS.query(
-        QS.form({
+        QS.explode({
           ...QueryParamsParsers.queryParameter('level', level),
           ...QueryParamsParsers.queryParameter('timestamp', timestamp),
         })
@@ -5213,7 +5676,7 @@ export function operationsGetBallots(
       data: BallotOperation[];
     }>(
       `/v1/operations/ballots${QS.query(
-        QS.form({
+        QS.explode({
           limit,
           quote,
           ...QueryParamsParsers.queryParameter('delegate', delegate),
@@ -5238,7 +5701,7 @@ export function operationsGetBallots(
  * Get ballot by hash
  */
 export function operationsGetBallotByHash(
-  hash: string | null,
+  hash: string,
   {
     quote,
   }: {
@@ -5251,8 +5714,8 @@ export function operationsGetBallotByHash(
       status: 200;
       data: BallotOperation[];
     }>(
-      `/v1/operations/ballots/${hash}${QS.query(
-        QS.form({
+      `/v1/operations/ballots/${encodeURIComponent(hash)}${QS.query(
+        QS.explode({
           quote,
         })
       )}`,
@@ -5281,7 +5744,7 @@ export function operationsGetBallotsCount(
       data: number;
     }>(
       `/v1/operations/ballots/count${QS.query(
-        QS.form({
+        QS.explode({
           ...QueryParamsParsers.queryParameter('level', level),
           ...QueryParamsParsers.queryParameter('timestamp', timestamp),
         })
@@ -5331,7 +5794,7 @@ export function operationsGetProposals(
       data: ProposalOperation[];
     }>(
       `/v1/operations/proposals${QS.query(
-        QS.form({
+        QS.explode({
           limit,
           quote,
           ...QueryParamsParsers.queryParameter('delegate', delegate),
@@ -5356,7 +5819,7 @@ export function operationsGetProposals(
  * Get proposal by hash
  */
 export function operationsGetProposalByHash(
-  hash: string | null,
+  hash: string,
   {
     quote,
   }: {
@@ -5369,8 +5832,8 @@ export function operationsGetProposalByHash(
       status: 200;
       data: ProposalOperation[];
     }>(
-      `/v1/operations/proposals/${hash}${QS.query(
-        QS.form({
+      `/v1/operations/proposals/${encodeURIComponent(hash)}${QS.query(
+        QS.explode({
           quote,
         })
       )}`,
@@ -5399,7 +5862,7 @@ export function operationsGetProposalsCount(
       data: number;
     }>(
       `/v1/operations/proposals/count${QS.query(
-        QS.form({
+        QS.explode({
           ...QueryParamsParsers.queryParameter('level', level),
           ...QueryParamsParsers.queryParameter('timestamp', timestamp),
         })
@@ -5441,7 +5904,7 @@ export function operationsGetActivations(
       data: ActivationOperation[];
     }>(
       `/v1/operations/activations${QS.query(
-        QS.form({
+        QS.explode({
           limit,
           quote,
           ...QueryParamsParsers.queryParameter('account', account),
@@ -5462,7 +5925,7 @@ export function operationsGetActivations(
  * Get activation by hash
  */
 export function operationsGetActivationByHash(
-  hash: string | null,
+  hash: string,
   {
     quote,
   }: {
@@ -5475,8 +5938,8 @@ export function operationsGetActivationByHash(
       status: 200;
       data: ActivationOperation[];
     }>(
-      `/v1/operations/activations/${hash}${QS.query(
-        QS.form({
+      `/v1/operations/activations/${encodeURIComponent(hash)}${QS.query(
+        QS.explode({
           quote,
         })
       )}`,
@@ -5505,7 +5968,7 @@ export function operationsGetActivationsCount(
       data: number;
     }>(
       `/v1/operations/activations/count${QS.query(
-        QS.form({
+        QS.explode({
           ...QueryParamsParsers.queryParameter('level', level),
           ...QueryParamsParsers.queryParameter('timestamp', timestamp),
         })
@@ -5557,7 +6020,7 @@ export function operationsGetDoubleBaking(
       data: DoubleBakingOperation[];
     }>(
       `/v1/operations/double_baking${QS.query(
-        QS.form({
+        QS.explode({
           limit,
           quote,
           ...QueryParamsParsers.anyofParameter('anyof', anyof),
@@ -5580,7 +6043,7 @@ export function operationsGetDoubleBaking(
  * Get double baking by hash
  */
 export function operationsGetDoubleBakingByHash(
-  hash: string | null,
+  hash: string,
   {
     quote,
   }: {
@@ -5593,8 +6056,8 @@ export function operationsGetDoubleBakingByHash(
       status: 200;
       data: DoubleBakingOperation[];
     }>(
-      `/v1/operations/double_baking/${hash}${QS.query(
-        QS.form({
+      `/v1/operations/double_baking/${encodeURIComponent(hash)}${QS.query(
+        QS.explode({
           quote,
         })
       )}`,
@@ -5623,7 +6086,7 @@ export function operationsGetDoubleBakingCount(
       data: number;
     }>(
       `/v1/operations/double_baking/count${QS.query(
-        QS.form({
+        QS.explode({
           ...QueryParamsParsers.queryParameter('level', level),
           ...QueryParamsParsers.queryParameter('timestamp', timestamp),
         })
@@ -5675,7 +6138,7 @@ export function operationsGetDoubleEndorsing(
       data: DoubleEndorsingOperation[];
     }>(
       `/v1/operations/double_endorsing${QS.query(
-        QS.form({
+        QS.explode({
           limit,
           quote,
           ...QueryParamsParsers.anyofParameter('anyof', anyof),
@@ -5698,7 +6161,7 @@ export function operationsGetDoubleEndorsing(
  * Get double endorsing by hash
  */
 export function operationsGetDoubleEndorsingByHash(
-  hash: string | null,
+  hash: string,
   {
     quote,
   }: {
@@ -5711,8 +6174,8 @@ export function operationsGetDoubleEndorsingByHash(
       status: 200;
       data: DoubleEndorsingOperation[];
     }>(
-      `/v1/operations/double_endorsing/${hash}${QS.query(
-        QS.form({
+      `/v1/operations/double_endorsing/${encodeURIComponent(hash)}${QS.query(
+        QS.explode({
           quote,
         })
       )}`,
@@ -5741,7 +6204,7 @@ export function operationsGetDoubleEndorsingCount(
       data: number;
     }>(
       `/v1/operations/double_endorsing/count${QS.query(
-        QS.form({
+        QS.explode({
           ...QueryParamsParsers.queryParameter('level', level),
           ...QueryParamsParsers.queryParameter('timestamp', timestamp),
         })
@@ -5793,7 +6256,7 @@ export function operationsGetDoublePreendorsing(
       data: DoublePreendorsingOperation[];
     }>(
       `/v1/operations/double_preendorsing${QS.query(
-        QS.form({
+        QS.explode({
           limit,
           quote,
           ...QueryParamsParsers.anyofParameter('anyof', anyof),
@@ -5816,7 +6279,7 @@ export function operationsGetDoublePreendorsing(
  * Get double preendorsing by hash
  */
 export function operationsGetDoublePreendorsingByHash(
-  hash: string | null,
+  hash: string,
   {
     quote,
   }: {
@@ -5829,8 +6292,8 @@ export function operationsGetDoublePreendorsingByHash(
       status: 200;
       data: DoublePreendorsingOperation[];
     }>(
-      `/v1/operations/double_preendorsing/${hash}${QS.query(
-        QS.form({
+      `/v1/operations/double_preendorsing/${encodeURIComponent(hash)}${QS.query(
+        QS.explode({
           quote,
         })
       )}`,
@@ -5859,7 +6322,7 @@ export function operationsGetDoublePreendorsingCount(
       data: number;
     }>(
       `/v1/operations/double_preendorsing/count${QS.query(
-        QS.form({
+        QS.explode({
           ...QueryParamsParsers.queryParameter('level', level),
           ...QueryParamsParsers.queryParameter('timestamp', timestamp),
         })
@@ -5913,7 +6376,7 @@ export function operationsGetNonceRevelations(
       data: NonceRevelationOperation[];
     }>(
       `/v1/operations/nonce_revelations${QS.query(
-        QS.form({
+        QS.explode({
           limit,
           quote,
           ...QueryParamsParsers.anyofParameter('anyof', anyof),
@@ -5937,7 +6400,7 @@ export function operationsGetNonceRevelations(
  * Get nonce revelation by hash
  */
 export function operationsGetNonceRevelationByHash(
-  hash: string | null,
+  hash: string,
   {
     quote,
   }: {
@@ -5950,8 +6413,8 @@ export function operationsGetNonceRevelationByHash(
       status: 200;
       data: NonceRevelationOperation[];
     }>(
-      `/v1/operations/nonce_revelations/${hash}${QS.query(
-        QS.form({
+      `/v1/operations/nonce_revelations/${encodeURIComponent(hash)}${QS.query(
+        QS.explode({
           quote,
         })
       )}`,
@@ -5980,7 +6443,116 @@ export function operationsGetNonceRevelationsCount(
       data: number;
     }>(
       `/v1/operations/nonce_revelations/count${QS.query(
-        QS.form({
+        QS.explode({
+          ...QueryParamsParsers.queryParameter('level', level),
+          ...QueryParamsParsers.queryParameter('timestamp', timestamp),
+        })
+      )}`,
+      {
+        ...opts,
+      }
+    )
+  );
+}
+/**
+ * Get vdf revelations
+ */
+export function operationsGetVdfRevelations(
+  {
+    baker,
+    level,
+    cycle,
+    timestamp,
+    select,
+    sort,
+    offset,
+    limit,
+    quote,
+  }: {
+    baker?: AccountParameter | null;
+    level?: Int32Parameter | null;
+    cycle?: Int32Parameter | null;
+    timestamp?: DateTimeParameter | null;
+    select?: SelectParameter | null;
+    sort?: SortParameter | null;
+    offset?: OffsetParameter | null;
+    limit?: number;
+    quote?: Symbols;
+  } = {},
+  opts?: Oazapfts.RequestOpts
+) {
+  return oazapfts.ok(
+    oazapfts.fetchJson<{
+      status: 200;
+      data: VdfRevelationOperation[];
+    }>(
+      `/v1/operations/vdf_revelations${QS.query(
+        QS.explode({
+          limit,
+          quote,
+          ...QueryParamsParsers.queryParameter('baker', baker),
+          ...QueryParamsParsers.queryParameter('level', level),
+          ...QueryParamsParsers.queryParameter('cycle', cycle),
+          ...QueryParamsParsers.queryParameter('timestamp', timestamp),
+          ...QueryParamsParsers.queryParameter('select', select),
+          ...QueryParamsParsers.queryParameter('sort', sort),
+          ...QueryParamsParsers.queryParameter('offset', offset),
+        })
+      )}`,
+      {
+        ...opts,
+      }
+    )
+  );
+}
+/**
+ * Get vdf revelation by hash
+ */
+export function operationsGetVdfRevelationByHash(
+  hash: string,
+  {
+    quote,
+  }: {
+    quote?: Symbols;
+  } = {},
+  opts?: Oazapfts.RequestOpts
+) {
+  return oazapfts.ok(
+    oazapfts.fetchJson<{
+      status: 200;
+      data: VdfRevelationOperation[];
+    }>(
+      `/v1/operations/vdf_revelations/${encodeURIComponent(hash)}${QS.query(
+        QS.explode({
+          quote,
+        })
+      )}`,
+      {
+        ...opts,
+      }
+    )
+  );
+}
+/**
+ * Get vdf revelations count
+ */
+export function operationsGetVdfRevelationsCount(
+  {
+    level,
+    timestamp,
+  }: {
+    level?: Int32Parameter | null;
+    timestamp?: DateTimeParameter | null;
+  } = {},
+  opts?: Oazapfts.RequestOpts
+) {
+  return oazapfts.ok(
+    oazapfts.fetchJson<{
+      status: 200;
+      data: number;
+    }>(
+      `/v1/operations/vdf_revelations/count${QS.query(
+        QS.explode({
           ...QueryParamsParsers.queryParameter('level', level),
           ...QueryParamsParsers.queryParameter('timestamp', timestamp),
         })
@@ -6040,7 +6612,7 @@ export function operationsGetDelegations(
       data: DelegationOperation[];
     }>(
       `/v1/operations/delegations${QS.query(
-        QS.form({
+        QS.explode({
           limit,
           quote,
           ...QueryParamsParsers.anyofParameter('anyof', anyof),
@@ -6070,7 +6642,7 @@ export function operationsGetDelegations(
  * Get delegation by hash
  */
 export function operationsGetDelegationByHash(
-  hash: string | null,
+  hash: string,
   {
     quote,
   }: {
@@ -6083,8 +6655,8 @@ export function operationsGetDelegationByHash(
       status: 200;
       data: DelegationOperation[];
     }>(
-      `/v1/operations/delegations/${hash}${QS.query(
-        QS.form({
+      `/v1/operations/delegations/${encodeURIComponent(hash)}${QS.query(
+        QS.explode({
           quote,
         })
       )}`,
@@ -6098,14 +6670,14 @@ export function operationsGetDelegationByHash(
  * Get delegation status
  */
 export function operationsGetDelegationStatus(
-  hash: string | null,
+  hash: string,
   opts?: Oazapfts.RequestOpts
 ) {
   return oazapfts.ok(
     oazapfts.fetchJson<{
       status: 200;
       data: boolean | null;
-    }>(`/v1/operations/delegations/${hash}/status`, {
+    }>(`/v1/operations/delegations/${encodeURIComponent(hash)}/status`, {
       ...opts,
     })
   );
@@ -6129,7 +6701,7 @@ export function operationsGetDelegationsCount(
       data: number;
     }>(
       `/v1/operations/delegations/count${QS.query(
-        QS.form({
+        QS.explode({
           ...QueryParamsParsers.queryParameter('level', level),
           ...QueryParamsParsers.queryParameter('timestamp', timestamp),
         })
@@ -6184,7 +6756,7 @@ export function operationsGetOriginations(
     contractManager?: AccountParameter | null;
     contractDelegate?: AccountParameter | null;
     originatedContract?: AccountParameter | null;
-    id?: Int32Parameter | null;
+    id?: Int64Parameter | null;
     typeHash?: Int32Parameter | null;
     codeHash?: Int32Parameter | null;
     level?: Int32Parameter | null;
@@ -6207,7 +6779,7 @@ export function operationsGetOriginations(
       data: OriginationOperation[];
     }>(
       `/v1/operations/originations${QS.query(
-        QS.form({
+        QS.explode({
           limit,
           micheline,
           quote,
@@ -6252,7 +6824,7 @@ export function operationsGetOriginations(
  * Get origination by hash
  */
 export function operationsGetOriginationByHash(
-  hash: string | null,
+  hash: string,
   {
     micheline,
     quote,
@@ -6267,8 +6839,8 @@ export function operationsGetOriginationByHash(
       status: 200;
       data: OriginationOperation[];
     }>(
-      `/v1/operations/originations/${hash}${QS.query(
-        QS.form({
+      `/v1/operations/originations/${encodeURIComponent(hash)}${QS.query(
+        QS.explode({
           micheline,
           quote,
         })
@@ -6283,14 +6855,14 @@ export function operationsGetOriginationByHash(
  * Get origination status
  */
 export function operationsGetOriginationStatus(
-  hash: string | null,
+  hash: string,
   opts?: Oazapfts.RequestOpts
 ) {
   return oazapfts.ok(
     oazapfts.fetchJson<{
       status: 200;
       data: boolean | null;
-    }>(`/v1/operations/originations/${hash}/status`, {
+    }>(`/v1/operations/originations/${encodeURIComponent(hash)}/status`, {
       ...opts,
     })
   );
@@ -6314,7 +6886,7 @@ export function operationsGetOriginationsCount(
       data: number;
     }>(
       `/v1/operations/originations/count${QS.query(
-        QS.form({
+        QS.explode({
           ...QueryParamsParsers.queryParameter('level', level),
           ...QueryParamsParsers.queryParameter('timestamp', timestamp),
         })
@@ -6363,7 +6935,7 @@ export function operationsGetTransactions(
     sender?: AccountParameter | null;
     target?: AccountParameter | null;
     amount?: Int64Parameter | null;
-    id?: Int32Parameter | null;
+    id?: Int64Parameter | null;
     level?: Int32Parameter | null;
     timestamp?: DateTimeParameter | null;
     senderCodeHash?: Int32Parameter | null;
@@ -6388,7 +6960,7 @@ export function operationsGetTransactions(
       data: TransactionOperation[];
     }>(
       `/v1/operations/transactions${QS.query(
-        QS.form({
+        QS.explode({
           limit,
           micheline,
           quote,
@@ -6428,7 +7000,7 @@ export function operationsGetTransactions(
  * Get transaction by hash
  */
 export function operationsGetTransactionByHash(
-  hash: string | null,
+  hash: string,
   {
     micheline,
     quote,
@@ -6443,8 +7015,8 @@ export function operationsGetTransactionByHash(
       status: 200;
       data: TransactionOperation[];
     }>(
-      `/v1/operations/transactions/${hash}${QS.query(
-        QS.form({
+      `/v1/operations/transactions/${encodeURIComponent(hash)}${QS.query(
+        QS.explode({
           micheline,
           quote,
         })
@@ -6459,7 +7031,7 @@ export function operationsGetTransactionByHash(
  * Get transaction by hash and counter
  */
 export function operationsGetTransactionByHashCounter(
-  hash: string | null,
+  hash: string,
   counter: number,
   {
     micheline,
@@ -6475,8 +7047,10 @@ export function operationsGetTransactionByHashCounter(
       status: 200;
       data: TransactionOperation[];
     }>(
-      `/v1/operations/transactions/${hash}/${counter}${QS.query(
-        QS.form({
+      `/v1/operations/transactions/${encodeURIComponent(
+        hash
+      )}/${encodeURIComponent(counter)}${QS.query(
+        QS.explode({
           micheline,
           quote,
         })
@@ -6491,7 +7065,7 @@ export function operationsGetTransactionByHashCounter(
  * Get transaction by hash, counter and nonce
  */
 export function operationsGetTransactionByHashCounterNonce(
-  hash: string | null,
+  hash: string,
   counter: number,
   nonce: number,
   {
@@ -6508,8 +7082,10 @@ export function operationsGetTransactionByHashCounterNonce(
       status: 200;
       data: TransactionOperation[];
     }>(
-      `/v1/operations/transactions/${hash}/${counter}/${nonce}${QS.query(
-        QS.form({
+      `/v1/operations/transactions/${encodeURIComponent(
+        hash
+      )}/${encodeURIComponent(counter)}/${encodeURIComponent(nonce)}${QS.query(
+        QS.explode({
           micheline,
           quote,
         })
@@ -6524,14 +7100,14 @@ export function operationsGetTransactionByHashCounterNonce(
  * Get transaction status
  */
 export function operationsGetTransactionStatus(
-  hash: string | null,
+  hash: string,
   opts?: Oazapfts.RequestOpts
 ) {
   return oazapfts.ok(
     oazapfts.fetchJson<{
       status: 200;
       data: boolean | null;
-    }>(`/v1/operations/transactions/${hash}/status`, {
+    }>(`/v1/operations/transactions/${encodeURIComponent(hash)}/status`, {
       ...opts,
     })
   );
@@ -6575,7 +7151,7 @@ export function operationsGetTransactionsCount(
       data: number;
     }>(
       `/v1/operations/transactions/count${QS.query(
-        QS.form({
+        QS.explode({
           ...QueryParamsParsers.anyofParameter('anyof', anyof),
           ...QueryParamsParsers.queryParameter('initiator', initiator),
           ...QueryParamsParsers.queryParameter('sender', sender),
@@ -6626,7 +7202,7 @@ export function operationsGetReveals(
       data: RevealOperation[];
     }>(
       `/v1/operations/reveals${QS.query(
-        QS.form({
+        QS.explode({
           limit,
           quote,
           ...QueryParamsParsers.queryParameter('sender', sender),
@@ -6648,7 +7224,7 @@ export function operationsGetReveals(
  * Get reveal by hash
  */
 export function operationsGetRevealByHash(
-  hash: string | null,
+  hash: string,
   {
     quote,
   }: {
@@ -6661,8 +7237,8 @@ export function operationsGetRevealByHash(
       status: 200;
       data: RevealOperation[];
     }>(
-      `/v1/operations/reveals/${hash}${QS.query(
-        QS.form({
+      `/v1/operations/reveals/${encodeURIComponent(hash)}${QS.query(
+        QS.explode({
           quote,
         })
       )}`,
@@ -6676,14 +7252,14 @@ export function operationsGetRevealByHash(
  * Get reveal status
  */
 export function operationsGetRevealStatus(
-  hash: string | null,
+  hash: string,
   opts?: Oazapfts.RequestOpts
 ) {
   return oazapfts.ok(
     oazapfts.fetchJson<{
       status: 200;
       data: boolean | null;
-    }>(`/v1/operations/reveals/${hash}/status`, {
+    }>(`/v1/operations/reveals/${encodeURIComponent(hash)}/status`, {
       ...opts,
     })
   );
@@ -6707,7 +7283,7 @@ export function operationsGetRevealsCount(
       data: number;
     }>(
       `/v1/operations/reveals/count${QS.query(
-        QS.form({
+        QS.explode({
           ...QueryParamsParsers.queryParameter('level', level),
           ...QueryParamsParsers.queryParameter('timestamp', timestamp),
         })
@@ -6755,7 +7331,7 @@ export function operationsGetRegisterConstants(
       data: RegisterConstantOperation[];
     }>(
       `/v1/operations/register_constants${QS.query(
-        QS.form({
+        QS.explode({
           limit,
           micheline,
           quote,
@@ -6779,7 +7355,7 @@ export function operationsGetRegisterConstants(
  * Get register constant by hash
  */
 export function operationsGetRegisterConstantByHash(
-  hash: string | null,
+  hash: string,
   {
     micheline,
     quote,
@@ -6794,8 +7370,8 @@ export function operationsGetRegisterConstantByHash(
       status: 200;
       data: RegisterConstantOperation[];
     }>(
-      `/v1/operations/register_constants/${hash}${QS.query(
-        QS.form({
+      `/v1/operations/register_constants/${encodeURIComponent(hash)}${QS.query(
+        QS.explode({
           micheline,
           quote,
         })
@@ -6810,14 +7386,14 @@ export function operationsGetRegisterConstantByHash(
  * Get register constant status
  */
 export function operationsGetRegisterConstantStatus(
-  hash: string | null,
+  hash: string,
   opts?: Oazapfts.RequestOpts
 ) {
   return oazapfts.ok(
     oazapfts.fetchJson<{
       status: 200;
       data: boolean | null;
-    }>(`/v1/operations/register_constants/${hash}/status`, {
+    }>(`/v1/operations/register_constants/${encodeURIComponent(hash)}/status`, {
       ...opts,
     })
   );
@@ -6841,7 +7417,7 @@ export function operationsGetRegisterConstantsCount(
       data: number;
     }>(
       `/v1/operations/register_constants/count${QS.query(
-        QS.form({
+        QS.explode({
           ...QueryParamsParsers.queryParameter('level', level),
           ...QueryParamsParsers.queryParameter('timestamp', timestamp),
         })
@@ -6885,7 +7461,7 @@ export function operationsGetSetDepositsLimits(
       data: SetDepositsLimitOperation[];
     }>(
       `/v1/operations/set_deposits_limits${QS.query(
-        QS.form({
+        QS.explode({
           limit,
           quote,
           ...QueryParamsParsers.queryParameter('sender', sender),
@@ -6907,7 +7483,7 @@ export function operationsGetSetDepositsLimits(
  * Get set deposits limit by hash
  */
 export function operationsGetSetDepositsLimitByHash(
-  hash: string | null,
+  hash: string,
   {
     quote,
   }: {
@@ -6920,8 +7496,8 @@ export function operationsGetSetDepositsLimitByHash(
       status: 200;
       data: SetDepositsLimitOperation[];
     }>(
-      `/v1/operations/set_deposits_limits/${hash}${QS.query(
-        QS.form({
+      `/v1/operations/set_deposits_limits/${encodeURIComponent(hash)}${QS.query(
+        QS.explode({
           quote,
         })
       )}`,
@@ -6935,16 +7511,19 @@ export function operationsGetSetDepositsLimitByHash(
  * Get set deposits limit status
  */
 export function operationsGetSetDepositsLimitStatus(
-  hash: string | null,
+  hash: string,
   opts?: Oazapfts.RequestOpts
 ) {
   return oazapfts.ok(
     oazapfts.fetchJson<{
       status: 200;
       data: boolean | null;
-    }>(`/v1/operations/set_deposits_limits/${hash}/status`, {
-      ...opts,
-    })
+    }>(
+      `/v1/operations/set_deposits_limits/${encodeURIComponent(hash)}/status`,
+      {
+        ...opts,
+      }
+    )
   );
 }
 /**
@@ -6966,7 +7545,7 @@ export function operationsGetSetDepositsLimitsCount(
       data: number;
     }>(
       `/v1/operations/set_deposits_limits/count${QS.query(
-        QS.form({
+        QS.explode({
           ...QueryParamsParsers.queryParameter('level', level),
           ...QueryParamsParsers.queryParameter('timestamp', timestamp),
         })
@@ -7024,7 +7603,7 @@ export function operationsGetTransferTicketOps(
       data: TransferTicketOperation[];
     }>(
       `/v1/operations/transfer_ticket${QS.query(
-        QS.form({
+        QS.explode({
           limit,
           micheline,
           quote,
@@ -7050,7 +7629,7 @@ export function operationsGetTransferTicketOps(
  * Get transfer ticket by hash
  */
 export function operationsGetTransferTicketOpsByHash(
-  hash: string | null,
+  hash: string,
   {
     micheline,
     quote,
@@ -7065,8 +7644,8 @@ export function operationsGetTransferTicketOpsByHash(
       status: 200;
       data: TransferTicketOperation[];
     }>(
-      `/v1/operations/transfer_ticket/${hash}${QS.query(
-        QS.form({
+      `/v1/operations/transfer_ticket/${encodeURIComponent(hash)}${QS.query(
+        QS.explode({
           micheline,
           quote,
         })
@@ -7081,14 +7660,14 @@ export function operationsGetTransferTicketOpsByHash(
  * Get transfer ticket status
  */
 export function operationsGetTransferTicketStatus(
-  hash: string | null,
+  hash: string,
   opts?: Oazapfts.RequestOpts
 ) {
   return oazapfts.ok(
     oazapfts.fetchJson<{
       status: 200;
       data: boolean | null;
-    }>(`/v1/operations/transfer_ticket/${hash}/status`, {
+    }>(`/v1/operations/transfer_ticket/${encodeURIComponent(hash)}/status`, {
       ...opts,
     })
   );
@@ -7112,7 +7691,7 @@ export function operationsGetTransferTicketOpsCount(
       data: number;
     }>(
       `/v1/operations/transfer_ticket/count${QS.query(
-        QS.form({
+        QS.explode({
           ...QueryParamsParsers.queryParameter('level', level),
           ...QueryParamsParsers.queryParameter('timestamp', timestamp),
         })
@@ -7158,7 +7737,7 @@ export function operationsGetTxRollupCommitOps(
       data: TxRollupCommitOperation[];
     }>(
       `/v1/operations/tx_rollup_commit${QS.query(
-        QS.form({
+        QS.explode({
           limit,
           quote,
           ...QueryParamsParsers.queryParameter('sender', sender),
@@ -7181,7 +7760,7 @@ export function operationsGetTxRollupCommitOps(
  * Get tx rollup commit by hash
  */
 export function operationsGetTxRollupCommitOpsByHash(
-  hash: string | null,
+  hash: string,
   {
     quote,
   }: {
@@ -7194,8 +7773,8 @@ export function operationsGetTxRollupCommitOpsByHash(
       status: 200;
       data: TxRollupCommitOperation[];
     }>(
-      `/v1/operations/tx_rollup_commit/${hash}${QS.query(
-        QS.form({
+      `/v1/operations/tx_rollup_commit/${encodeURIComponent(hash)}${QS.query(
+        QS.explode({
           quote,
         })
       )}`,
@@ -7209,14 +7788,14 @@ export function operationsGetTxRollupCommitOpsByHash(
  * Get tx rollup commit status
  */
 export function operationsGetTxRollupCommitStatus(
-  hash: string | null,
+  hash: string,
   opts?: Oazapfts.RequestOpts
 ) {
   return oazapfts.ok(
     oazapfts.fetchJson<{
       status: 200;
       data: boolean | null;
-    }>(`/v1/operations/tx_rollup_commit/${hash}/status`, {
+    }>(`/v1/operations/tx_rollup_commit/${encodeURIComponent(hash)}/status`, {
       ...opts,
     })
   );
@@ -7240,7 +7819,7 @@ export function operationsGetTxRollupCommitOpsCount(
       data: number;
     }>(
       `/v1/operations/tx_rollup_commit/count${QS.query(
-        QS.form({
+        QS.explode({
           ...QueryParamsParsers.queryParameter('level', level),
           ...QueryParamsParsers.queryParameter('timestamp', timestamp),
         })
@@ -7286,7 +7865,7 @@ export function operationsGetTxRollupDispatchTicketsOps(
       data: TxRollupDispatchTicketsOperation[];
     }>(
       `/v1/operations/tx_rollup_dispatch_tickets${QS.query(
-        QS.form({
+        QS.explode({
           limit,
           quote,
           ...QueryParamsParsers.queryParameter('sender', sender),
@@ -7309,7 +7888,7 @@ export function operationsGetTxRollupDispatchTicketsOps(
  * Get tx rollup dispatch tickets by hash
  */
 export function operationsGetTxRollupDispatchTicketsOpsByHash(
-  hash: string | null,
+  hash: string,
   {
     quote,
   }: {
@@ -7322,8 +7901,10 @@ export function operationsGetTxRollupDispatchTicketsOpsByHash(
       status: 200;
       data: TxRollupDispatchTicketsOperation[];
     }>(
-      `/v1/operations/tx_rollup_dispatch_tickets/${hash}${QS.query(
-        QS.form({
+      `/v1/operations/tx_rollup_dispatch_tickets/${encodeURIComponent(
+        hash
+      )}${QS.query(
+        QS.explode({
           quote,
         })
       )}`,
@@ -7337,16 +7918,21 @@ export function operationsGetTxRollupDispatchTicketsOpsByHash(
  * Get tx rollup dispatch tickets status
  */
 export function operationsGetTxRollupDispatchTicketsStatus(
-  hash: string | null,
+  hash: string,
   opts?: Oazapfts.RequestOpts
 ) {
   return oazapfts.ok(
     oazapfts.fetchJson<{
       status: 200;
       data: boolean | null;
-    }>(`/v1/operations/tx_rollup_dispatch_tickets/${hash}/status`, {
-      ...opts,
-    })
+    }>(
+      `/v1/operations/tx_rollup_dispatch_tickets/${encodeURIComponent(
+        hash
+      )}/status`,
+      {
+        ...opts,
+      }
+    )
   );
 }
 /**
@@ -7368,7 +7954,7 @@ export function operationsGetTxRollupDispatchTicketsOpsCount(
       data: number;
     }>(
       `/v1/operations/tx_rollup_dispatch_tickets/count${QS.query(
-        QS.form({
+        QS.explode({
           ...QueryParamsParsers.queryParameter('level', level),
           ...QueryParamsParsers.queryParameter('timestamp', timestamp),
         })
@@ -7414,7 +8000,7 @@ export function operationsGetTxRollupFinalizeCommitmentOps(
       data: TxRollupFinalizeCommitmentOperation[];
     }>(
       `/v1/operations/tx_rollup_finalize_commitment${QS.query(
-        QS.form({
+        QS.explode({
           limit,
           quote,
           ...QueryParamsParsers.queryParameter('sender', sender),
@@ -7437,7 +8023,7 @@ export function operationsGetTxRollupFinalizeCommitmentOps(
  * Get tx rollup finalize commitment by hash
  */
 export function operationsGetTxRollupFinalizeCommitmentOpsByHash(
-  hash: string | null,
+  hash: string,
   {
     quote,
   }: {
@@ -7450,8 +8036,10 @@ export function operationsGetTxRollupFinalizeCommitmentOpsByHash(
       status: 200;
       data: TxRollupFinalizeCommitmentOperation[];
     }>(
-      `/v1/operations/tx_rollup_finalize_commitment/${hash}${QS.query(
-        QS.form({
+      `/v1/operations/tx_rollup_finalize_commitment/${encodeURIComponent(
+        hash
+      )}${QS.query(
+        QS.explode({
           quote,
         })
       )}`,
@@ -7465,16 +8053,21 @@ export function operationsGetTxRollupFinalizeCommitmentOpsByHash(
  * Get tx rollup finalize commitment status
  */
 export function operationsGetTxRollupFinalizeCommitmentStatus(
-  hash: string | null,
+  hash: string,
   opts?: Oazapfts.RequestOpts
 ) {
   return oazapfts.ok(
     oazapfts.fetchJson<{
       status: 200;
       data: boolean | null;
-    }>(`/v1/operations/tx_rollup_finalize_commitment/${hash}/status`, {
-      ...opts,
-    })
+    }>(
+      `/v1/operations/tx_rollup_finalize_commitment/${encodeURIComponent(
+        hash
+      )}/status`,
+      {
+        ...opts,
+      }
+    )
   );
 }
 /**
@@ -7496,7 +8089,7 @@ export function operationsGetTxRollupFinalizeCommitmentOpsCount(
       data: number;
     }>(
       `/v1/operations/tx_rollup_finalize_commitment/count${QS.query(
-        QS.form({
+        QS.explode({
           ...QueryParamsParsers.queryParameter('level', level),
           ...QueryParamsParsers.queryParameter('timestamp', timestamp),
         })
@@ -7542,7 +8135,7 @@ export function operationsGetTxRollupOriginationOps(
       data: TxRollupOriginationOperation[];
     }>(
       `/v1/operations/tx_rollup_origination${QS.query(
-        QS.form({
+        QS.explode({
           limit,
           quote,
           ...QueryParamsParsers.queryParameter('sender', sender),
@@ -7565,7 +8158,7 @@ export function operationsGetTxRollupOriginationOps(
  * Get tx rollup origination by hash
  */
 export function operationsGetTxRollupOriginationOpsByHash(
-  hash: string | null,
+  hash: string,
   {
     quote,
   }: {
@@ -7578,8 +8171,10 @@ export function operationsGetTxRollupOriginationOpsByHash(
       status: 200;
       data: TxRollupOriginationOperation[];
     }>(
-      `/v1/operations/tx_rollup_origination/${hash}${QS.query(
-        QS.form({
+      `/v1/operations/tx_rollup_origination/${encodeURIComponent(
+        hash
+      )}${QS.query(
+        QS.explode({
           quote,
         })
       )}`,
@@ -7593,16 +8188,19 @@ export function operationsGetTxRollupOriginationOpsByHash(
  * Get tx rollup origination status
  */
 export function operationsGetTxRollupOriginationStatus(
-  hash: string | null,
+  hash: string,
   opts?: Oazapfts.RequestOpts
 ) {
   return oazapfts.ok(
     oazapfts.fetchJson<{
       status: 200;
       data: boolean | null;
-    }>(`/v1/operations/tx_rollup_origination/${hash}/status`, {
-      ...opts,
-    })
+    }>(
+      `/v1/operations/tx_rollup_origination/${encodeURIComponent(hash)}/status`,
+      {
+        ...opts,
+      }
+    )
   );
 }
 /**
@@ -7624,7 +8222,7 @@ export function operationsGetTxRollupOriginationOpsCount(
       data: number;
     }>(
       `/v1/operations/tx_rollup_origination/count${QS.query(
-        QS.form({
+        QS.explode({
           ...QueryParamsParsers.queryParameter('level', level),
           ...QueryParamsParsers.queryParameter('timestamp', timestamp),
         })
@@ -7680,7 +8278,7 @@ export function operationsGetTxRollupRejectionOps(
       data: TxRollupRejectionOperation[];
     }>(
       `/v1/operations/tx_rollup_rejection${QS.query(
-        QS.form({
+        QS.explode({
           limit,
           quote,
           ...QueryParamsParsers.anyofParameter('anyof', anyof),
@@ -7705,7 +8303,7 @@ export function operationsGetTxRollupRejectionOps(
  * Get tx rollup rejection by hash
  */
 export function operationsGetTxRollupRejectionOpsByHash(
-  hash: string | null,
+  hash: string,
   {
     quote,
   }: {
@@ -7718,8 +8316,8 @@ export function operationsGetTxRollupRejectionOpsByHash(
       status: 200;
       data: TxRollupRejectionOperation[];
     }>(
-      `/v1/operations/tx_rollup_rejection/${hash}${QS.query(
-        QS.form({
+      `/v1/operations/tx_rollup_rejection/${encodeURIComponent(hash)}${QS.query(
+        QS.explode({
           quote,
         })
       )}`,
@@ -7733,16 +8331,19 @@ export function operationsGetTxRollupRejectionOpsByHash(
  * Get tx rollup rejection status
  */
 export function operationsGetTxRollupRejectionStatus(
-  hash: string | null,
+  hash: string,
   opts?: Oazapfts.RequestOpts
 ) {
   return oazapfts.ok(
     oazapfts.fetchJson<{
       status: 200;
       data: boolean | null;
-    }>(`/v1/operations/tx_rollup_rejection/${hash}/status`, {
-      ...opts,
-    })
+    }>(
+      `/v1/operations/tx_rollup_rejection/${encodeURIComponent(hash)}/status`,
+      {
+        ...opts,
+      }
+    )
   );
 }
 /**
@@ -7764,7 +8365,7 @@ export function operationsGetTxRollupRejectionOpsCount(
       data: number;
     }>(
       `/v1/operations/tx_rollup_rejection/count${QS.query(
-        QS.form({
+        QS.explode({
           ...QueryParamsParsers.queryParameter('level', level),
           ...QueryParamsParsers.queryParameter('timestamp', timestamp),
         })
@@ -7773,104 +8374,6 @@ export function operationsGetTxRollupRejectionOpsCount(
         ...opts,
       }
     )
-  );
-}
-/**
- * Get tx rollup remove commitment
- */
-export function operationsGetTxRollupRemoveCommitmentOps(
-  {
-    sender,
-    rollup,
-    level,
-    timestamp,
-    status,
-    select,
-    sort,
-    offset,
-    limit,
-    quote,
-  }: {
-    sender?: AccountParameter | null;
-    rollup?: AccountParameter | null;
-    level?: Int32Parameter | null;
-    timestamp?: DateTimeParameter | null;
-    status?: OperationStatusParameter | null;
-    select?: SelectParameter | null;
-    sort?: SortParameter | null;
-    offset?: OffsetParameter | null;
-    limit?: number;
-    quote?: Symbols;
-  } = {},
-  opts?: Oazapfts.RequestOpts
-) {
-  return oazapfts.ok(
-    oazapfts.fetchJson<{
-      status: 200;
-      data: TxRollupRemoveCommitmentOperation[];
-    }>(
-      `/v1/operations/tx_rollup_remove_commitment${QS.query(
-        QS.form({
-          limit,
-          quote,
-          ...QueryParamsParsers.queryParameter('sender', sender),
-          ...QueryParamsParsers.queryParameter('rollup', rollup),
-          ...QueryParamsParsers.queryParameter('level', level),
-          ...QueryParamsParsers.queryParameter('timestamp', timestamp),
-          ...QueryParamsParsers.queryParameter('status', status),
-          ...QueryParamsParsers.queryParameter('select', select),
-          ...QueryParamsParsers.queryParameter('sort', sort),
-          ...QueryParamsParsers.queryParameter('offset', offset),
-        })
-      )}`,
-      {
-        ...opts,
-      }
-    )
-  );
-}
-/**
- * Get tx rollup remove commitment by hash
- */
-export function operationsGetTxRollupRemoveCommitmentOpsByHash(
-  hash: string | null,
-  {
-    quote,
-  }: {
-    quote?: Symbols;
-  } = {},
-  opts?: Oazapfts.RequestOpts
-) {
-  return oazapfts.ok(
-    oazapfts.fetchJson<{
-      status: 200;
-      data: TxRollupRemoveCommitmentOperation[];
-    }>(
-      `/v1/operations/tx_rollup_remove_commitment/${hash}${QS.query(
-        QS.form({
-          quote,
-        })
-      )}`,
-      {
-        ...opts,
-      }
-    )
-  );
-}
-/**
- * Get tx rollup remove commitment status
- */
-export function operationsGetTxRollupRemoveCommitmentStatus(
-  hash: string | null,
-  opts?: Oazapfts.RequestOpts
-) {
-  return oazapfts.ok(
-    oazapfts.fetchJson<{
-      status: 200;
-      data: boolean | null;
-    }>(`/v1/operations/tx_rollup_remove_commitment/${hash}/status`, {
-      ...opts,
-    })
   );
 }
 /**
@@ -7907,7 +8410,7 @@ export function protocolsGet(
       data: Protocol[];
     }>(
       `/v1/protocols${QS.query(
-        QS.form({
+        QS.explode({
           limit,
           ...QueryParamsParsers.queryParameter('sort', sort),
           ...QueryParamsParsers.queryParameter('offset', offset),
@@ -7940,7 +8443,7 @@ export function protocolsGetByCode(code: number, opts?: Oazapfts.RequestOpts) {
     oazapfts.fetchJson<{
       status: 200;
       data: Protocol;
-    }>(`/v1/protocols/${code}`, {
+    }>(`/v1/protocols/${encodeURIComponent(code)}`, {
       ...opts,
     })
   );
@@ -7948,15 +8451,12 @@ export function protocolsGetByCode(code: number, opts?: Oazapfts.RequestOpts) {
 /**
  * Get protocol by hash
  */
-export function protocolsGetByHash(
-  hash: string | null,
-  opts?: Oazapfts.RequestOpts
-) {
+export function protocolsGetByHash(hash: string, opts?: Oazapfts.RequestOpts) {
   return oazapfts.ok(
     oazapfts.fetchJson<{
       status: 200;
       data: Protocol;
-    }>(`/v1/protocols/${hash}`, {
+    }>(`/v1/protocols/${encodeURIComponent(hash)}`, {
       ...opts,
     })
   );
@@ -7972,7 +8472,7 @@ export function protocolsGetByCycle(
     oazapfts.fetchJson<{
       status: 200;
       data: Protocol;
-    }>(`/v1/protocols/cycles/${cycle}`, {
+    }>(`/v1/protocols/cycles/${encodeURIComponent(cycle)}`, {
       ...opts,
     })
   );
@@ -8030,7 +8530,7 @@ export function quotesGet(
       data: Quote[];
     }>(
       `/v1/quotes${QS.query(
-        QS.form({
+        QS.explode({
           limit,
           ...QueryParamsParsers.queryParameter('level', level),
           ...QueryParamsParsers.queryParameter('timestamp', timestamp),
@@ -8049,14 +8549,14 @@ export function quotesGet(
  * Get baker cycle rewards count
  */
 export function rewardsGetBakerRewardsCount(
-  address: string | null,
+  address: string,
   opts?: Oazapfts.RequestOpts
 ) {
   return oazapfts.ok(
     oazapfts.fetchJson<{
       status: 200;
       data: number;
-    }>(`/v1/rewards/bakers/${address}/count`, {
+    }>(`/v1/rewards/bakers/${encodeURIComponent(address)}/count`, {
       ...opts,
     })
   );
@@ -8065,7 +8565,7 @@ export function rewardsGetBakerRewardsCount(
  * Get baker cycle rewards
  */
 export function rewardsGetBakerRewards(
-  address: string | null,
+  address: string,
   {
     cycle,
     select,
@@ -8088,8 +8588,8 @@ export function rewardsGetBakerRewards(
       status: 200;
       data: BakerRewards[];
     }>(
-      `/v1/rewards/bakers/${address}${QS.query(
-        QS.form({
+      `/v1/rewards/bakers/${encodeURIComponent(address)}${QS.query(
+        QS.explode({
           limit,
           quote,
           ...QueryParamsParsers.queryParameter('cycle', cycle),
@@ -8108,7 +8608,7 @@ export function rewardsGetBakerRewards(
  * Get baker cycle rewards by cycle
  */
 export function rewardsGetBakerRewardsByCycle(
-  address: string | null,
+  address: string,
   cycle: number,
   {
     quote,
@@ -8122,8 +8622,10 @@ export function rewardsGetBakerRewardsByCycle(
       status: 200;
       data: BakerRewards;
     }>(
-      `/v1/rewards/bakers/${address}/${cycle}${QS.query(
-        QS.form({
+      `/v1/rewards/bakers/${encodeURIComponent(address)}/${encodeURIComponent(
+        cycle
+      )}${QS.query(
+        QS.explode({
           quote,
         })
       )}`,
@@ -8137,14 +8639,14 @@ export function rewardsGetBakerRewardsByCycle(
  * Get delegator cycle rewards count
  */
 export function rewardsGetDelegatorRewardsCount(
-  address: string | null,
+  address: string,
   opts?: Oazapfts.RequestOpts
 ) {
   return oazapfts.ok(
     oazapfts.fetchJson<{
       status: 200;
       data: number;
-    }>(`/v1/rewards/delegators/${address}/count`, {
+    }>(`/v1/rewards/delegators/${encodeURIComponent(address)}/count`, {
       ...opts,
     })
   );
@@ -8153,7 +8655,7 @@ export function rewardsGetDelegatorRewardsCount(
  * Get delegator cycle rewards
  */
 export function rewardsGetDelegatorRewards(
-  address: string | null,
+  address: string,
   {
     cycle,
     select,
@@ -8176,8 +8678,8 @@ export function rewardsGetDelegatorRewards(
       status: 200;
       data: DelegatorRewards[];
     }>(
-      `/v1/rewards/delegators/${address}${QS.query(
-        QS.form({
+      `/v1/rewards/delegators/${encodeURIComponent(address)}${QS.query(
+        QS.explode({
           limit,
           quote,
           ...QueryParamsParsers.queryParameter('cycle', cycle),
@@ -8196,7 +8698,7 @@ export function rewardsGetDelegatorRewards(
  * Get delegator cycle rewards by cycle
  */
 export function rewardsGetDelegatorRewardsByCycle(
-  address: string | null,
+  address: string,
   cycle: number,
   {
     quote,
@@ -8210,8 +8712,10 @@ export function rewardsGetDelegatorRewardsByCycle(
       status: 200;
       data: DelegatorRewards;
     }>(
-      `/v1/rewards/delegators/${address}/${cycle}${QS.query(
-        QS.form({
+      `/v1/rewards/delegators/${encodeURIComponent(
+        address
+      )}/${encodeURIComponent(cycle)}${QS.query(
+        QS.explode({
           quote,
         })
       )}`,
@@ -8225,7 +8729,7 @@ export function rewardsGetDelegatorRewardsByCycle(
  * Get reward split
  */
 export function rewardsGetRewardSplit(
-  baker: string | null,
+  baker: string,
   cycle: number,
   {
     offset,
@@ -8241,8 +8745,10 @@ export function rewardsGetRewardSplit(
       status: 200;
       data: RewardSplit;
     }>(
-      `/v1/rewards/split/${baker}/${cycle}${QS.query(
-        QS.form({
+      `/v1/rewards/split/${encodeURIComponent(baker)}/${encodeURIComponent(
+        cycle
+      )}${QS.query(
+        QS.explode({
           offset,
           limit,
         })
@@ -8257,18 +8763,23 @@ export function rewardsGetRewardSplit(
  * Get reward split delegator
  */
 export function rewardsGetRewardSplitDelegator(
-  baker: string | null,
+  baker: string,
   cycle: number,
-  delegator: string | null,
+  delegator: string,
   opts?: Oazapfts.RequestOpts
 ) {
   return oazapfts.ok(
     oazapfts.fetchJson<{
       status: 200;
       data: SplitDelegator;
-    }>(`/v1/rewards/split/${baker}/${cycle}/${delegator}`, {
-      ...opts,
-    })
+    }>(
+      `/v1/rewards/split/${encodeURIComponent(baker)}/${encodeURIComponent(
+        cycle
+      )}/${encodeURIComponent(delegator)}`,
+      {
+        ...opts,
+      }
+    )
   );
 }
 /**
@@ -8276,7 +8787,7 @@ export function rewardsGetRewardSplitDelegator(
  */
 export function rightsGetCount(
   {
-    type,
+    $type,
     baker,
     cycle,
     level,
@@ -8285,7 +8796,7 @@ export function rightsGetCount(
     priority,
     status,
   }: {
-    type?: BakingRightTypeParameter | null;
+    $type?: BakingRightTypeParameter | null;
     baker?: AccountParameter | null;
     cycle?: Int32Parameter | null;
     level?: Int32Parameter | null;
@@ -8302,8 +8813,8 @@ export function rightsGetCount(
       data: number;
     }>(
       `/v1/rights/count${QS.query(
-        QS.form({
-          ...QueryParamsParsers.queryParameter('type', type),
+        QS.explode({
+          ...QueryParamsParsers.queryParameter('type', $type),
           ...QueryParamsParsers.queryParameter('baker', baker),
           ...QueryParamsParsers.queryParameter('cycle', cycle),
           ...QueryParamsParsers.queryParameter('level', level),
@@ -8324,7 +8835,7 @@ export function rightsGetCount(
  */
 export function rightsGet(
   {
-    type,
+    $type,
     baker,
     cycle,
     level,
@@ -8337,7 +8848,7 @@ export function rightsGet(
     offset,
     limit,
   }: {
-    type?: BakingRightTypeParameter | null;
+    $type?: BakingRightTypeParameter | null;
     baker?: AccountParameter | null;
     cycle?: Int32Parameter | null;
     level?: Int32Parameter | null;
@@ -8358,9 +8869,9 @@ export function rightsGet(
       data: BakingRight[];
     }>(
       `/v1/rights${QS.query(
-        QS.form({
+        QS.explode({
           limit,
-          ...QueryParamsParsers.queryParameter('type', type),
+          ...QueryParamsParsers.queryParameter('type', $type),
           ...QueryParamsParsers.queryParameter('baker', baker),
           ...QueryParamsParsers.queryParameter('cycle', cycle),
           ...QueryParamsParsers.queryParameter('level', level),
@@ -8402,7 +8913,7 @@ export function softwareGet(
       data: Software[];
     }>(
       `/v1/software${QS.query(
-        QS.form({
+        QS.explode({
           limit,
           ...QueryParamsParsers.queryParameter('select', select),
           ...QueryParamsParsers.queryParameter('sort', sort),
@@ -8457,7 +8968,7 @@ export function statisticsGet(
       data: Statistics[];
     }>(
       `/v1/statistics${QS.query(
-        QS.form({
+        QS.explode({
           limit,
           quote,
           ...QueryParamsParsers.queryParameter('level', level),
@@ -8500,7 +9011,7 @@ export function statisticsGetDaily(
       data: Statistics[];
     }>(
       `/v1/statistics/daily${QS.query(
-        QS.form({
+        QS.explode({
           limit,
           quote,
           ...QueryParamsParsers.queryParameter('date', date),
@@ -8542,7 +9053,7 @@ export function statisticsGetCyclesAll(
       data: Statistics[];
     }>(
       `/v1/statistics/cyclic${QS.query(
-        QS.form({
+        QS.explode({
           limit,
           quote,
           ...QueryParamsParsers.queryParameter('cycle', cycle),
@@ -8576,7 +9087,7 @@ export function statisticsGetCycles(
       data: Statistics;
     }>(
       `/v1/statistics/current${QS.query(
-        QS.form({
+        QS.explode({
           quote,
           ...QueryParamsParsers.queryParameter('select', select),
         })
@@ -8596,21 +9107,25 @@ export function tokensGetTokensCount(
     contract,
     tokenId,
     standard,
+    firstMinter,
     firstLevel,
     firstTime,
     lastLevel,
     lastTime,
     metadata,
+    indexedAt,
   }: {
-    id?: Int32Parameter | null;
+    id?: Int64Parameter | null;
     contract?: AccountParameter | null;
     tokenId?: NatParameter | null;
     standard?: TokenStandardParameter | null;
+    firstMinter?: AccountParameter | null;
     firstLevel?: Int32Parameter | null;
     firstTime?: TimestampParameter | null;
     lastLevel?: Int32Parameter | null;
     lastTime?: TimestampParameter | null;
     metadata?: JsonParameter | null;
+    indexedAt?: Int32NullParameter | null;
   } = {},
   opts?: Oazapfts.RequestOpts
 ) {
@@ -8620,16 +9135,18 @@ export function tokensGetTokensCount(
       data: number;
     }>(
       `/v1/tokens/count${QS.query(
-        QS.form({
+        QS.explode({
           ...QueryParamsParsers.queryParameter('id', id),
           ...QueryParamsParsers.queryParameter('contract', contract),
           ...QueryParamsParsers.queryParameter('tokenId', tokenId),
           ...QueryParamsParsers.queryParameter('standard', standard),
+          ...QueryParamsParsers.queryParameter('firstMinter', firstMinter),
           ...QueryParamsParsers.queryParameter('firstLevel', firstLevel),
           ...QueryParamsParsers.queryParameter('firstTime', firstTime),
           ...QueryParamsParsers.queryParameter('lastLevel', lastLevel),
           ...QueryParamsParsers.queryParameter('lastTime', lastTime),
           ...QueryParamsParsers.jsonParameter('metadata', metadata),
+          ...QueryParamsParsers.queryParameter('indexedAt', indexedAt),
         })
       )}`,
       {
@@ -8647,25 +9164,29 @@ export function tokensGetTokens(
     contract,
     tokenId,
     standard,
+    firstMinter,
     firstLevel,
     firstTime,
     lastLevel,
     lastTime,
     metadata,
+    indexedAt,
     sort,
     offset,
     limit,
     select,
   }: {
-    id?: Int32Parameter | null;
+    id?: Int64Parameter | null;
     contract?: AccountParameter | null;
     tokenId?: NatParameter | null;
     standard?: TokenStandardParameter | null;
+    firstMinter?: AccountParameter | null;
     firstLevel?: Int32Parameter | null;
     firstTime?: TimestampParameter | null;
     lastLevel?: Int32Parameter | null;
     lastTime?: TimestampParameter | null;
     metadata?: JsonParameter | null;
+    indexedAt?: Int32NullParameter | null;
     sort?: SortParameter | null;
     offset?: OffsetParameter | null;
     limit?: number;
@@ -8679,17 +9200,19 @@ export function tokensGetTokens(
       data: Token[];
     }>(
       `/v1/tokens${QS.query(
-        QS.form({
+        QS.explode({
           limit,
           ...QueryParamsParsers.queryParameter('id', id),
           ...QueryParamsParsers.queryParameter('contract', contract),
           ...QueryParamsParsers.queryParameter('tokenId', tokenId),
           ...QueryParamsParsers.queryParameter('standard', standard),
+          ...QueryParamsParsers.queryParameter('firstMinter', firstMinter),
           ...QueryParamsParsers.queryParameter('firstLevel', firstLevel),
           ...QueryParamsParsers.queryParameter('firstTime', firstTime),
           ...QueryParamsParsers.queryParameter('lastLevel', lastLevel),
           ...QueryParamsParsers.queryParameter('lastTime', lastTime),
           ...QueryParamsParsers.jsonParameter('metadata', metadata),
+          ...QueryParamsParsers.queryParameter('indexedAt', indexedAt),
           ...QueryParamsParsers.queryParameter('sort', sort),
           ...QueryParamsParsers.queryParameter('offset', offset),
           ...QueryParamsParsers.queryParameter('select', select),
@@ -8719,10 +9242,11 @@ export function tokensGetTokenBalancesCount(
     firstTime,
     lastLevel,
     lastTime,
+    indexedAt,
   }: {
-    id?: Int32Parameter | null;
+    id?: Int64Parameter | null;
     account?: AccountParameter | null;
-    tokenId?: Int32Parameter | null;
+    tokenId?: Int64Parameter | null;
     tokenContract?: AccountParameter | null;
     tokenTokenId?: NatParameter | null;
     tokenStandard?: TokenStandardParameter | null;
@@ -8733,6 +9257,7 @@ export function tokensGetTokenBalancesCount(
     firstTime?: TimestampParameter | null;
     lastLevel?: Int32Parameter | null;
     lastTime?: TimestampParameter | null;
+    indexedAt?: Int32NullParameter | null;
   } = {},
   opts?: Oazapfts.RequestOpts
 ) {
@@ -8742,7 +9267,7 @@ export function tokensGetTokenBalancesCount(
       data: number;
     }>(
       `/v1/tokens/balances/count${QS.query(
-        QS.form({
+        QS.explode({
           'token.HasFilters': tokenHasFilters,
           ...QueryParamsParsers.queryParameter('id', id),
           ...QueryParamsParsers.queryParameter('account', account),
@@ -8756,6 +9281,7 @@ export function tokensGetTokenBalancesCount(
           ...QueryParamsParsers.queryParameter('firstTime', firstTime),
           ...QueryParamsParsers.queryParameter('lastLevel', lastLevel),
           ...QueryParamsParsers.queryParameter('lastTime', lastTime),
+          ...QueryParamsParsers.queryParameter('indexedAt', indexedAt),
         })
       )}`,
       {
@@ -8782,14 +9308,15 @@ export function tokensGetTokenBalances(
     firstTime,
     lastLevel,
     lastTime,
+    indexedAt,
     sort,
     offset,
     limit,
     select,
   }: {
-    id?: Int32Parameter | null;
+    id?: Int64Parameter | null;
     account?: AccountParameter | null;
-    tokenId?: Int32Parameter | null;
+    tokenId?: Int64Parameter | null;
     tokenContract?: AccountParameter | null;
     tokenTokenId?: NatParameter | null;
     tokenStandard?: TokenStandardParameter | null;
@@ -8800,6 +9327,7 @@ export function tokensGetTokenBalances(
     firstTime?: TimestampParameter | null;
     lastLevel?: Int32Parameter | null;
     lastTime?: TimestampParameter | null;
+    indexedAt?: Int32NullParameter | null;
     sort?: SortParameter | null;
     offset?: OffsetParameter | null;
     limit?: number;
@@ -8813,7 +9341,7 @@ export function tokensGetTokenBalances(
       data: TokenBalance[];
     }>(
       `/v1/tokens/balances${QS.query(
-        QS.form({
+        QS.explode({
           'token.HasFilters': tokenHasFilters,
           limit,
           ...QueryParamsParsers.queryParameter('id', id),
@@ -8828,6 +9356,7 @@ export function tokensGetTokenBalances(
           ...QueryParamsParsers.queryParameter('firstTime', firstTime),
           ...QueryParamsParsers.queryParameter('lastLevel', lastLevel),
           ...QueryParamsParsers.queryParameter('lastTime', lastTime),
+          ...QueryParamsParsers.queryParameter('indexedAt', indexedAt),
           ...QueryParamsParsers.queryParameter('sort', sort),
           ...QueryParamsParsers.queryParameter('offset', offset),
           ...QueryParamsParsers.queryParameter('select', select),
@@ -8854,17 +9383,18 @@ export function tokensGetTokenTransfersCount(
     tokenMetadata,
     tokenHasFilters,
     anyof,
-    from,
+    $from,
     to,
     amount,
     transactionId,
     originationId,
     migrationId,
+    indexedAt,
   }: {
-    id?: Int32Parameter | null;
+    id?: Int64Parameter | null;
     level?: Int32Parameter | null;
     timestamp?: TimestampParameter | null;
-    tokenId?: Int32Parameter | null;
+    tokenId?: Int64Parameter | null;
     tokenContract?: AccountParameter | null;
     tokenTokenId?: NatParameter | null;
     tokenStandard?: TokenStandardParameter | null;
@@ -8877,12 +9407,13 @@ export function tokensGetTokenTransfersCount(
       null?: boolean;
       eq?: string;
     };
-    from?: AccountParameter | null;
+    $from?: AccountParameter | null;
     to?: AccountParameter | null;
     amount?: NatParameter | null;
-    transactionId?: Int32NullParameter | null;
-    originationId?: Int32NullParameter | null;
-    migrationId?: Int32NullParameter | null;
+    transactionId?: Int64NullParameter | null;
+    originationId?: Int64NullParameter | null;
+    migrationId?: Int64NullParameter | null;
+    indexedAt?: Int32NullParameter | null;
   } = {},
   opts?: Oazapfts.RequestOpts
 ) {
@@ -8892,7 +9423,7 @@ export function tokensGetTokenTransfersCount(
       data: number;
     }>(
       `/v1/tokens/transfers/count${QS.query(
-        QS.form({
+        QS.explode({
           'token.HasFilters': tokenHasFilters,
           ...QueryParamsParsers.queryParameter('id', id),
           ...QueryParamsParsers.queryParameter('level', level),
@@ -8903,12 +9434,13 @@ export function tokensGetTokenTransfersCount(
           ...QueryParamsParsers.queryParameter('token.standard', tokenStandard),
           ...QueryParamsParsers.jsonParameter('token.metadata', tokenMetadata),
           ...QueryParamsParsers.anyofParameter('anyof', anyof),
-          ...QueryParamsParsers.queryParameter('from', from),
+          ...QueryParamsParsers.queryParameter('from', $from),
           ...QueryParamsParsers.queryParameter('to', to),
           ...QueryParamsParsers.queryParameter('amount', amount),
           ...QueryParamsParsers.queryParameter('transactionId', transactionId),
           ...QueryParamsParsers.queryParameter('originationId', originationId),
           ...QueryParamsParsers.queryParameter('migrationId', migrationId),
+          ...QueryParamsParsers.queryParameter('indexedAt', indexedAt),
         })
       )}`,
       {
@@ -8932,21 +9464,22 @@ export function tokensGetTokenTransfers(
     tokenMetadata,
     tokenHasFilters,
     anyof,
-    from,
+    $from,
     to,
     amount,
     transactionId,
     originationId,
     migrationId,
+    indexedAt,
     sort,
     offset,
     limit,
     select,
   }: {
-    id?: Int32Parameter | null;
+    id?: Int64Parameter | null;
     level?: Int32Parameter | null;
     timestamp?: TimestampParameter | null;
-    tokenId?: Int32Parameter | null;
+    tokenId?: Int64Parameter | null;
     tokenContract?: AccountParameter | null;
     tokenTokenId?: NatParameter | null;
     tokenStandard?: TokenStandardParameter | null;
@@ -8959,12 +9492,13 @@ export function tokensGetTokenTransfers(
       null?: boolean;
       eq?: string;
     };
-    from?: AccountParameter | null;
+    $from?: AccountParameter | null;
     to?: AccountParameter | null;
     amount?: NatParameter | null;
-    transactionId?: Int32NullParameter | null;
-    originationId?: Int32NullParameter | null;
-    migrationId?: Int32NullParameter | null;
+    transactionId?: Int64NullParameter | null;
+    originationId?: Int64NullParameter | null;
+    migrationId?: Int64NullParameter | null;
+    indexedAt?: Int32NullParameter | null;
     sort?: SortParameter | null;
     offset?: OffsetParameter | null;
     limit?: number;
@@ -8978,7 +9512,7 @@ export function tokensGetTokenTransfers(
       data: TokenTransfer[];
     }>(
       `/v1/tokens/transfers${QS.query(
-        QS.form({
+        QS.explode({
           'token.HasFilters': tokenHasFilters,
           limit,
           ...QueryParamsParsers.queryParameter('id', id),
@@ -8990,12 +9524,13 @@ export function tokensGetTokenTransfers(
           ...QueryParamsParsers.queryParameter('token.standard', tokenStandard),
           ...QueryParamsParsers.jsonParameter('token.metadata', tokenMetadata),
           ...QueryParamsParsers.anyofParameter('anyof', anyof),
-          ...QueryParamsParsers.queryParameter('from', from),
+          ...QueryParamsParsers.queryParameter('from', $from),
           ...QueryParamsParsers.queryParameter('to', to),
           ...QueryParamsParsers.queryParameter('amount', amount),
           ...QueryParamsParsers.queryParameter('transactionId', transactionId),
           ...QueryParamsParsers.queryParameter('originationId', originationId),
           ...QueryParamsParsers.queryParameter('migrationId', migrationId),
+          ...QueryParamsParsers.queryParameter('indexedAt', indexedAt),
           ...QueryParamsParsers.queryParameter('sort', sort),
           ...QueryParamsParsers.queryParameter('offset', offset),
           ...QueryParamsParsers.queryParameter('select', select),
@@ -9027,7 +9562,7 @@ export function tokensGetTokenBalances2(
     select,
   }: {
     account?: AccountParameter | null;
-    tokenId?: Int32Parameter | null;
+    tokenId?: Int64Parameter | null;
     tokenContract?: AccountParameter | null;
     tokenTokenId?: NatParameter | null;
     tokenStandard?: TokenStandardParameter | null;
@@ -9046,8 +9581,8 @@ export function tokensGetTokenBalances2(
       status: 200;
       data: TokenBalanceShort[];
     }>(
-      `/v1/tokens/historical_balances/${level}${QS.query(
-        QS.form({
+      `/v1/tokens/historical_balances/${encodeURIComponent(level)}${QS.query(
+        QS.explode({
           'token.HasFilters': tokenHasFilters,
           limit,
           ...QueryParamsParsers.queryParameter('account', account),
@@ -9108,7 +9643,7 @@ export function votingGetProposals(
       data: Proposal[];
     }>(
       `/v1/voting/proposals${QS.query(
-        QS.form({
+        QS.explode({
           limit,
           ...QueryParamsParsers.queryParameter('hash', hash),
           ...QueryParamsParsers.queryParameter('epoch', epoch),
@@ -9127,14 +9662,14 @@ export function votingGetProposals(
  * Get proposal by hash
  */
 export function votingGetProposalByHash(
-  hash: string | null,
+  hash: string,
   opts?: Oazapfts.RequestOpts
 ) {
   return oazapfts.ok(
     oazapfts.fetchJson<{
       status: 200;
       data: Proposal;
-    }>(`/v1/voting/proposals/${hash}`, {
+    }>(`/v1/voting/proposals/${encodeURIComponent(hash)}`, {
       ...opts,
     })
   );
@@ -9162,7 +9697,7 @@ export function votingGetPeriods(
       data: VotingPeriod[];
     }>(
       `/v1/voting/periods${QS.query(
-        QS.form({
+        QS.explode({
           limit,
           ...QueryParamsParsers.queryParameter('select', select),
           ...QueryParamsParsers.queryParameter('sort', sort),
@@ -9183,7 +9718,7 @@ export function votingGetPeriod(index: number, opts?: Oazapfts.RequestOpts) {
     oazapfts.fetchJson<{
       status: 200;
       data: VotingPeriod;
-    }>(`/v1/voting/periods/${index}`, {
+    }>(`/v1/voting/periods/${encodeURIComponent(index)}`, {
       ...opts,
     })
   );
@@ -9224,8 +9759,8 @@ export function votingGetPeriodVoters(
       status: 200;
       data: VoterSnapshot[];
     }>(
-      `/v1/voting/periods/${index}/voters${QS.query(
-        QS.form({
+      `/v1/voting/periods/${encodeURIComponent(index)}/voters${QS.query(
+        QS.explode({
           limit,
           ...QueryParamsParsers.queryParameter('status', status),
           ...QueryParamsParsers.queryParameter('sort', sort),
@@ -9243,16 +9778,21 @@ export function votingGetPeriodVoters(
  */
 export function votingGetPeriodVoter(
   index: number,
-  address: string | null,
+  address: string,
   opts?: Oazapfts.RequestOpts
 ) {
   return oazapfts.ok(
     oazapfts.fetchJson<{
       status: 200;
       data: VoterSnapshot;
-    }>(`/v1/voting/periods/${index}/voters/${address}`, {
-      ...opts,
-    })
+    }>(
+      `/v1/voting/periods/${encodeURIComponent(
+        index
+      )}/voters/${encodeURIComponent(address)}`,
+      {
+        ...opts,
+      }
+    )
   );
 }
 /**
@@ -9278,7 +9818,7 @@ export function votingGetPeriodVoters2(
       data: VoterSnapshot[];
     }>(
       `/v1/voting/periods/current/voters${QS.query(
-        QS.form({
+        QS.explode({
           limit,
           ...QueryParamsParsers.queryParameter('status', status),
           ...QueryParamsParsers.queryParameter('sort', sort),
@@ -9295,14 +9835,14 @@ export function votingGetPeriodVoters2(
  * Get current period voter
  */
 export function votingGetPeriodVoter2(
-  address: string | null,
+  address: string,
   opts?: Oazapfts.RequestOpts
 ) {
   return oazapfts.ok(
     oazapfts.fetchJson<{
       status: 200;
       data: VoterSnapshot;
-    }>(`/v1/voting/periods/current/voters/${address}`, {
+    }>(`/v1/voting/periods/current/voters/${encodeURIComponent(address)}`, {
       ...opts,
     })
   );
@@ -9328,7 +9868,7 @@ export function votingGetEpochs(
       data: VotingEpoch[];
     }>(
       `/v1/voting/epochs${QS.query(
-        QS.form({
+        QS.explode({
           limit,
           ...QueryParamsParsers.queryParameter('sort', sort),
           ...QueryParamsParsers.queryParameter('offset', offset),
@@ -9348,7 +9888,7 @@ export function votingGetEpoch(index: number, opts?: Oazapfts.RequestOpts) {
     oazapfts.fetchJson<{
       status: 200;
       data: VotingEpoch;
-    }>(`/v1/voting/epochs/${index}`, {
+    }>(`/v1/voting/epochs/${encodeURIComponent(index)}`, {
       ...opts,
     })
   );

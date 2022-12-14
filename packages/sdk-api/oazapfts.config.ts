@@ -1,36 +1,37 @@
+import {
+  OazapftsExtensions,
+  ParameterParserExtension,
+  QueryStringParserExtension,
+  ReponseTypeExtension,
+  SchemaParserExtension,
+} from "@tzkt/oazapfts/lib/codegen/extensions";
 import * as _ from "lodash";
 import { OpenAPIV3 } from "openapi-types";
 import {factory, TypeElement, UnionTypeNode} from "typescript";
-import {
-  ParameterParserExtension,
-  QueryStringParserExtension,
-  SchemaParserExtension,
-  OazapftsExtensions,
-} from "@tzkt/oazapfts/lib/codegen/extensions";
 
-const tzKtExtensionKey = "x-tzkt-extension";
+const tzktExtensionKey = "x-tzkt-extension";
 
-type TzKtExtended<T> = T & {
-  [tzKtExtensionKey]: string;
+type TzktExtended<T> = T & {
+  [tzktExtensionKey]: string;
 };
 
-const hasOwnProp = <O extends {}, K extends PropertyKey>(
+const hasOwnProp = <O extends Record<string, unknown>, K extends PropertyKey>(
   p: O,
   k: K
 ): p is O & Record<K, unknown> => {
   return Object.prototype.hasOwnProperty.call(p, k);
 };
 
-const isTzKtExtended = <P extends Object>(p: P): p is P & TzKtExtended<P> => {
-  if (!hasOwnProp(p, tzKtExtensionKey)) return false;
+const isTzktExtended = <P extends Record<string, unknown>>(p: P): p is P & TzktExtended<P> => {
+  if (!hasOwnProp(p, tzktExtensionKey)) return false;
 
-  return typeof p[tzKtExtensionKey] === "string";
+  return typeof p[tzktExtensionKey] === "string";
 };
 
 const anyofParameterExtension: ParameterParserExtension = (p, helpers) => {
-  if (!isTzKtExtended(p)) return;
+  if (!isTzktExtended(p)) return;
 
-  const extension = p[tzKtExtensionKey];
+  const extension = p[tzktExtensionKey];
   if (extension !== "anyof-parameter") return;
 
   // getSchemaFromContent()
@@ -86,10 +87,20 @@ const anyofParameterExtension: ParameterParserExtension = (p, helpers) => {
   ]);
 };
 
-const jsonParameterExtension: SchemaParserExtension = (s, helpers) => {
-  if (!s || helpers.isReference(s) || !isTzKtExtended(s)) return;
+/**
+ * If parameter is required and nullable at the same time makes it non-nullable
+ */
+const nonNullableRequiredParamExtension: ParameterParserExtension = (parameter, helpers, ctx) => {
+  if (helpers.isNullable(parameter.schema) && parameter.required) {
+    return ctx.getBaseTypeFromSchema(parameter.schema)
+  };
+  return undefined;
+}
 
-  const extension = s["x-tzkt-extension"];
+const jsonParameterExtension: SchemaParserExtension = (schema, name, helpers) => {
+  if (!schema || helpers.isReference(schema) || !isTzktExtended(schema)) return;
+
+  const extension = schema["x-tzkt-extension"];
   if (extension !== "json-parameter") return;
 
   /**
@@ -99,12 +110,12 @@ const jsonParameterExtension: SchemaParserExtension = (s, helpers) => {
    * this extension.
    * TODO!: remove 'json-parameter' from top-level parameter description
    */
-  if (hasOwnProp(s, "properties")) return;
+  if (hasOwnProp(schema, "properties")) return;
 
   const valNode = helpers.createPropertySignature({
     name: "jsonValue",
     questionToken: false,
-    type: helpers.defaultSchemaTypeParser(s),
+    type: helpers.defaultSchemaTypeParser(schema),
   });
 
   const pathNode = helpers.createPropertySignature({
@@ -116,32 +127,32 @@ const jsonParameterExtension: SchemaParserExtension = (s, helpers) => {
   return factory.createTypeLiteralNode([valNode, pathNode]);
 };
 
-const queryParameterExtension: SchemaParserExtension = (s, helpers) => {
-  if (!s || helpers.isReference(s) || !isTzKtExtended(s)) return;
+const queryParameterExtension: SchemaParserExtension = (schema, name, helpers) => {
+  if (!schema || helpers.isReference(schema) || !isTzktExtended(schema)) return;
 
-  const extension = s["x-tzkt-extension"];
+  const extension = schema["x-tzkt-extension"];
   if (extension !== "query-parameter") return;
 
-  const props = s.properties;
+  const props = schema.properties;
   if (!props) {
-    console.error("Unexpected schema structure", s);
+    console.error("Unexpected schema structure", schema);
     throw new Error(`Expected properties list in query-parameter schema.`);
   }
 
-  type SpecifiedQueryParameter = TzKtExtended<OpenAPIV3.SchemaObject> & {
+  type SpecifiedQueryParameter = TzktExtended<OpenAPIV3.SchemaObject> & {
     "x-tzkt-query-parameter": string;
   };
 
   const isSpecified = (
-    s: TzKtExtended<OpenAPIV3.SchemaObject>
-  ): s is SpecifiedQueryParameter => {
-    return typeof (s as any)["x-tzkt-query-parameter"] === "string";
+    schema: TzktExtended<OpenAPIV3.SchemaObject>
+  ): schema is SpecifiedQueryParameter => {
+    return typeof (schema as any)["x-tzkt-query-parameter"] === "string";
   };
 
   let specifiedType: UnionTypeNode | undefined = undefined;
 
-  if (isSpecified(s)) {
-    const types = s["x-tzkt-query-parameter"].split(",");
+  if (isSpecified(schema)) {
+    const types = schema["x-tzkt-query-parameter"].split(",");
     specifiedType = factory.createUnionTypeNode(
       types.map((t) =>
         factory.createLiteralTypeNode(factory.createStringLiteral(t))
@@ -169,7 +180,7 @@ const queryParameterExtension: SchemaParserExtension = (s, helpers) => {
     return specifiedType ?? helpers.defaultSchemaTypeParser(p);
   };
 
-  const { required } = s;
+  const { required } = schema;
   const members: TypeElement[] = Object.entries(props).map(
     ([name, prop]) => {
       const isRequired = required?.includes(name);
@@ -184,13 +195,13 @@ const queryParameterExtension: SchemaParserExtension = (s, helpers) => {
   return factory.createTypeLiteralNode(members);
 };
 
-const tzKtQueryStringExtension: QueryStringParserExtension = (p) => {
-  if (isTzKtExtended(p)) return _.camelCase(p[tzKtExtensionKey]);
+const tzktQueryStringExtension: QueryStringParserExtension = (p) => {
+  if (isTzktExtended(p)) return _.camelCase(p[tzktExtensionKey]);
 };
 
-const tzKtQueryStringQueryParameterExtension: QueryStringParserExtension = (
+const tzktQueryStringQueryParameterExtension: QueryStringParserExtension = (
   p,
-  helpers
+  helpers,
 ) => {
   const schema = p.schema;
   if (helpers.isReference(schema)) return;
@@ -203,9 +214,9 @@ const tzKtQueryStringQueryParameterExtension: QueryStringParserExtension = (
       if (!helpers.isReference(oneOf)) return false;
 
       const schema = helpers.defaultSchemaResolver(oneOf);
-      if (!isTzKtExtended(schema)) return false;
+      if (!isTzktExtended(schema)) return false;
 
-      if (schema[tzKtExtensionKey] !== "query-parameter") return false;
+      if (schema[tzktExtensionKey] !== "query-parameter") return false;
 
       return true;
     })
@@ -214,11 +225,17 @@ const tzKtQueryStringQueryParameterExtension: QueryStringParserExtension = (
 };
 
 const extensions: OazapftsExtensions = {
-  schemaParserExtensions: [jsonParameterExtension, queryParameterExtension],
-  parameterParserExtensions: [anyofParameterExtension],
+  schemaParserExtensions: [
+    jsonParameterExtension,
+    queryParameterExtension,
+  ],
+  parameterParserExtensions: [
+    anyofParameterExtension,
+    nonNullableRequiredParamExtension
+  ],
   queryStringParserExtensions: [
-    tzKtQueryStringExtension,
-    tzKtQueryStringQueryParameterExtension,
+    tzktQueryStringExtension,
+    tzktQueryStringQueryParameterExtension,
   ],
 };
 

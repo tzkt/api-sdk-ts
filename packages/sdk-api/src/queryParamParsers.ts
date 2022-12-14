@@ -1,4 +1,4 @@
-import { QueryParamParser } from '@tzkt/oazapfts/lib/codegen/extensions';
+import type { QueryParamParser } from '@tzkt/oazapfts/codegen/extensions';
 
 const jsonParameter: QueryParamParser = (paramName, p?) => {
   if (!p) return {};

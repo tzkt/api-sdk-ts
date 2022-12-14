@@ -13,9 +13,11 @@
   "license": "MIT",
   "keywords": [],
   "scripts": {
-    "build": "run-p build:*",
+    "build": "run-p build:main build:module",
     "build:main": "tsc -p tsconfig.json",
     "build:module": "tsc -p tsconfig.module.json",
+    "build:api": "run-s sync-swagger generate fix",
+    "build:full": "run-s build:api build",
     "fix": "run-s fix:*",
     "fix:prettier": "prettier \"src/**/*.ts\" --write",
     "fix:lint": "eslint src --ext .ts --fix",
@@ -41,8 +43,8 @@
     "doc:publish": "gh-pages -m \"[ci skip] Updates\" -d build/docs",
     "reset-hard": "git clean -dfx && git reset --hard && npm i",
     "prepare-release": "run-s reset-hard test cov:check doc:html version doc:publish",
-    "generate": "oazapfts --optimistic swagger.json src/index.ts",
-    "sync-swagger": "curl -O https://api.tzkt.io/v1/swagger.json"
+    "generate": "node --experimental-vm-modules node_modules/.bin/oazapfts --optimistic swagger.json src/index.ts",
+    "sync-swagger": "curl -O https://api.tzkt.io/v1/swagger.json -k"
   },
   "engines": {
     "node": ">=14",
@@ -50,7 +52,7 @@
   },
   "engineStrict": true,
   "dependencies": {
-    "@tzkt/oazapfts": "^3.5.2"
+    "@tzkt/oazapfts": "^4.5.2"
   },
   "devDependencies": {
     "@ava/typescript": "^1.1.1",
