@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.2.0](https://github.com/tzkt/api-sdk-ts/compare/v2.1.0...v2.2.0) (2023-03-11)
+
+
+### Features
+
+* **sdk-api:** update to latest API version ([81fa339](https://github.com/tzkt/api-sdk-ts/commit/81fa339d8c6d00b49ab546714ad24b2bed1dcaca))
+
+
+
 ## [2.1.0](https://github.com/tzkt/api-sdk-ts/compare/v2.0.0...v2.1.0) (2022-12-14)
 
 

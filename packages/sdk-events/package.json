@@ -1,6 +1,6 @@
 {
   "name": "@tzkt/sdk-events",
-  "version": "2.1.0",
+  "version": "2.2.0",
   "description": "Fully typed client for TzKT subscription API",
   "main": "build/main/index.js",
   "types": "build/main/index.d.ts",
@@ -79,7 +79,7 @@
   },
   "dependencies": {
     "@microsoft/signalr": "^5.0.8",
-    "@tzkt/sdk-api": "^2.1.0",
+    "@tzkt/sdk-api": "^2.2.0",
     "zen-observable": "^0.8.15"
   },
   "ava": {

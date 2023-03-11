@@ -1,6 +1,6 @@
 {
   "name": "@tzkt/ext-taquito",
-  "version": "2.1.0",
+  "version": "2.2.0",
   "description": "TzKt taquito extension",
   "main": "build/main/index.js",
   "types": "build/main/index.d.ts",
@@ -115,7 +115,7 @@
   },
   "dependencies": {
     "@taquito/taquito": "^15.0.1",
-    "@tzkt/sdk-api": "^2.1.0",
+    "@tzkt/sdk-api": "^2.2.0",
     "cross-fetch": "^3.1.5"
   }
 }
