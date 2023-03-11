@@ -69,18 +69,6 @@ export class TzktReadProvider implements TzReadProvider {
     return typeof block !== 'number' && (!block || block === 'head')
   }
 
-  async getEntrypoints(contract: string): Promise<EntrypointsResponse> {
-    const response = await contractsGetEntrypoints(contract, {json: false, micheline: true, all: true});
-
-    const entrypoints = response.map((entrypoint: Entrypoint) => {
-      return [entrypoint.name, entrypoint.michelineParameters]
-    });
-
-    return {
-      entrypoints: Object.fromEntries(entrypoints)
-    }
-  }
-
   async getScript(address: string, block: BlockIdentifier): Promise<ScriptedContracts> {
     let filter;
 
@@ -240,6 +228,26 @@ export class TzktReadProvider implements TzReadProvider {
     block: BlockIdentifier
   ): Promise<SaplingDiffResponse> {
     return this.readProvider.getSaplingDiffById(saplingStateQuery, block);
+  }
+
+  getSaplingDiffByContract(
+    contractAddress: string,
+    block: BlockIdentifier
+  ): Promise<SaplingDiffResponse> {
+    return this.readProvider.getSaplingDiffByContract(contractAddress, block);
+  }
+
+
+  async getEntrypoints(contract: string): Promise<EntrypointsResponse> {
+    const response = await contractsGetEntrypoints(contract, {json: false, micheline: true, all: true});
+
+    const entrypoints = response.map((entrypoint: Entrypoint) => {
+      return [entrypoint.name, entrypoint.michelineParameters]
+    });
+
+    return {
+      entrypoints: Object.fromEntries(entrypoints)
+    }
   }
 
   async getChainId(): Promise<string> {
