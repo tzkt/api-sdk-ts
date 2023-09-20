@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+### [2.2.1](https://github.com/tzkt/api-sdk-ts/compare/v2.2.0...v2.2.1) (2023-09-20)
+
+**Note:** Version bump only for package @tzkt/sdk-events
+
+
+
+
+
+
 ## [2.2.0](https://github.com/tzkt/api-sdk-ts/compare/v2.1.0...v2.2.0) (2023-03-11)
 
 **Note:** Version bump only for package @tzkt/sdk-events

@@ -1,6 +1,6 @@
 {
   "name": "@tzkt/sdk-events",
-  "version": "2.2.0",
+  "version": "2.2.1",
   "description": "Fully typed client for TzKT subscription API",
   "main": "build/main/index.js",
   "types": "build/main/index.d.ts",
