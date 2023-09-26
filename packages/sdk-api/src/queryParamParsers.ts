@@ -84,7 +84,7 @@ const queryParameter: QueryParamParser = (paramName, p) => {
 
   Object.entries(p).forEach(([k, v]) => {
     const key = `${paramName}.${k}`;
-    mainParamsObj[key] = v;
+    mainParamsObj[key] = Array.isArray(v) ? v.join(',') : v; // oazapfts explode
   });
 
   return mainParamsObj;
