@@ -329,7 +329,7 @@ export class TzktReadProvider implements TzReadProvider {
         desc: 'level',
       },
       limit: this.liveBlocksLimit,
-      select: { fields: ['hash', 'timestamp'] },
+      select: { fields: ['hash,timestamp'] },  // FIXME: https://github.com/tzkt/api-sdk-ts/issues/24
       ...filters,
     });
 

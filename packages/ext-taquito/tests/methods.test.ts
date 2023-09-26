@@ -19,9 +19,9 @@ describe("request", () => {
   });
 
   // TODO: update next time there's protocol upgrade
-  test('Get Next protocol should equal PtKathmankSpLLDALzWw7CGD2j2MtyveTwboEYokqUCP4a1LxMg', async () => {
+  test('Get Next protocol should equal PtNairobiyssHuh87hEhfVBGCVrK3WnS8Z2FT4ymB5tAa4r1nQf', async () => {
     const result = await extension.getNextProtocol('head');
-    expect(result).toEqual('PtKathmankSpLLDALzWw7CGD2j2MtyveTwboEYokqUCP4a1LxMg');
+    expect(result).toEqual('PtNairobiyssHuh87hEhfVBGCVrK3WnS8Z2FT4ymB5tAa4r1nQf');
   });
 
 
@@ -67,7 +67,7 @@ describe("request", () => {
   });
 
   test('getCounter should equal 3829', async () => {
-    const result = await extension.getCounter('tz1Nx7hmKnagtzPyWDEba4naJb37Jn6RaP6E', 2664043)
+    const result = await extension.getCounter('tz1Nx7hmKnagtzPyWDEba4naJb37Jn6RaP6E')
     expect(Number(result)).toEqual(3829)
   });
 
@@ -98,6 +98,7 @@ describe("request", () => {
 
   test('getLiveBlocks length should toBeTruthy', async () => {
     const result = await extension.getLiveBlocks(2664043)
+    console.log(result)
     expect(
       result.includes('BKjSBdD5pUyDTgv8o5FBTD1wBE7R2cwLptcPDBSVoWKtDzRKCf2') &&
       result.includes('BMeHqAgX5pfqWuthAzBMMZhw3KqDPMctsa29Tner8iqJ3jMHR79')

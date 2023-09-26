@@ -46,6 +46,6 @@
     ]
   },
   "include": ["src/**/*.ts", ".eslintrc.js"],
-  "exclude": ["node_modules/**", "tests/**", "jest.config.ts"],
+  "exclude": ["node_modules/**", "jest.config.ts"],
   "compileOnSave": false
 }
