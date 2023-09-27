@@ -7,7 +7,7 @@ module.exports = {
     "tsconfigRootDir": __dirname,
   },
   "env": { "es6": true },
-  "ignorePatterns": ["node_modules", "build", "coverage"],
+  "ignorePatterns": ["node_modules", "build", "coverage", "tests"],
   "plugins": ["import", "eslint-comments", "functional"],
   "extends": [
     "eslint:recommended",
